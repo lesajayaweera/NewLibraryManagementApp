@@ -70,7 +70,12 @@ namespace NewLibraryManagementApp
                     Librarian librarian = new Librarian(username, email, role, password, phoneNumber);
                     librarian.Register(librarian, this);
                 }
-               
+                else if(role == "Student")
+                {
+                    Student student = new Student(username, email, role, password, phoneNumber);
+                    student.Register(student, this);
+                }
+
                 else
                 {
                     MessageBox.Show("Invalid Role");
