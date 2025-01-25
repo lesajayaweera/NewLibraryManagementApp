@@ -92,6 +92,7 @@
             User_btn_HomeManagement.TabIndex = 13;
             User_btn_HomeManagement.Text = "User Management";
             User_btn_HomeManagement.UseVisualStyleBackColor = false;
+            User_btn_HomeManagement.Click += User_btn_HomeManagement_Click;
             // 
             // label1
             // 
@@ -126,6 +127,7 @@
             Student_btn_HomeManagement.TabIndex = 2;
             Student_btn_HomeManagement.Text = "Student Records";
             Student_btn_HomeManagement.UseVisualStyleBackColor = false;
+            Student_btn_HomeManagement.Click += Student_btn_HomeManagement_Click;
             // 
             // signoutButton
             // 

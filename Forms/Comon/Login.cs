@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NewLibraryManagementApp.Classes;
 
 namespace NewLibraryManagementApp
 {
@@ -51,6 +52,25 @@ namespace NewLibraryManagementApp
             string password = Password_text_login.Text;
             string role = Admin_radio_login.Checked ? "Admin" : Librarian_radio_login.Checked ? "Librarian" : Student_radio_login.Checked ? "Student" : "User";
 
+            if(role == "Admin")
+            {
+                Admin admin = new Admin(username,role,password);
+                admin.Login(admin,this);
+            }
+            else if(role == "Librarian")
+            {
+                Librarian librarian = new Librarian(username, role, password);
+                librarian.Login(librarian,this);
+            }
+            else if(role == "Student")
+            {
+                Student student = new Student(username, role, password);
+                student.Login(student, this);
+            }
+            else
+            {
+                MessageBox.Show("Please select a role");
+            }
 
         }
 

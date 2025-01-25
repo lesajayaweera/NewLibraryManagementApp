@@ -15,8 +15,14 @@ namespace NewLibraryManagementApp.Forms.Admin
         public AdminDashBoard()
         {
             InitializeComponent();
+               
         }
+        
 
+
+
+
+        
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
@@ -45,6 +51,20 @@ namespace NewLibraryManagementApp.Forms.Admin
         private void AdminDashBoard_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Student_btn_HomeManagement_Click(object sender, EventArgs e)
+        {
+            Student_records form = new Student_records();
+            form.Show();
+            this.Hide();
+        }
+
+        private void User_btn_HomeManagement_Click(object sender, EventArgs e)
+        {
+            User_Management form = new User_Management();
+            form.Show();
+            this.Hide();
         }
     }
 }

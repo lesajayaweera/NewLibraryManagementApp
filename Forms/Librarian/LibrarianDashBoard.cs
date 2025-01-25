@@ -12,14 +12,18 @@ namespace NewLibraryManagementApp.Forms.Librarian
 {
     public partial class LibrarianDashBoard : Form
     {
-        public LibrarianDashBoard()
+        public LibrarianDashBoard(string username)
         {
             InitializeComponent();
+            this.username = username;
         }
 
+        private string username;
+        
+        
         private void LibrarianDashBoard_Load(object sender, EventArgs e)
         {
-
+            username_label_Ldashboard.Text = $"{username},";
         }
     }
 }

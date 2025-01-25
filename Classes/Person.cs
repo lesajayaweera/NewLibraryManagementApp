@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewLibraryManagementApp
+namespace NewLibraryManagementApp.Classes
 {
     // making the class abstract
     internal abstract class Person
@@ -109,7 +109,7 @@ namespace NewLibraryManagementApp
         public bool Validateusername()
         {
             // Updated validation logic
-            if (!string.IsNullOrWhiteSpace(Name) && (Name.Length >= 5 && Name.Length <= 15) && Name.All(char.IsLetter))
+            if (!string.IsNullOrWhiteSpace(Name) && Name.Length >= 5 && Name.Length <= 15 && Name.All(char.IsLetter))
             {
                 return true;
             }
@@ -166,6 +166,9 @@ namespace NewLibraryManagementApp
                 return false;
             }
         }
+
+
+        // save person to the database
         public void SaveData(Person person)
         {
             string query = $"INSERT INTO {person.role.ToLower()}_table (name, email, role, password, phoneNumber) VALUES (@name, @email, @role, @password, @phone)";
@@ -182,7 +185,7 @@ namespace NewLibraryManagementApp
                         command.Parameters.AddWithValue("@password", person.Password);
                         command.Parameters.AddWithValue("@phone", person.PhoneNumber);
                         int rowsAffected = command.ExecuteNonQuery();
-                        MessageBox.Show($"{rowsAffected} row(s) inserted.");
+
                     }
                 }
                 catch (Exception ex)
@@ -196,6 +199,90 @@ namespace NewLibraryManagementApp
             }
 
 
+        }
+        public bool isCredentialExist(Person person)
+        {
+            string query = $"SELECT COUNT(*) FROM {person.role.ToLower()}_table WHERE name = @username AND email = @email";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", person.name);
+                        command.Parameters.AddWithValue("@email", person.email);
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        if (count == 1)
+                        {
+                            MessageBox.Show("User already exists");
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("User does not exist");
+                            return false;
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public bool isAthenticated(Person person)
+        {
+            string query = $"SELECT COUNT(*) FROM {person.role.ToLower()}_table WHERE name = @username AND password = @password AND role = @role";
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", person.name);
+                        command.Parameters.AddWithValue("@password", person.password);
+                        command.Parameters.AddWithValue("@role", person.role);
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        if (count == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }

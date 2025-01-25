@@ -38,7 +38,7 @@
             password_text = new TextBox();
             phonenumber_text = new TextBox();
             email_text = new TextBox();
-            button1 = new Button();
+            rejister_btn_register = new Button();
             login_btn_register = new Button();
             Student_radio_register = new RadioButton();
             Librarian_radio_Register = new RadioButton();
@@ -133,16 +133,16 @@
             email_text.Size = new Size(180, 27);
             email_text.TabIndex = 9;
             // 
-            // button1
+            // rejister_btn_register
             // 
-            button1.Location = new Point(352, 421);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(86, 40);
-            button1.TabIndex = 10;
-            button1.Text = "Sign in";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            rejister_btn_register.Location = new Point(352, 421);
+            rejister_btn_register.Margin = new Padding(3, 4, 3, 4);
+            rejister_btn_register.Name = "rejister_btn_register";
+            rejister_btn_register.Size = new Size(86, 40);
+            rejister_btn_register.TabIndex = 10;
+            rejister_btn_register.Text = "Sign in";
+            rejister_btn_register.UseVisualStyleBackColor = true;
+            rejister_btn_register.Click += button1_Click;
             // 
             // login_btn_register
             // 
@@ -197,7 +197,7 @@
             Controls.Add(Librarian_radio_Register);
             Controls.Add(Admin_radio_register);
             Controls.Add(login_btn_register);
-            Controls.Add(button1);
+            Controls.Add(rejister_btn_register);
             Controls.Add(email_text);
             Controls.Add(phonenumber_text);
             Controls.Add(password_text);
@@ -228,7 +228,7 @@
         private System.Windows.Forms.TextBox password_text;
         private System.Windows.Forms.TextBox phonenumber_text;
         private System.Windows.Forms.TextBox email_text;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button rejister_btn_register;
         private System.Windows.Forms.Button login_btn_register;
         private RadioButton Student_radio_register;
         private RadioButton Librarian_radio_Register;

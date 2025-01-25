@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LibrarianDashBoard));
             label1 = new Label();
-            label3 = new Label();
+            username_label_Ldashboard = new Label();
             label2 = new Label();
             panel1 = new Panel();
             Student_btn_HomeManagement = new Button();
@@ -64,15 +64,15 @@
             label1.TabIndex = 12;
             label1.Text = "Library Management System";
             // 
-            // label3
+            // username_label_Ldashboard
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label3.Location = new Point(363, 28);
-            label3.Name = "label3";
-            label3.Size = new Size(81, 41);
-            label3.TabIndex = 9;
-            label3.Text = "User";
+            username_label_Ldashboard.AutoSize = true;
+            username_label_Ldashboard.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            username_label_Ldashboard.Location = new Point(363, 28);
+            username_label_Ldashboard.Name = "username_label_Ldashboard";
+            username_label_Ldashboard.Size = new Size(81, 41);
+            username_label_Ldashboard.TabIndex = 9;
+            username_label_Ldashboard.Text = "User";
             // 
             // label2
             // 
@@ -254,7 +254,7 @@
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(dataGridView1);
-            Controls.Add(label3);
+            Controls.Add(username_label_Ldashboard);
             Controls.Add(label2);
             Controls.Add(panel1);
             Name = "LibrarianDashBoard";
@@ -277,7 +277,7 @@
         #endregion
 
         private Label label1;
-        private Label label3;
+        private Label username_label_Ldashboard;
         private Label label2;
         private Panel panel1;
         private Label label5;
