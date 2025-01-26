@@ -10,6 +10,7 @@ namespace NewLibraryManagementApp.Classes
 {
     internal class Student : Person
     {
+        public Student() { }
         public Student(string name, string email, string role, string password, string phoneNumber) : base(name, email, role, password, phoneNumber)
         {
         }

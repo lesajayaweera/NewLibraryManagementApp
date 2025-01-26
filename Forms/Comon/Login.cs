@@ -8,11 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 
 namespace NewLibraryManagementApp
 {
     public partial class Login : Form
     {
+        private AdminController  admin =new AdminController();
+        private StudentController student =new StudentController(); 
+        private LibrarianController librarian =new LibrarianController();   
         public Login()
         {
 
@@ -54,18 +58,17 @@ namespace NewLibraryManagementApp
 
             if(role == "Admin")
             {
-                Admin admin = new Admin(username,role,password);
-                admin.Login(admin,this);
+                admin.login(username, role, password, this);
+                
+                
             }
             else if(role == "Librarian")
             {
-                Librarian librarian = new Librarian(username, role, password);
-                librarian.Login(librarian,this);
+                librarian.login(username, role, password, this);    
             }
             else if(role == "Student")
             {
-                Student student = new Student(username, role, password);
-                student.Login(student, this);
+                student.login(username, role, password, this);
             }
             else
             {

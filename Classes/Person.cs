@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NewLibraryManagementApp.Classes
 {
     // making the class abstract
-    internal abstract class Person
+    public abstract class Person
     {
         // Encapsulation
         private string name;

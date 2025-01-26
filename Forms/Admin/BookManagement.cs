@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewLibraryManagementApp.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,21 +13,24 @@ namespace NewLibraryManagementApp.Forms.Admin
 {
     public partial class BookManagement : Form
     {
-        public BookManagement()
+        private Person person;
+        private Form form;
+        public BookManagement(Person person,Form form)
         {
             InitializeComponent();
+            this.form = form;
         }
 
         private void Home_btn_HomeManagement_Click(object sender, EventArgs e)
         {
-            AdminDashBoard a1 = new AdminDashBoard();
+            AdminDashBoard a1 = new AdminDashBoard(person,this);
             a1.Show();
             this.Hide();
         }
 
         private void LibraryRecords_btn_HomeManagement_Click(object sender, EventArgs e)
         {
-            Library_Records l1 = new Library_Records();
+            Library_Records l1 = new Library_Records(person,this);
             l1.Show();
             this.Hide();
         }

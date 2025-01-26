@@ -11,7 +11,7 @@ namespace NewLibraryManagementApp.Classes
 {
     internal class Librarian : Person
     {
-
+        public Librarian() { }  
         public Librarian(string name, string email, string role, string password, string phoneNumber) : base(name, email, role, password, phoneNumber)
         {
         }

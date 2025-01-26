@@ -8,11 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 
 namespace NewLibraryManagementApp
 {
     public partial class Register : Form
     {
+        private AdminController admin = new AdminController();
+        private LibrarianController librarian = new LibrarianController();  
+        private StudentController student = new StudentController();    
         public Register()
         {
             InitializeComponent();
@@ -62,19 +66,16 @@ namespace NewLibraryManagementApp
             {
                 if(role == "Admin")
                 {
-                    Admin admin = new Admin(username,email,role,password,phoneNumber);
-                    admin.Register(admin, this);
+                    admin.register(username, email, role, password, phoneNumber, this);
                 }
                 else if (role == "Librarian")
                 {
 
-                    Librarian librarian = new Librarian(username, email, role, password, phoneNumber);
-                    librarian.Register(librarian, this);
+                    librarian.register(username, email, role, password, phoneNumber, this);
                 }
                 else if(role == "Student")
                 {
-                    Student student = new Student(username, email, role, password, phoneNumber);
-                    student.Register(student, this);
+                    student.register(username, email, role, password, phoneNumber, this);
                 }
 
                 else

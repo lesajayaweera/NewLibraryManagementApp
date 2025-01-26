@@ -28,7 +28,7 @@ namespace NewLibraryManagementApp.Classes
             bool isAuthorized = person.isAthenticated(person);
             if (isAuthorized)
             {
-                AdminDashBoard dashboard = new AdminDashBoard();
+                AdminDashBoard dashboard = new AdminDashBoard(person , form);
                 dashboard.Show();
                 form.Hide();
             }
@@ -50,7 +50,7 @@ namespace NewLibraryManagementApp.Classes
                 else
                 {
                     person.SaveData(person);
-                    AdminDashBoard a1 = new AdminDashBoard();
+                    AdminDashBoard a1 = new AdminDashBoard(person, form);
                     a1.Show();
                     form.Hide();
                     MessageBox.Show("User Registered Successfully");
@@ -64,7 +64,7 @@ namespace NewLibraryManagementApp.Classes
         // display the users to the data grid view
         public void DisplayUsers(string user, DataGridView table)
         {
-            string query = $"SELECT * FROM {user}_table";
+            string query = $"SELECT * FROM {user.ToLower()}_table";
             using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 try
