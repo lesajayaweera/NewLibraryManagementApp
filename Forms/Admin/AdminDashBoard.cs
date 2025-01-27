@@ -14,8 +14,8 @@ namespace NewLibraryManagementApp.Forms.Admin
 {
     public partial class AdminDashBoard : Form
     {
-        
-        
+
+
         public AdminDashBoard(Person p1, Form form)
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace NewLibraryManagementApp.Forms.Admin
         private Form form;
         private Person person;
 
-        
+
 
 
 
@@ -46,14 +46,14 @@ namespace NewLibraryManagementApp.Forms.Admin
         private void HomeManagement_btn_HomeManagement_Click(object sender, EventArgs e)
         {
 
-            BookManagement form = new BookManagement(person,this);
+            BookManagement form = new BookManagement(person, this);
             form.Show();
             this.Hide();
         }
 
         private void LibraryRecords_btn_HomeManagement_Click(object sender, EventArgs e)
         {
-            Library_Records l1 = new Library_Records(person,this);
+            Library_Records l1 = new Library_Records(person, this);
             l1.Show();
             this.Hide();
         }
@@ -71,15 +71,22 @@ namespace NewLibraryManagementApp.Forms.Admin
 
         private void Student_btn_HomeManagement_Click(object sender, EventArgs e)
         {
-            Student_records form = new Student_records(person,this);
+            Student_records form = new Student_records(person, this);
             form.Show();
             this.Hide();
         }
 
         private void User_btn_HomeManagement_Click(object sender, EventArgs e)
         {
-            User_Management form = new User_Management(person,this);
+            User_Management form = new User_Management(person, this);
             form.Show();
+            this.Hide();
+        }
+
+        private void signoutButton_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
             this.Hide();
         }
     }

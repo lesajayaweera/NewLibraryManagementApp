@@ -139,6 +139,7 @@
             signoutButton.SizeMode = PictureBoxSizeMode.StretchImage;
             signoutButton.TabIndex = 10;
             signoutButton.TabStop = false;
+            signoutButton.Click += signoutButton_Click;
             // 
             // LibraryRecords_btn_HomeManagement
             // 

@@ -64,11 +64,11 @@ namespace NewLibraryManagementApp
             }
             else if(role == "Librarian")
             {
-                librarian.login(username, role, password, this);    
+                librarian.login(username,password,role, this);    
             }
             else if(role == "Student")
             {
-                student.login(username, role, password, this);
+                student.login(username,password,role, this);
             }
             else
             {

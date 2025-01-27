@@ -25,7 +25,7 @@ namespace NewLibraryManagementApp.Classes
             bool isAuthorized = person.isAthenticated(person);
             if (isAuthorized)
             {
-                LibrarianDashBoard dashboard = new LibrarianDashBoard(person.Name);
+                LibrarianDashBoard dashboard = new LibrarianDashBoard(person);
                 dashboard.Show();
                 form.Hide();
             }
@@ -41,7 +41,7 @@ namespace NewLibraryManagementApp.Classes
             if (isValidated)
             {
                 person.SaveData(person);
-                LibrarianDashBoard s1 = new LibrarianDashBoard(person.Name);
+                LibrarianDashBoard s1 = new LibrarianDashBoard(person);
                 s1.Show();
                 form.Hide();
 

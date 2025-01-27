@@ -28,59 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox7 = new TextBox();
-            label9 = new Label();
-            textBox3 = new TextBox();
             label8 = new Label();
             label7 = new Label();
-            button1 = new Button();
-            dateTimePicker1 = new DateTimePicker();
-            textBox6 = new TextBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox2 = new TextBox();
-            label6 = new Label();
+            addBook_btn = new Button();
+            author_text = new TextBox();
+            isbn_text = new TextBox();
             label5 = new Label();
             label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            textBox1 = new TextBox();
+            title_text = new TextBox();
             label1 = new Label();
+            Book_pictureBox = new PictureBox();
+            uploadImageBtn = new Button();
+            year_text = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)Book_pictureBox).BeginInit();
             SuspendLayout();
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(840, 384);
-            textBox7.Margin = new Padding(3, 4, 3, 4);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(249, 27);
-            textBox7.TabIndex = 50;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(724, 391);
-            label9.Name = "label9";
-            label9.Size = new Size(69, 20);
-            label9.TabIndex = 49;
-            label9.Text = "Book ID :";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(192, 384);
-            textBox3.Margin = new Padding(3, 4, 3, 4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(249, 27);
-            textBox3.TabIndex = 48;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(48, 388);
+            label8.Location = new Point(48, 341);
             label8.Name = "label8";
-            label8.Size = new Size(85, 20);
+            label8.Size = new Size(44, 20);
             label8.TabIndex = 47;
-            label8.Text = "Book Type :";
+            label8.Text = "Year :";
             // 
             // label7
             // 
@@ -91,64 +61,32 @@
             label7.TabIndex = 46;
             label7.Text = "Add Books";
             // 
-            // button1
+            // addBook_btn
             // 
-            button1.Location = new Point(535, 494);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(123, 59);
-            button1.TabIndex = 45;
-            button1.Text = "Add Books";
-            button1.UseVisualStyleBackColor = true;
+            addBook_btn.Location = new Point(535, 494);
+            addBook_btn.Margin = new Padding(3, 4, 3, 4);
+            addBook_btn.Name = "addBook_btn";
+            addBook_btn.Size = new Size(123, 59);
+            addBook_btn.TabIndex = 45;
+            addBook_btn.Text = "Add Books";
+            addBook_btn.UseVisualStyleBackColor = true;
+            addBook_btn.Click += addBook_btn_Click;
             // 
-            // dateTimePicker1
+            // author_text
             // 
-            dateTimePicker1.Location = new Point(840, 252);
-            dateTimePicker1.Margin = new Padding(3, 4, 3, 4);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(249, 27);
-            dateTimePicker1.TabIndex = 44;
+            author_text.Location = new Point(192, 255);
+            author_text.Margin = new Padding(3, 4, 3, 4);
+            author_text.Name = "author_text";
+            author_text.Size = new Size(249, 27);
+            author_text.TabIndex = 42;
             // 
-            // textBox6
+            // isbn_text
             // 
-            textBox6.Location = new Point(192, 318);
-            textBox6.Margin = new Padding(3, 4, 3, 4);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(249, 27);
-            textBox6.TabIndex = 43;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(192, 255);
-            textBox5.Margin = new Padding(3, 4, 3, 4);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(249, 27);
-            textBox5.TabIndex = 42;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(840, 179);
-            textBox4.Margin = new Padding(3, 4, 3, 4);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(249, 27);
-            textBox4.TabIndex = 41;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(840, 325);
-            textBox2.Margin = new Padding(3, 4, 3, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(249, 27);
-            textBox2.TabIndex = 40;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(48, 325);
-            label6.Name = "label6";
-            label6.Size = new Size(110, 20);
-            label6.TabIndex = 39;
-            label6.Text = "Book Quantity :";
+            isbn_text.Location = new Point(840, 179);
+            isbn_text.Margin = new Padding(3, 4, 3, 4);
+            isbn_text.Name = "isbn_text";
+            isbn_text.Size = new Size(249, 27);
+            isbn_text.TabIndex = 41;
             // 
             // label5
             // 
@@ -164,35 +102,17 @@
             label4.AutoSize = true;
             label4.Location = new Point(724, 182);
             label4.Name = "label4";
-            label4.Size = new Size(90, 20);
+            label4.Size = new Size(44, 20);
             label4.TabIndex = 37;
-            label4.Text = "Publication :";
+            label4.Text = "ISBN:";
             // 
-            // label3
+            // title_text
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(724, 252);
-            label3.Name = "label3";
-            label3.Size = new Size(110, 20);
-            label3.TabIndex = 36;
-            label3.Text = "Purchase Date :";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(724, 325);
-            label2.Name = "label2";
-            label2.Size = new Size(86, 20);
-            label2.TabIndex = 35;
-            label2.Text = "Book Price :";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(192, 175);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(249, 27);
-            textBox1.TabIndex = 34;
+            title_text.Location = new Point(192, 175);
+            title_text.Margin = new Padding(3, 4, 3, 4);
+            title_text.Name = "title_text";
+            title_text.Size = new Size(249, 27);
+            title_text.TabIndex = 34;
             // 
             // label1
             // 
@@ -203,56 +123,71 @@
             label1.TabIndex = 33;
             label1.Text = "Book Tittle :";
             // 
+            // Book_pictureBox
+            // 
+            Book_pictureBox.Location = new Point(726, 248);
+            Book_pictureBox.Name = "Book_pictureBox";
+            Book_pictureBox.Size = new Size(175, 208);
+            Book_pictureBox.TabIndex = 49;
+            Book_pictureBox.TabStop = false;
+            // 
+            // uploadImageBtn
+            // 
+            uploadImageBtn.Location = new Point(945, 322);
+            uploadImageBtn.Margin = new Padding(3, 4, 3, 4);
+            uploadImageBtn.Name = "uploadImageBtn";
+            uploadImageBtn.Size = new Size(123, 59);
+            uploadImageBtn.TabIndex = 50;
+            uploadImageBtn.Text = "Upload Image";
+            uploadImageBtn.UseVisualStyleBackColor = true;
+            uploadImageBtn.Click += uploadImageBtn_Click;
+            // 
+            // year_text
+            // 
+            year_text.Location = new Point(192, 334);
+            year_text.Margin = new Padding(3, 4, 3, 4);
+            year_text.Name = "year_text";
+            year_text.Size = new Size(249, 27);
+            year_text.TabIndex = 51;
+            // 
             // AddBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1136, 665);
-            Controls.Add(textBox7);
-            Controls.Add(label9);
-            Controls.Add(textBox3);
+            Controls.Add(year_text);
+            Controls.Add(uploadImageBtn);
+            Controls.Add(Book_pictureBox);
             Controls.Add(label8);
             Controls.Add(label7);
-            Controls.Add(button1);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(textBox6);
-            Controls.Add(textBox5);
-            Controls.Add(textBox4);
-            Controls.Add(textBox2);
-            Controls.Add(label6);
+            Controls.Add(addBook_btn);
+            Controls.Add(author_text);
+            Controls.Add(isbn_text);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(textBox1);
+            Controls.Add(title_text);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AddBooks";
             Text = "AddBooks";
             Load += AddBooks_Load;
+            ((System.ComponentModel.ISupportInitialize)Book_pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button addBook_btn;
+        private System.Windows.Forms.TextBox author_text;
+        private System.Windows.Forms.TextBox isbn_text;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox title_text;
         private System.Windows.Forms.Label label1;
+        private PictureBox Book_pictureBox;
+        private Button uploadImageBtn;
+        private TextBox year_text;
     }
 }

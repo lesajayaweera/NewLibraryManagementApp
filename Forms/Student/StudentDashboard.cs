@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewLibraryManagementApp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace library_mananagement_system.Forms.Librarian
         public StudentDashboard()
         {
             InitializeComponent();
+        }
+
+        private void signoutButton_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
     }
 }

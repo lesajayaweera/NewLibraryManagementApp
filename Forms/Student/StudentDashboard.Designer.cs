@@ -33,6 +33,8 @@
             label3 = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            ViewBooks_btn_STdashboard = new Button();
+            ReturnBooks_btn_STdashboard = new Button();
             Reservations_btn_STdashboard = new Button();
             BorrowBooks_btn_STdashboard = new Button();
             label5 = new Label();
@@ -47,8 +49,6 @@
             panel4 = new Panel();
             label9 = new Label();
             label10 = new Label();
-            ReturnBooks_btn_STdashboard = new Button();
-            ViewBooks_btn_STdashboard = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -102,6 +102,30 @@
             panel1.Size = new Size(277, 577);
             panel1.TabIndex = 7;
             // 
+            // ViewBooks_btn_STdashboard
+            // 
+            ViewBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
+            ViewBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            ViewBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
+            ViewBooks_btn_STdashboard.Location = new Point(12, 310);
+            ViewBooks_btn_STdashboard.Name = "ViewBooks_btn_STdashboard";
+            ViewBooks_btn_STdashboard.Size = new Size(257, 55);
+            ViewBooks_btn_STdashboard.TabIndex = 22;
+            ViewBooks_btn_STdashboard.Text = "View Books";
+            ViewBooks_btn_STdashboard.UseVisualStyleBackColor = false;
+            // 
+            // ReturnBooks_btn_STdashboard
+            // 
+            ReturnBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
+            ReturnBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            ReturnBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
+            ReturnBooks_btn_STdashboard.Location = new Point(12, 249);
+            ReturnBooks_btn_STdashboard.Name = "ReturnBooks_btn_STdashboard";
+            ReturnBooks_btn_STdashboard.Size = new Size(257, 55);
+            ReturnBooks_btn_STdashboard.TabIndex = 21;
+            ReturnBooks_btn_STdashboard.Text = "Return Books";
+            ReturnBooks_btn_STdashboard.UseVisualStyleBackColor = false;
+            // 
             // Reservations_btn_STdashboard
             // 
             Reservations_btn_STdashboard.BackColor = Color.DarkSlateBlue;
@@ -148,6 +172,7 @@
             signoutButton.SizeMode = PictureBoxSizeMode.StretchImage;
             signoutButton.TabIndex = 10;
             signoutButton.TabStop = false;
+            signoutButton.Click += signoutButton_Click;
             // 
             // dataGridView1
             // 
@@ -249,30 +274,6 @@
             label10.Size = new Size(220, 28);
             label10.TabIndex = 0;
             label10.Text = "Total Borrowed Books";
-            // 
-            // ReturnBooks_btn_STdashboard
-            // 
-            ReturnBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
-            ReturnBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ReturnBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            ReturnBooks_btn_STdashboard.Location = new Point(12, 249);
-            ReturnBooks_btn_STdashboard.Name = "ReturnBooks_btn_STdashboard";
-            ReturnBooks_btn_STdashboard.Size = new Size(257, 55);
-            ReturnBooks_btn_STdashboard.TabIndex = 21;
-            ReturnBooks_btn_STdashboard.Text = "Return Books";
-            ReturnBooks_btn_STdashboard.UseVisualStyleBackColor = false;
-            // 
-            // ViewBooks_btn_STdashboard
-            // 
-            ViewBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
-            ViewBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ViewBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            ViewBooks_btn_STdashboard.Location = new Point(12, 310);
-            ViewBooks_btn_STdashboard.Name = "ViewBooks_btn_STdashboard";
-            ViewBooks_btn_STdashboard.Size = new Size(257, 55);
-            ViewBooks_btn_STdashboard.TabIndex = 22;
-            ViewBooks_btn_STdashboard.Text = "View Books";
-            ViewBooks_btn_STdashboard.UseVisualStyleBackColor = false;
             // 
             // StudentDashboard
             // 

@@ -33,8 +33,11 @@
             username_label_Ldashboard = new Label();
             label2 = new Label();
             panel1 = new Panel();
-            Student_btn_HomeManagement = new Button();
-            LibraryRecords_btn_HomeManagement = new Button();
+            OverdueBook_btn_Ldashboard = new Button();
+            addBook_btn_LDashboard = new Button();
+            DelBook_btn_LDashboard = new Button();
+            EditBook_btn_LDashboard = new Button();
+            Student_btn_LDashboard = new Button();
             label5 = new Label();
             signoutButton = new PictureBox();
             dataGridView1 = new DataGridView();
@@ -87,8 +90,11 @@
             // panel1
             // 
             panel1.BackColor = Color.MediumSlateBlue;
-            panel1.Controls.Add(Student_btn_HomeManagement);
-            panel1.Controls.Add(LibraryRecords_btn_HomeManagement);
+            panel1.Controls.Add(OverdueBook_btn_Ldashboard);
+            panel1.Controls.Add(addBook_btn_LDashboard);
+            panel1.Controls.Add(DelBook_btn_LDashboard);
+            panel1.Controls.Add(EditBook_btn_LDashboard);
+            panel1.Controls.Add(Student_btn_LDashboard);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(signoutButton);
@@ -98,29 +104,70 @@
             panel1.Size = new Size(277, 577);
             panel1.TabIndex = 7;
             // 
-            // Student_btn_HomeManagement
+            // OverdueBook_btn_Ldashboard
             // 
-            Student_btn_HomeManagement.BackColor = Color.DarkSlateBlue;
-            Student_btn_HomeManagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            Student_btn_HomeManagement.ForeColor = SystemColors.ButtonHighlight;
-            Student_btn_HomeManagement.Location = new Point(10, 291);
-            Student_btn_HomeManagement.Name = "Student_btn_HomeManagement";
-            Student_btn_HomeManagement.Size = new Size(257, 55);
-            Student_btn_HomeManagement.TabIndex = 20;
-            Student_btn_HomeManagement.Text = "Student Records";
-            Student_btn_HomeManagement.UseVisualStyleBackColor = false;
+            OverdueBook_btn_Ldashboard.BackColor = Color.DarkSlateBlue;
+            OverdueBook_btn_Ldashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            OverdueBook_btn_Ldashboard.ForeColor = SystemColors.ButtonHighlight;
+            OverdueBook_btn_Ldashboard.Location = new Point(12, 337);
+            OverdueBook_btn_Ldashboard.Name = "OverdueBook_btn_Ldashboard";
+            OverdueBook_btn_Ldashboard.Size = new Size(257, 55);
+            OverdueBook_btn_Ldashboard.TabIndex = 25;
+            OverdueBook_btn_Ldashboard.Text = "Over due Books";
+            OverdueBook_btn_Ldashboard.UseVisualStyleBackColor = false;
+            OverdueBook_btn_Ldashboard.Click += OverdueBook_btn_Ldashboard_Click;
             // 
-            // LibraryRecords_btn_HomeManagement
+            // addBook_btn_LDashboard
             // 
-            LibraryRecords_btn_HomeManagement.BackColor = Color.DarkSlateBlue;
-            LibraryRecords_btn_HomeManagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            LibraryRecords_btn_HomeManagement.ForeColor = SystemColors.ButtonHighlight;
-            LibraryRecords_btn_HomeManagement.Location = new Point(10, 230);
-            LibraryRecords_btn_HomeManagement.Name = "LibraryRecords_btn_HomeManagement";
-            LibraryRecords_btn_HomeManagement.Size = new Size(257, 55);
-            LibraryRecords_btn_HomeManagement.TabIndex = 19;
-            LibraryRecords_btn_HomeManagement.Text = "Book Management";
-            LibraryRecords_btn_HomeManagement.UseVisualStyleBackColor = false;
+            addBook_btn_LDashboard.BackColor = Color.DarkSlateBlue;
+            addBook_btn_LDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            addBook_btn_LDashboard.ForeColor = SystemColors.ButtonHighlight;
+            addBook_btn_LDashboard.Location = new Point(10, 154);
+            addBook_btn_LDashboard.Name = "addBook_btn_LDashboard";
+            addBook_btn_LDashboard.Size = new Size(257, 55);
+            addBook_btn_LDashboard.TabIndex = 24;
+            addBook_btn_LDashboard.Text = "Add Book";
+            addBook_btn_LDashboard.UseVisualStyleBackColor = false;
+            addBook_btn_LDashboard.Click += addBook_btn_LDashboard_Click;
+            // 
+            // DelBook_btn_LDashboard
+            // 
+            DelBook_btn_LDashboard.BackColor = Color.DarkSlateBlue;
+            DelBook_btn_LDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            DelBook_btn_LDashboard.ForeColor = SystemColors.ButtonHighlight;
+            DelBook_btn_LDashboard.Location = new Point(10, 215);
+            DelBook_btn_LDashboard.Name = "DelBook_btn_LDashboard";
+            DelBook_btn_LDashboard.Size = new Size(257, 55);
+            DelBook_btn_LDashboard.TabIndex = 23;
+            DelBook_btn_LDashboard.Text = "Delete Book";
+            DelBook_btn_LDashboard.UseVisualStyleBackColor = false;
+            DelBook_btn_LDashboard.Click += DelBook_btn_LDashboard_Click;
+            // 
+            // EditBook_btn_LDashboard
+            // 
+            EditBook_btn_LDashboard.BackColor = Color.DarkSlateBlue;
+            EditBook_btn_LDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            EditBook_btn_LDashboard.ForeColor = SystemColors.ButtonHighlight;
+            EditBook_btn_LDashboard.Location = new Point(10, 276);
+            EditBook_btn_LDashboard.Name = "EditBook_btn_LDashboard";
+            EditBook_btn_LDashboard.Size = new Size(257, 55);
+            EditBook_btn_LDashboard.TabIndex = 22;
+            EditBook_btn_LDashboard.Text = "Edit Books";
+            EditBook_btn_LDashboard.UseVisualStyleBackColor = false;
+            EditBook_btn_LDashboard.Click += EditBook_btn_LDashboard_Click;
+            // 
+            // Student_btn_LDashboard
+            // 
+            Student_btn_LDashboard.BackColor = Color.DarkSlateBlue;
+            Student_btn_LDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            Student_btn_LDashboard.ForeColor = SystemColors.ButtonHighlight;
+            Student_btn_LDashboard.Location = new Point(12, 398);
+            Student_btn_LDashboard.Name = "Student_btn_LDashboard";
+            Student_btn_LDashboard.Size = new Size(257, 55);
+            Student_btn_LDashboard.TabIndex = 20;
+            Student_btn_LDashboard.Text = "Student Records";
+            Student_btn_LDashboard.UseVisualStyleBackColor = false;
+            Student_btn_LDashboard.Click += Student_btn_LDashboard_Click;
             // 
             // label5
             // 
@@ -144,6 +191,7 @@
             signoutButton.SizeMode = PictureBoxSizeMode.StretchImage;
             signoutButton.TabIndex = 10;
             signoutButton.TabStop = false;
+            signoutButton.Click += signoutButton_Click;
             // 
             // dataGridView1
             // 
@@ -282,8 +330,7 @@
         private Panel panel1;
         private Label label5;
         private PictureBox signoutButton;
-        private Button Student_btn_HomeManagement;
-        private Button LibraryRecords_btn_HomeManagement;
+        private Button Student_btn_LDashboard;
         private DataGridView dataGridView1;
         private Panel panel3;
         private Label label6;
@@ -294,5 +341,9 @@
         private Panel panel4;
         private Label label9;
         private Label label10;
+        private Button addBook_btn_LDashboard;
+        private Button DelBook_btn_LDashboard;
+        private Button EditBook_btn_LDashboard;
+        private Button OverdueBook_btn_Ldashboard;
     }
 }
