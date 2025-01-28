@@ -68,9 +68,9 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(649, 165);
+            pictureBox1.Location = new Point(643, 139);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(191, 193);
+            pictureBox1.Size = new Size(215, 239);
             pictureBox1.TabIndex = 34;
             pictureBox1.TabStop = false;
             // 
@@ -104,9 +104,9 @@
             label4.AutoSize = true;
             label4.Location = new Point(921, 338);
             label4.Name = "label4";
-            label4.Size = new Size(90, 20);
+            label4.Size = new Size(44, 20);
             label4.TabIndex = 45;
-            label4.Text = "Publication :";
+            label4.Text = "Year :";
             // 
             // textBox1
             // 
@@ -147,9 +147,9 @@
             label8.AutoSize = true;
             label8.Location = new Point(924, 463);
             label8.Name = "label8";
-            label8.Size = new Size(85, 20);
+            label8.Size = new Size(44, 20);
             label8.TabIndex = 50;
-            label8.Text = "Book Type :";
+            label8.Text = "ISBN:";
             // 
             // ViewBooksDetails
             // 

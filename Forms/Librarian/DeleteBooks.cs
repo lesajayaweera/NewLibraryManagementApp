@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewLibraryManagementApp.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,16 @@ namespace NewLibraryManagementApp
 {
     public partial class DeleteBooks : Form
     {
-        public DeleteBooks()
+        private Book book = new Book();
+
+        private string bookpath;
+        private int bookid;
+        private Form form;
+        public DeleteBooks(Form form)
         {
+
             InitializeComponent();
+            this.form = form;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -29,7 +37,57 @@ namespace NewLibraryManagementApp
 
         private void DeleteBooks_Load(object sender, EventArgs e)
         {
+            book.DisplayBooks(dataGridView_books);
 
+
+
+
+        }
+
+        private void dataGridView_books_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridView_books.Rows[e.RowIndex];
+
+                bookid = Convert.ToInt32(selectedRow.Cells["ID"].Value);
+                bookname_text.Text = selectedRow.Cells["Title"].Value.ToString();
+                bookauthor_text.Text = selectedRow.Cells["Author"].Value.ToString();
+                bookyear_text.Text = selectedRow.Cells["Year"].Value.ToString();
+                bookisbn_text.Text = selectedRow.Cells["ISBN"].Value.ToString();
+                bookpath = selectedRow.Cells["URL"].Value.ToString();
+
+
+
+                if (!string.IsNullOrEmpty(bookpath) && System.IO.File.Exists(bookpath))
+                {
+                    bookpictureBox.Image = Image.FromFile(bookpath);
+                    bookpictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                else
+                {
+                    bookpictureBox.Image = null;
+                }
+
+            }
+
+        }
+
+        private void removeBookbtn_Click(object sender, EventArgs e)
+        {
+            book.DeleteBook(bookid);
+            book.DisplayBooks(dataGridView_books);
+            bookname_text.Text = "";
+            bookauthor_text.Text = "";
+            bookyear_text.Text = "";
+            bookisbn_text.Text = "";
+            bookpath = "";
+        }
+
+        private void backbutton_Click(object sender, EventArgs e)
+        {
+            form.Show();
+            this.Hide();
         }
     }
 }

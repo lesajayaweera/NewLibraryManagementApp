@@ -40,6 +40,7 @@
             Book_pictureBox = new PictureBox();
             uploadImageBtn = new Button();
             year_text = new TextBox();
+            button = new Button();
             ((System.ComponentModel.ISupportInitialize)Book_pictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -150,11 +151,22 @@
             year_text.Size = new Size(249, 27);
             year_text.TabIndex = 51;
             // 
+            // button
+            // 
+            button.Location = new Point(42, 54);
+            button.Name = "button";
+            button.Size = new Size(94, 29);
+            button.TabIndex = 52;
+            button.Text = "back";
+            button.UseVisualStyleBackColor = true;
+            button.Click += button_Click;
+            // 
             // AddBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1136, 665);
+            Controls.Add(button);
             Controls.Add(year_text);
             Controls.Add(uploadImageBtn);
             Controls.Add(Book_pictureBox);
@@ -189,5 +201,6 @@
         private PictureBox Book_pictureBox;
         private Button uploadImageBtn;
         private TextBox year_text;
+        private Button button;
     }
 }

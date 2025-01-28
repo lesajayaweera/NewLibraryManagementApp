@@ -14,9 +14,11 @@ namespace NewLibraryManagementApp
     public partial class AddBooks : Form
     {
         private string filePath;
-        public AddBooks()
+        private Form form;
+        public AddBooks(Form form)
         {
             InitializeComponent();
+            this.form = form;
         }
 
         private void AddBooks_Load(object sender, EventArgs e)
@@ -44,12 +46,21 @@ namespace NewLibraryManagementApp
         {
             string title = title_text.Text;
             string author = author_text.Text;
-            string isbn = isbn_text.Text;
             int year = Convert.ToInt32(year_text.Text);
-            
 
-            Book book = new Book(title, author, isbn, year,filePath);
+
+            Book book = new Book(title, author, year, filePath);
+            isbn_text.Text = book.Isbn;
+
             book.saveBook(book);
+
+
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            form.Show();
+            this.Hide();
         }
     }
 }

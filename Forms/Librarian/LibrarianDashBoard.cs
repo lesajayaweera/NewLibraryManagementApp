@@ -44,21 +44,21 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void addBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            AddBooks form = new AddBooks();
+            AddBooks form = new AddBooks(this);
             form.Show();
             this.Hide();
         }
 
         private void DelBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            DeleteBooks form = new DeleteBooks();
+            DeleteBooks form = new DeleteBooks(this);
             form.Show();
             this.Hide();
         }
 
         private void EditBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            EditBooks form = new EditBooks();
+            EditBooks form = new EditBooks(this);
             form.Show();
             this.Hide();
 
