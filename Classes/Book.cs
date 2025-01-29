@@ -253,7 +253,8 @@ namespace NewLibraryManagementApp.Classes
         }
         public void EditBook(Book book)
         {
-            string query = "UPDATE books_table SET Title = @Title, Author = @Author, Year = @Year, URL = @URL WHERE Id = @Id";
+            string query = "UPDATE books_table SET Title = @Title, Author = @Author, Year = @Year, ISBN = @ISBN ,URL = @URL WHERE Id = @Id";
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -265,32 +266,31 @@ namespace NewLibraryManagementApp.Classes
                         command.Parameters.AddWithValue("@Title", book.Title);
                         command.Parameters.AddWithValue("@Author", book.Author);
                         command.Parameters.AddWithValue("@Year", book.Year);
-                        command.Parameters.AddWithValue("@URL", book.Url);
+                        command.Parameters.AddWithValue("@ISBN", book.Isbn);
+                        command.Parameters.AddWithValue("@URL",book.Url);
 
                         int rowsAffected = command.ExecuteNonQuery();
+
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Book updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Failed to update the book.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No book found with the given ID or no changes made.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
+                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
     }
 }

@@ -46,9 +46,9 @@ namespace NewLibraryManagementApp
                 authortextBox.Text = selectedRow.Cells["Author"].Value.ToString();
                 yeartextBox.Text = selectedRow.Cells["Year"].Value.ToString();
                 isbntextBox.Text = selectedRow.Cells["ISBN"].Value.ToString();
-                bookpath = selectedRow.Cells["URL"].Value.ToString();
 
-
+                // Ensure bookpath is not null
+                bookpath = selectedRow.Cells["URL"].Value != DBNull.Value ? selectedRow.Cells["URL"].Value.ToString() : "";
 
                 if (!string.IsNullOrEmpty(bookpath) && System.IO.File.Exists(bookpath))
                 {
@@ -59,7 +59,6 @@ namespace NewLibraryManagementApp
                 {
                     pictureBoxEdit.Image = null;
                 }
-
             }
         }
 
@@ -83,16 +82,46 @@ namespace NewLibraryManagementApp
         {
             string title = titletextBox.Text;
             string author = authortextBox.Text;
-            int year = Convert.ToInt32(yeartextBox.Text);
 
-            Book editbook= new Book(selectedBookId,title, author, year, bookpath);
-            editbook.EditBook(editbook);
+            if (!int.TryParse(yeartextBox.Text, out int year))
+            {
+                MessageBox.Show("Invalid Year. Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (selectedBookId > 0)
+            {
+                // Retrieve the existing book record to get the current URL if bookpath is empty
+                
+
+                Book updatedBook = new Book
+                {
+                    BookId = selectedBookId,
+                    Title = title,
+                    Author = author,
+                    Year = year, // Use already parsed year
+                    Isbn = isbntextBox.Text,
+                    Url = bookpath // Ensure existing path is kept if no new image
+                };
+
+                book.EditBook(updatedBook);
+            }
+            else
+            {
+                MessageBox.Show("Please select a book first.");
+            }
+
+            // Refresh DataGridView
             book.DisplayBooks(dataGridView_editbooks);
+
+            // Clear Fields
             titletextBox.Text = "";
             authortextBox.Text = "";
             yeartextBox.Text = "";
             isbntextBox.Text = "";
             bookpath = "";
+            pictureBoxEdit.Image = null;
         }
+
     }
 }
