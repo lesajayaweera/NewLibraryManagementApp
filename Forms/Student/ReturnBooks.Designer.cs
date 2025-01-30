@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            dataGridView1 = new DataGridView();
+            dataGridView_returnBooks = new DataGridView();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            returnBook_btn = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_returnBooks).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -45,16 +46,17 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // dataGridView1
+            // dataGridView_returnBooks
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(30, 139);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(1071, 417);
-            dataGridView1.TabIndex = 35;
+            dataGridView_returnBooks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_returnBooks.Location = new Point(30, 139);
+            dataGridView_returnBooks.Margin = new Padding(3, 4, 3, 4);
+            dataGridView_returnBooks.Name = "dataGridView_returnBooks";
+            dataGridView_returnBooks.RowHeadersWidth = 51;
+            dataGridView_returnBooks.RowTemplate.Height = 24;
+            dataGridView_returnBooks.Size = new Size(1071, 417);
+            dataGridView_returnBooks.TabIndex = 35;
+            dataGridView_returnBooks.CellContentClick += dataGridView_returnBooks_CellContentClick;
             // 
             // label1
             // 
@@ -67,26 +69,38 @@
             label1.TabIndex = 34;
             label1.Text = "Return Books ";
             // 
+            // returnBook_btn
+            // 
+            returnBook_btn.Location = new Point(426, 613);
+            returnBook_btn.Name = "returnBook_btn";
+            returnBook_btn.Size = new Size(145, 29);
+            returnBook_btn.TabIndex = 38;
+            returnBook_btn.Text = "Return Book";
+            returnBook_btn.UseVisualStyleBackColor = true;
+            returnBook_btn.Click += returnBook_btn_Click;
+            // 
             // ReturnBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1131, 681);
+            Controls.Add(returnBook_btn);
             Controls.Add(button1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridView_returnBooks);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ReturnBooks";
             Text = "ReturnBooks";
             Load += ReturnBooks_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_returnBooks).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_returnBooks;
         private System.Windows.Forms.Label label1;
+        private Button returnBook_btn;
     }
 }

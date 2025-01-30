@@ -36,7 +36,6 @@
             label4 = new Label();
             title_text_veiwBooks = new TextBox();
             label2 = new Label();
-            button1 = new Button();
             isbn_text_veiwBooks = new TextBox();
             label8 = new Label();
             borrowBtn = new Button();
@@ -117,15 +116,6 @@
             label2.TabIndex = 43;
             label2.Text = "Book Tittle :";
             // 
-            // button1
-            // 
-            button1.Location = new Point(253, 692);
-            button1.Name = "button1";
-            button1.Size = new Size(162, 44);
-            button1.TabIndex = 49;
-            button1.Text = "Veiw Details";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // isbn_text_veiwBooks
             // 
             isbn_text_veiwBooks.Location = new Point(489, 482);
@@ -161,6 +151,7 @@
             reserveBtn.TabIndex = 53;
             reserveBtn.Text = "Reserve";
             reserveBtn.UseVisualStyleBackColor = true;
+            reserveBtn.Click += reserveBtn_Click;
             // 
             // back_btn_bookDetails
             // 
@@ -184,11 +175,11 @@
             // status_text
             // 
             status_text.AutoSize = true;
-            status_text.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            status_text.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             status_text.ForeColor = Color.Black;
-            status_text.Location = new Point(614, 538);
+            status_text.Location = new Point(610, 547);
             status_text.Name = "status_text";
-            status_text.Size = new Size(195, 38);
+            status_text.Size = new Size(128, 25);
             status_text.TabIndex = 56;
             status_text.Text = "Not Available";
             // 
@@ -204,7 +195,6 @@
             Controls.Add(borrowBtn);
             Controls.Add(isbn_text_veiwBooks);
             Controls.Add(label8);
-            Controls.Add(button1);
             Controls.Add(author_text_veiwBooks);
             Controls.Add(year_text_veiwBooks);
             Controls.Add(label5);
@@ -231,7 +221,6 @@
         private Label label4;
         private TextBox title_text_veiwBooks;
         private Label label2;
-        private Button button1;
         private TextBox isbn_text_veiwBooks;
         private Label label8;
         private Button borrowBtn;

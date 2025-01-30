@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NewLibraryManagementApp
 {
@@ -15,21 +16,33 @@ namespace NewLibraryManagementApp
     {
         private Form form;
         private Book book = new Book();
-        public ReservationBooks(Form form)
+        private Person person;
+        public ReservationBooks(Form form, Person person)
         {
             InitializeComponent();
             this.form = form;
+            this.person = person;
         }
 
         private void ReservationBooks_Load(object sender, EventArgs e)
         {
-            book.DisplayBooks(dataGridView_reserveBooks);
+            book.LoadReservedBooks(person, dataGridView_reserveBooks);
         }
 
         private void backbutton_reservation_Click(object sender, EventArgs e)
         {
             form.Show();
             this.Hide();
+        }
+
+        private void dataGridView_reserveBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridView_reserveBooks.Rows[e.RowIndex];
+                textBox5.Text = selectedRow.Cells["Title"].Value.ToString();
+                textBox3.Text = selectedRow.Cells["Author"].Value.ToString();
+            }
         }
     }
 }

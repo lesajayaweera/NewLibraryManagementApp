@@ -188,7 +188,7 @@ namespace NewLibraryManagementApp.Classes
 
 
             }
-            
+
         }
 
         //method to display the books from the db
@@ -323,7 +323,7 @@ namespace NewLibraryManagementApp.Classes
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                         count = Convert.ToInt32(command.ExecuteScalar());
+                        count = Convert.ToInt32(command.ExecuteScalar());
 
                     }
                 }
@@ -351,8 +351,8 @@ namespace NewLibraryManagementApp.Classes
             string query = "SELECT ID FROM books_table WHERE Title = @Title AND Author = @Author AND ISBN = @ISBN";
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                try 
-                { 
+                try
+                {
                     connection.Open();
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -362,14 +362,14 @@ namespace NewLibraryManagementApp.Classes
                         command.Parameters.AddWithValue("@ISBN", book.Isbn);
 
                         object result = command.ExecuteScalar();
-                        if(result != null)
+                        if (result != null)
                         {
                             int bookId = Convert.ToInt32(result);
                         }
 
                     }
                 }
-                catch(MySqlException ex)
+                catch (MySqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -415,20 +415,20 @@ namespace NewLibraryManagementApp.Classes
                         }
                     }
                 }
-                catch(MySqlException ex)
+                catch (MySqlException ex)
                 {
-                    MessageBox.Show($"Database Error:{ ex.Message}");
+                    MessageBox.Show($"Database Error:{ex.Message}");
                     return null;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Exception error {ex.Message}");
                 }
                 finally
                 {
-                    conection.Close(); 
+                    conection.Close();
                 }
-            
+
 
             }
             return null;
@@ -524,6 +524,10 @@ namespace NewLibraryManagementApp.Classes
                         MessageBox.Show($"Error: {ex.Message}\n\nUser: {person.Name} (ID: {studentId})",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
@@ -538,12 +542,11 @@ namespace NewLibraryManagementApp.Classes
                 return;
             }
 
-                        string query = @"
-                SELECT br.BorrowedId, b.ID AS BookId, b.Title, b.Author, br.BorrowDate, br.DueDate, br.IsReturned
-                FROM borrowed_records br
-                INNER JOIN books_table b ON br.BookID = b.ID
-                WHERE br.UserID = @UserID";
-
+            string query = @"
+        SELECT br.BorrowedId, b.ID AS BookId, b.Title, b.Author, br.BorrowDate, br.DueDate
+        FROM borrowed_records br
+        INNER JOIN books_table b ON br.BookID = b.ID
+        WHERE br.UserID = @UserID AND br.IsReturned = 0";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -571,8 +574,9 @@ namespace NewLibraryManagementApp.Classes
             }
         }
 
+
         // method to check the book is avaible to reserve
-        public void CheckBookStatus(int bookId,Label label)
+        public bool CheckBookStatus(int bookId)
         {
             string query = "SELECT IsReturned FROM borrowed_records WHERE BookID = @BookID ORDER BY BorrowDate DESC LIMIT 1";
 
@@ -586,31 +590,21 @@ namespace NewLibraryManagementApp.Classes
                         command.Parameters.AddWithValue("@BookID", bookId);
                         object result = command.ExecuteScalar();
 
-                        if (result == null)
+                        // If no result is found, it means the book has not been borrowed or does not exist
+                        if (result == null || result == DBNull.Value)
                         {
-                            bool isReturned = Convert.ToBoolean(result);
-                            if (isReturned)
-                            {
-                                label.Text = "Available";
-                                label.ForeColor = Color.Green;
-
-                            }
-                            else
-                            {
-                                label.Text = "Currently Borrowed (Reservation Allowed)";
-                                label.ForeColor = Color.Red;
-                            }
+                            return true; // The book is available (not borrowed).
                         }
 
-                        
-
-                        //return isReturned ? "Available" : "Currently Borrowed (Reservation Allowed)";
+                        // Otherwise, convert result to boolean
+                        bool isReturned = Convert.ToBoolean(result);
+                        return isReturned; // Return whether the book is returned
                     }
                 }
                 catch (MySqlException ex)
                 {
                     MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //return "Error";
+                    return false; // Return false if there is a database error
                 }
                 finally
                 {
@@ -618,22 +612,64 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+
+
+
+        //sub method to calculate the overdue cost
+
+        private decimal CalculateOverdueFee(DateTime dueDate, DateTime returnDate)
+        {
+            int overdueDays = (returnDate - dueDate).Days;
+            decimal dailyFee = 5.00m; // $5 per day
+
+            return overdueDays > 0 ? overdueDays * dailyFee : 0;
+        }
+
         // method to return the book
         public bool ReturnBook(int borrowedId)
         {
-            string query = "UPDATE borrowed_records SET IsReturned = 1 WHERE BorrowedId = @BorrowedId";
+            string selectQuery = "SELECT DueDate FROM borrowed_records WHERE BorrowedId = @BorrowedId";
+            string updateQuery = "UPDATE borrowed_records SET IsReturned = 1, DueDate = @ReturnDate, OverDueFee = @OverdueFee ,ReturnedDate = @date WHERE BorrowedId = @BorrowedId";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BorrowedId", borrowedId);
-                        int rowsAffected = command.ExecuteNonQuery();
+                    DateTime dueDate;
 
-                        return rowsAffected > 0;
+                    // Get the DueDate
+                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@BorrowedId", borrowedId);
+                        object result = selectCommand.ExecuteScalar();
+                        if (result == null) return false;
+
+                        dueDate = Convert.ToDateTime(result);
+                    }
+
+                    DateTime returnDate = DateTime.Now;
+                    decimal overdueFee = CalculateOverdueFee(dueDate, returnDate);
+
+                    // Update the record
+                    using (MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@BorrowedId", borrowedId);
+                        updateCommand.Parameters.AddWithValue("@ReturnDate", returnDate);
+                        updateCommand.Parameters.AddWithValue("@OverdueFee", overdueFee);
+                        updateCommand.Parameters.AddWithValue("@date", DateTime.Now);
+                        int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            if (overdueFee > 0)
+                                MessageBox.Show($"Book returned, but overdue! You owe ${overdueFee}.", "Overdue Fee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            else
+                                MessageBox.Show("Book returned successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            return true;
+                        }
+                        return false;
                     }
                 }
                 catch (MySqlException ex)
@@ -649,11 +685,239 @@ namespace NewLibraryManagementApp.Classes
             }
         }
 
+        // display overdue Books
+
+        private void LoadOverdueBooks(DataGridView grid)
+        {
+            string query = "SELECT BorrowedId, BookId, UserId, DueDate, OverdueFee FROM borrowed_records WHERE IsReturned = 0 AND DueDate < CURDATE()";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        grid.DataSource = dt;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading overdue books: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public bool CheckBookCanReserve(int bookId)
+        {
+            string query = "SELECT COUNT(*) FROM reservation_table " +
+                                "WHERE BookId = @BookID AND Status = 'Pending' AND ReservedUntill >= NOW();";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BookID", bookId);
+                        object result = command.ExecuteScalar();
+
+                        // If no result is found, it means the book has not been borrowed or does not exist
+                        if (result == null || result == DBNull.Value)
+                        {
+                            return true; // The book is available (not borrowed).
+                        }
+
+                        // Otherwise, convert result to boolean
+                        bool isReserved = Convert.ToBoolean(result);
+                        return isReserved; // Return whether the book is returned
+                    }
+
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false; // Return false if there is a database error
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(" Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        //method to check the whether the borrowed user is the same user who is reserving the book
+        private bool CheckUserReserveBook(int bookId, Person person)
+        {
+            string query = "SELECT COUNT(*) FROM borrowed_records WHERE BookID = @BookID AND UserID = @UserID AND IsReturned = 0";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BookID", bookId);
+                        command.Parameters.AddWithValue("@UserID", person.GetUserId(person));
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        return count > 0;
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
 
 
+        // method to reserve a book
 
+        public void ReserveBook(int bookId, Person person)
+        {
+            bool isReserved = CheckBookCanReserve(bookId);
+            bool isSameUser = CheckUserReserveBook(bookId, person);
+            if (isSameUser)
+            {
 
+                MessageBox.Show("You cannot reserve a book that you have borrowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                if (isReserved)
+                {
+                    MessageBox.Show("Book is already reserved by another user.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    int userId = person.GetUserId(person); // Fetch user ID
+
+                    if (userId == 0)
+                    {
+                        MessageBox.Show($"User '{person.Name}' not found. Please enter a valid username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    string query = "INSERT INTO reservation_table (BookId, UserId, ReservationDate, ReservedUntill, Status, IsCollected) " +
+                               "VALUES (@BookID, @StudentID, @ReservationDate, @ReservedUntill, @Status, @IsCollected)";
+
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+
+                        connection.Open();
+
+                        using (MySqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            try
+                            {
+                                using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@BookID", bookId);
+                                    command.Parameters.AddWithValue("@StudentID", userId);
+                                    command.Parameters.AddWithValue("@ReservationDate", DateTime.Now);
+                                    command.Parameters.AddWithValue("@ReservedUntill", DateTime.Now.AddDays(3));
+                                    command.Parameters.AddWithValue("@Status", "Pending");
+                                    command.Parameters.AddWithValue("@IsCollected", false);
+
+                                    int rowsAffected = command.ExecuteNonQuery();
+                                    if (rowsAffected > 0)
+                                    {
+                                        transaction.Commit();
+                                        MessageBox.Show($"Book (ID: {bookId}) reserved successfully by User '{person.Name}' (ID: {userId})!",
+                                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    }
+                                    else
+                                    {
+
+                                        transaction.Rollback();
+                                        MessageBox.Show($"Failed to reserve the book (ID: {bookId}) for User '{person.Name}' (ID: {userId}).",
+                                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+                            catch (MySqlException ex)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+
+                                transaction.Rollback();
+                                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        //method to load the reserved books
+        public void LoadReservedBooks(Person person, DataGridView dataGridView)
+        {
+            int userId = person.GetUserId(person); // Fetch user ID
+
+            if (userId == 0)
+            {
+                MessageBox.Show($"User '{person.Name}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string query = @"
+                    SELECT br.ReservationId, b.ID AS BookId, b.Title, b.Author, b.Year, br.ReservationDate, br.ReservedUntill
+                    FROM reservation_table br
+                    INNER JOIN books_table b ON br.BookID = b.ID
+                    WHERE br.UserID = @UserID AND br.Status = 'Pending' AND br.ReservedUntill >= NOW();";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userId);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dataGridView.DataSource = dt;
+                            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
     }
 
-
 }
+
+

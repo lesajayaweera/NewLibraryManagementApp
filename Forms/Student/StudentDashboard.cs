@@ -45,7 +45,7 @@ namespace library_mananagement_system.Forms.Librarian
 
         private void Reservations_btn_STdashboard_Click(object sender, EventArgs e)
         {
-            ReservationBooks reservationBooks = new ReservationBooks(this);
+            ReservationBooks reservationBooks = new ReservationBooks(this,person);
             reservationBooks.Show();
             this.Hide();
         }

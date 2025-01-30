@@ -58,13 +58,46 @@ namespace NewLibraryManagementApp
 
             }
 
-             book.CheckBookStatus(selectedBookId, status_text);
+            bool isreturned = book.CheckBookStatus(selectedBookId);
+            bool isReserved = book.CheckBookCanReserve(selectedBookId);
+            if (isreturned)
+            {
+                borrowBtn.Enabled = true;
+                //reserveBtn.Enabled = false;
+
+                status_text.Text = "Available";
+                status_text.ForeColor = Color.Green;
+            }
+            else
+            {
+                if(isReserved)
+                {
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = false;
+                    status_text.Text = "Reserved";
+                    status_text.ForeColor = Color.Red;
+                }
+                else
+                {
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = true;
+                    status_text.Text = "Currently Borrowed but Available for Reservations!";
+                    status_text.ForeColor = Color.Orange;
+                }
+            }
+           
+
         }
 
         private void borrowBtn_Click(object sender, EventArgs e)
         {
-            int userId=person.GetUserId(person);
-            book.BorrowBook(selectedBookId,person);
+            int userId = person.GetUserId(person);
+            book.BorrowBook(selectedBookId, person);
+        }
+
+        private void reserveBtn_Click(object sender, EventArgs e)
+        {
+            book.ReserveBook(selectedBookId, person);
         }
     }
 }
