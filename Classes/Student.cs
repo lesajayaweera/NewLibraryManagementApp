@@ -18,12 +18,17 @@ namespace NewLibraryManagementApp.Classes
         public override void Register(Person person, Form form)
         {
             bool isValidated = person.ValidateData();
+            bool isCredentialExits = person.isCredentialExist(person);
             if (isValidated)
             {
-                person.SaveData(person);
-                StudentDashboard dashboard = new StudentDashboard();
-                dashboard.Show();
-                form.Hide();
+                if (isCredentialExits)
+                {
+                    person.SaveData(person);
+                    StudentDashboard dashboard = new StudentDashboard(person, form);
+                    dashboard.Show();
+                    form.Hide();
+                }
+                
             }
         }
         public override void Login(Person person, Form form)
@@ -31,7 +36,7 @@ namespace NewLibraryManagementApp.Classes
             bool isAuthorized = person.isAthenticated(person);
             if (isAuthorized)
             {
-                StudentDashboard dashboard = new StudentDashboard();
+                StudentDashboard dashboard = new StudentDashboard(person, form);
                 dashboard.Show();
                 form.Hide();
             }
@@ -40,5 +45,7 @@ namespace NewLibraryManagementApp.Classes
                 MessageBox.Show("Invalid Credentials", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

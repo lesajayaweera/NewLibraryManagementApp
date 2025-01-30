@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewLibraryManagementApp.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,23 @@ namespace NewLibraryManagementApp
 {
     public partial class ReservationBooks : Form
     {
-        public ReservationBooks()
+        private Form form;
+        private Book book = new Book();
+        public ReservationBooks(Form form)
         {
             InitializeComponent();
+            this.form = form;
         }
 
         private void ReservationBooks_Load(object sender, EventArgs e)
         {
+            book.DisplayBooks(dataGridView_reserveBooks);
+        }
 
+        private void backbutton_reservation_Click(object sender, EventArgs e)
+        {
+            form.Show();
+            this.Hide();
         }
     }
 }

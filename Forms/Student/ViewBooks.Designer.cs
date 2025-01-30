@@ -29,76 +29,70 @@
         private void InitializeComponent()
         {
             label7 = new Label();
-            dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dataGridView_viewBook = new DataGridView();
+            back_button = new Button();
+            viewBookDetail_btn = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_viewBook).BeginInit();
             SuspendLayout();
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(479, 39);
+            label7.Location = new Point(517, 22);
             label7.Name = "label7";
             label7.Size = new Size(85, 20);
             label7.TabIndex = 15;
             label7.Text = "View Books";
             // 
-            // dataGridView1
+            // dataGridView_viewBook
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(27, 149);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(1071, 502);
-            dataGridView1.TabIndex = 16;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView_viewBook.BackgroundColor = SystemColors.ButtonHighlight;
+            dataGridView_viewBook.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_viewBook.Location = new Point(12, 63);
+            dataGridView_viewBook.Margin = new Padding(3, 4, 3, 4);
+            dataGridView_viewBook.Name = "dataGridView_viewBook";
+            dataGridView_viewBook.RowHeadersWidth = 51;
+            dataGridView_viewBook.RowTemplate.Height = 24;
+            dataGridView_viewBook.Size = new Size(860, 568);
+            dataGridView_viewBook.TabIndex = 16;
+            dataGridView_viewBook.CellContentClick += dataGridView_viewBook_CellContentClick;
             // 
-            // textBox1
+            // back_button
             // 
-            textBox1.Location = new Point(419, 92);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 27);
-            textBox1.TabIndex = 17;
+            back_button.Location = new Point(12, 13);
+            back_button.Margin = new Padding(3, 4, 3, 4);
+            back_button.Name = "back_button";
+            back_button.Size = new Size(104, 29);
+            back_button.TabIndex = 18;
+            back_button.Text = "Back";
+            back_button.UseVisualStyleBackColor = true;
+            back_button.Click += back_button_Click;
             // 
-            // button1
+            // viewBookDetail_btn
             // 
-            button1.Location = new Point(642, 92);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 29);
-            button1.TabIndex = 18;
-            button1.Text = "Search Books";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(311, 96);
-            label1.Name = "label1";
-            label1.Size = new Size(94, 20);
-            label1.TabIndex = 19;
-            label1.Text = "Book Name :";
+            viewBookDetail_btn.Location = new Point(912, 364);
+            viewBookDetail_btn.Name = "viewBookDetail_btn";
+            viewBookDetail_btn.Size = new Size(152, 29);
+            viewBookDetail_btn.TabIndex = 19;
+            viewBookDetail_btn.Text = "View Book Detail";
+            viewBookDetail_btn.UseVisualStyleBackColor = true;
+            viewBookDetail_btn.Click += viewBookDetail_btn_Click;
             // 
             // ViewBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1137, 666);
-            Controls.Add(label1);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(viewBookDetail_btn);
+            Controls.Add(back_button);
+            Controls.Add(dataGridView_viewBook);
             Controls.Add(label7);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ViewBooks";
             Text = "ViewBooks";
             Load += ViewBooks_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_viewBook).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -106,9 +100,8 @@
         #endregion
 
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView_viewBook;
+        private System.Windows.Forms.Button back_button;
+        private Button viewBookDetail_btn;
     }
 }

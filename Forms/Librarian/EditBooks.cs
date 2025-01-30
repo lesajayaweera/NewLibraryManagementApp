@@ -92,17 +92,10 @@ namespace NewLibraryManagementApp
             if (selectedBookId > 0)
             {
                 // Retrieve the existing book record to get the current URL if bookpath is empty
-                
 
-                Book updatedBook = new Book
-                {
-                    BookId = selectedBookId,
-                    Title = title,
-                    Author = author,
-                    Year = year, // Use already parsed year
-                    Isbn = isbntextBox.Text,
-                    Url = bookpath // Ensure existing path is kept if no new image
-                };
+
+                Book updatedBook = new Book(selectedBookId, title, author, year, bookpath);
+                
 
                 book.EditBook(updatedBook);
             }

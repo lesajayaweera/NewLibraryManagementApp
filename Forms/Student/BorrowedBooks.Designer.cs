@@ -28,88 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label2 = new Label();
-            button1 = new Button();
-            textBox1 = new TextBox();
-            dataGridView1 = new DataGridView();
+            dataGridView_borrowedBooks = new DataGridView();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            Backbutton_borrowBooks = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_borrowedBooks).BeginInit();
             SuspendLayout();
             // 
-            // label2
+            // dataGridView_borrowedBooks
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(318, 98);
-            label2.Name = "label2";
-            label2.Size = new Size(94, 20);
-            label2.TabIndex = 38;
-            label2.Text = "Book Name :";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(649, 94);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 29);
-            button1.TabIndex = 37;
-            button1.Text = "Search ";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(426, 94);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 27);
-            textBox1.TabIndex = 36;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(34, 130);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(1071, 502);
-            dataGridView1.TabIndex = 35;
+            dataGridView_borrowedBooks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_borrowedBooks.Location = new Point(5, 55);
+            dataGridView_borrowedBooks.Margin = new Padding(3, 4, 3, 4);
+            dataGridView_borrowedBooks.Name = "dataGridView_borrowedBooks";
+            dataGridView_borrowedBooks.RowHeadersWidth = 51;
+            dataGridView_borrowedBooks.RowTemplate.Height = 24;
+            dataGridView_borrowedBooks.Size = new Size(1128, 591);
+            dataGridView_borrowedBooks.TabIndex = 35;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(440, 22);
+            label1.Location = new Point(440, 13);
             label1.Name = "label1";
             label1.Size = new Size(193, 29);
             label1.TabIndex = 34;
             label1.Text = "Borrowed Books";
+            // 
+            // Backbutton_borrowBooks
+            // 
+            Backbutton_borrowBooks.Location = new Point(12, 13);
+            Backbutton_borrowBooks.Margin = new Padding(3, 4, 3, 4);
+            Backbutton_borrowBooks.Name = "Backbutton_borrowBooks";
+            Backbutton_borrowBooks.Size = new Size(104, 29);
+            Backbutton_borrowBooks.TabIndex = 37;
+            Backbutton_borrowBooks.Text = "Back";
+            Backbutton_borrowBooks.UseVisualStyleBackColor = true;
+            Backbutton_borrowBooks.Click += Backbutton_borrowBooks_Click;
             // 
             // BorrowedBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1139, 655);
-            Controls.Add(label2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(Backbutton_borrowBooks);
+            Controls.Add(dataGridView_borrowedBooks);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "BorrowedBooks";
             Text = "BorrowedBooks";
             Load += BorrowedBooks_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_borrowedBooks).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_borrowedBooks;
         private System.Windows.Forms.Label label1;
+        private Button Backbutton_borrowBooks;
     }
 }

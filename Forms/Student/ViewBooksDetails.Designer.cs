@@ -28,32 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
             label1 = new Label();
-            pictureBox1 = new PictureBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
+            book_picture_viewBook = new PictureBox();
+            author_text_veiwBooks = new TextBox();
+            year_text_veiwBooks = new TextBox();
             label5 = new Label();
             label4 = new Label();
-            textBox1 = new TextBox();
+            title_text_veiwBooks = new TextBox();
             label2 = new Label();
             button1 = new Button();
-            textBox3 = new TextBox();
+            isbn_text_veiwBooks = new TextBox();
             label8 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            borrowBtn = new Button();
+            reserveBtn = new Button();
+            back_btn_bookDetails = new Button();
+            label3 = new Label();
+            status_text = new Label();
+            ((System.ComponentModel.ISupportInitialize)book_picture_viewBook).BeginInit();
             SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(21, 89);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(597, 538);
-            dataGridView1.TabIndex = 30;
             // 
             // label1
             // 
@@ -66,34 +58,34 @@
             label1.TabIndex = 29;
             label1.Text = "View Book Details ";
             // 
-            // pictureBox1
+            // book_picture_viewBook
             // 
-            pictureBox1.Location = new Point(643, 139);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(215, 239);
-            pictureBox1.TabIndex = 34;
-            pictureBox1.TabStop = false;
+            book_picture_viewBook.Location = new Point(51, 119);
+            book_picture_viewBook.Name = "book_picture_viewBook";
+            book_picture_viewBook.Size = new Size(335, 426);
+            book_picture_viewBook.TabIndex = 34;
+            book_picture_viewBook.TabStop = false;
             // 
-            // textBox5
+            // author_text_veiwBooks
             // 
-            textBox5.Location = new Point(921, 273);
-            textBox5.Margin = new Padding(3, 4, 3, 4);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(249, 27);
-            textBox5.TabIndex = 48;
+            author_text_veiwBooks.Location = new Point(488, 253);
+            author_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            author_text_veiwBooks.Name = "author_text_veiwBooks";
+            author_text_veiwBooks.Size = new Size(249, 27);
+            author_text_veiwBooks.TabIndex = 48;
             // 
-            // textBox4
+            // year_text_veiwBooks
             // 
-            textBox4.Location = new Point(921, 377);
-            textBox4.Margin = new Padding(3, 4, 3, 4);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(249, 27);
-            textBox4.TabIndex = 47;
+            year_text_veiwBooks.Location = new Point(488, 357);
+            year_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            year_text_veiwBooks.Name = "year_text_veiwBooks";
+            year_text_veiwBooks.Size = new Size(249, 27);
+            year_text_veiwBooks.TabIndex = 47;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(921, 233);
+            label5.Location = new Point(488, 213);
             label5.Name = "label5";
             label5.Size = new Size(105, 20);
             label5.TabIndex = 46;
@@ -102,24 +94,24 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(921, 338);
+            label4.Location = new Point(488, 318);
             label4.Name = "label4";
             label4.Size = new Size(44, 20);
             label4.TabIndex = 45;
             label4.Text = "Year :";
             // 
-            // textBox1
+            // title_text_veiwBooks
             // 
-            textBox1.Location = new Point(921, 183);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(249, 27);
-            textBox1.TabIndex = 44;
+            title_text_veiwBooks.Location = new Point(488, 163);
+            title_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            title_text_veiwBooks.Name = "title_text_veiwBooks";
+            title_text_veiwBooks.Size = new Size(249, 27);
+            title_text_veiwBooks.TabIndex = 44;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(921, 139);
+            label2.Location = new Point(488, 119);
             label2.Name = "label2";
             label2.Size = new Size(88, 20);
             label2.TabIndex = 43;
@@ -134,62 +126,118 @@
             button1.Text = "Veiw Details";
             button1.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // isbn_text_veiwBooks
             // 
-            textBox3.Location = new Point(922, 502);
-            textBox3.Margin = new Padding(3, 4, 3, 4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(249, 27);
-            textBox3.TabIndex = 51;
+            isbn_text_veiwBooks.Location = new Point(489, 482);
+            isbn_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            isbn_text_veiwBooks.Name = "isbn_text_veiwBooks";
+            isbn_text_veiwBooks.Size = new Size(249, 27);
+            isbn_text_veiwBooks.TabIndex = 51;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(924, 463);
+            label8.Location = new Point(491, 443);
             label8.Name = "label8";
             label8.Size = new Size(44, 20);
             label8.TabIndex = 50;
             label8.Text = "ISBN:";
+            // 
+            // borrowBtn
+            // 
+            borrowBtn.Location = new Point(912, 172);
+            borrowBtn.Name = "borrowBtn";
+            borrowBtn.Size = new Size(94, 29);
+            borrowBtn.TabIndex = 52;
+            borrowBtn.Text = "Borrow";
+            borrowBtn.UseVisualStyleBackColor = true;
+            borrowBtn.Click += borrowBtn_Click;
+            // 
+            // reserveBtn
+            // 
+            reserveBtn.Location = new Point(912, 283);
+            reserveBtn.Name = "reserveBtn";
+            reserveBtn.Size = new Size(94, 29);
+            reserveBtn.TabIndex = 53;
+            reserveBtn.Text = "Reserve";
+            reserveBtn.UseVisualStyleBackColor = true;
+            // 
+            // back_btn_bookDetails
+            // 
+            back_btn_bookDetails.Location = new Point(23, 38);
+            back_btn_bookDetails.Name = "back_btn_bookDetails";
+            back_btn_bookDetails.Size = new Size(94, 29);
+            back_btn_bookDetails.TabIndex = 54;
+            back_btn_bookDetails.Text = "back";
+            back_btn_bookDetails.UseVisualStyleBackColor = true;
+            back_btn_bookDetails.Click += back_btn_bookDetails_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(491, 552);
+            label3.Name = "label3";
+            label3.Size = new Size(104, 20);
+            label3.TabIndex = 55;
+            label3.Text = "Current Status:";
+            // 
+            // status_text
+            // 
+            status_text.AutoSize = true;
+            status_text.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            status_text.ForeColor = Color.Black;
+            status_text.Location = new Point(614, 538);
+            status_text.Name = "status_text";
+            status_text.Size = new Size(195, 38);
+            status_text.TabIndex = 56;
+            status_text.Text = "Not Available";
             // 
             // ViewBooksDetails
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1194, 775);
-            Controls.Add(textBox3);
+            Controls.Add(status_text);
+            Controls.Add(label3);
+            Controls.Add(back_btn_bookDetails);
+            Controls.Add(reserveBtn);
+            Controls.Add(borrowBtn);
+            Controls.Add(isbn_text_veiwBooks);
             Controls.Add(label8);
             Controls.Add(button1);
-            Controls.Add(textBox5);
-            Controls.Add(textBox4);
+            Controls.Add(author_text_veiwBooks);
+            Controls.Add(year_text_veiwBooks);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(textBox1);
+            Controls.Add(title_text_veiwBooks);
             Controls.Add(label2);
-            Controls.Add(pictureBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(book_picture_viewBook);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ViewBooksDetails";
             Text = "ViewBooksDetails";
             Load += ViewBooksDetails_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)book_picture_viewBook).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
-        private PictureBox pictureBox1;
-        private TextBox textBox5;
-        private TextBox textBox4;
+        private PictureBox book_picture_viewBook;
+        private TextBox author_text_veiwBooks;
+        private TextBox year_text_veiwBooks;
         private Label label5;
         private Label label4;
-        private TextBox textBox1;
+        private TextBox title_text_veiwBooks;
         private Label label2;
         private Button button1;
-        private TextBox textBox3;
+        private TextBox isbn_text_veiwBooks;
         private Label label8;
+        private Button borrowBtn;
+        private Button reserveBtn;
+        private Button back_btn_bookDetails;
+        private Label label3;
+        private Label status_text;
     }
 }

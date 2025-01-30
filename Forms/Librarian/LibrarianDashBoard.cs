@@ -15,6 +15,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
     public partial class LibrarianDashBoard : Form
     {
         private Person person;
+        private Book book = new Book();
         public LibrarianDashBoard(Person person)
         {
             InitializeComponent();
@@ -27,7 +28,10 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void LibrarianDashBoard_Load(object sender, EventArgs e)
         {
+            tBookCount.Text = book.GetBookCount().ToString();
+            book.DisplayBooks(Main_dataGridView);
             username_label_Ldashboard.Text = $"{person.Name},";
+            
         }
 
         private void signoutButton_Click(object sender, EventArgs e)

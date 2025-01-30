@@ -215,13 +215,13 @@ namespace NewLibraryManagementApp.Classes
                         int count = Convert.ToInt32(command.ExecuteScalar());
                         if (count == 1)
                         {
-                            MessageBox.Show("User already exists");
-                            return true;
+                            MessageBox.Show("Username or the Gmail has bee used by another User!","Register Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+                            return false;
                         }
                         else
                         {
-                            MessageBox.Show("User does not exist");
-                            return false;
+                            return true;
                         }
                     }
                 }
@@ -284,5 +284,41 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+
+        // to get the user id
+        public int GetUserId(Person person)
+        {
+            string query = $"SELECT Id  FROM {person.Role.ToLower()}_table WHERE name = @Username";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", person.Name);
+                        object result = command.ExecuteScalar();
+
+                        return (result != null) ? Convert.ToInt32(result) : 0; // Return UserID or 0 if not found
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0; // Return 0 if error occurs
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($" Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0; // Return 0 if error occurs
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

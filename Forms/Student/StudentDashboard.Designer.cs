@@ -113,6 +113,7 @@
             ViewBooks_btn_STdashboard.TabIndex = 22;
             ViewBooks_btn_STdashboard.Text = "View Books";
             ViewBooks_btn_STdashboard.UseVisualStyleBackColor = false;
+            ViewBooks_btn_STdashboard.Click += ViewBooks_btn_STdashboard_Click;
             // 
             // ReturnBooks_btn_STdashboard
             // 
@@ -125,6 +126,7 @@
             ReturnBooks_btn_STdashboard.TabIndex = 21;
             ReturnBooks_btn_STdashboard.Text = "Return Books";
             ReturnBooks_btn_STdashboard.UseVisualStyleBackColor = false;
+            ReturnBooks_btn_STdashboard.Click += ReturnBooks_btn_STdashboard_Click;
             // 
             // Reservations_btn_STdashboard
             // 
@@ -135,8 +137,9 @@
             Reservations_btn_STdashboard.Name = "Reservations_btn_STdashboard";
             Reservations_btn_STdashboard.Size = new Size(257, 55);
             Reservations_btn_STdashboard.TabIndex = 20;
-            Reservations_btn_STdashboard.Text = "Reserve Books";
+            Reservations_btn_STdashboard.Text = "Reserved Books";
             Reservations_btn_STdashboard.UseVisualStyleBackColor = false;
+            Reservations_btn_STdashboard.Click += Reservations_btn_STdashboard_Click;
             // 
             // BorrowBooks_btn_STdashboard
             // 
@@ -147,8 +150,9 @@
             BorrowBooks_btn_STdashboard.Name = "BorrowBooks_btn_STdashboard";
             BorrowBooks_btn_STdashboard.Size = new Size(257, 55);
             BorrowBooks_btn_STdashboard.TabIndex = 19;
-            BorrowBooks_btn_STdashboard.Text = "Borrow Books";
+            BorrowBooks_btn_STdashboard.Text = "Borrowed Books";
             BorrowBooks_btn_STdashboard.UseVisualStyleBackColor = false;
+            BorrowBooks_btn_STdashboard.Click += BorrowBooks_btn_STdashboard_Click;
             // 
             // label5
             // 
@@ -181,7 +185,7 @@
             dataGridView1.Location = new Point(303, 230);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(721, 323);
+            dataGridView1.Size = new Size(802, 323);
             dataGridView1.TabIndex = 10;
             // 
             // panel3
@@ -189,7 +193,7 @@
             panel3.BackColor = Color.Lavender;
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label4);
-            panel3.Location = new Point(808, 99);
+            panel3.Location = new Point(889, 99);
             panel3.Name = "panel3";
             panel3.Size = new Size(216, 94);
             panel3.TabIndex = 14;
@@ -219,7 +223,7 @@
             panel2.BackColor = Color.Lavender;
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(553, 99);
+            panel2.Location = new Point(594, 99);
             panel2.Name = "panel2";
             panel2.Size = new Size(216, 94);
             panel2.TabIndex = 15;
@@ -289,6 +293,7 @@
             Controls.Add(panel1);
             Name = "StudentDashboard";
             Text = "Librarian-DashBoard";
+            Load += StudentDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();

@@ -40,7 +40,7 @@
             Student_btn_LDashboard = new Button();
             label5 = new Label();
             signoutButton = new PictureBox();
-            dataGridView1 = new DataGridView();
+            Main_dataGridView = new DataGridView();
             panel3 = new Panel();
             label6 = new Label();
             label4 = new Label();
@@ -48,11 +48,11 @@
             label7 = new Label();
             label8 = new Label();
             panel4 = new Panel();
-            label9 = new Label();
+            tBookCount = new Label();
             label10 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Main_dataGridView).BeginInit();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
@@ -71,7 +71,7 @@
             // 
             username_label_Ldashboard.AutoSize = true;
             username_label_Ldashboard.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            username_label_Ldashboard.Location = new Point(363, 28);
+            username_label_Ldashboard.Location = new Point(331, 29);
             username_label_Ldashboard.Name = "username_label_Ldashboard";
             username_label_Ldashboard.Size = new Size(81, 41);
             username_label_Ldashboard.TabIndex = 9;
@@ -81,7 +81,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic);
-            label2.Location = new Point(315, 28);
+            label2.Location = new Point(283, 29);
             label2.Name = "label2";
             label2.Size = new Size(59, 41);
             label2.TabIndex = 8;
@@ -193,22 +193,22 @@
             signoutButton.TabStop = false;
             signoutButton.Click += signoutButton_Click;
             // 
-            // dataGridView1
+            // Main_dataGridView
             // 
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(303, 230);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(721, 323);
-            dataGridView1.TabIndex = 10;
+            Main_dataGridView.BackgroundColor = SystemColors.ButtonFace;
+            Main_dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            Main_dataGridView.Location = new Point(283, 112);
+            Main_dataGridView.Name = "Main_dataGridView";
+            Main_dataGridView.RowHeadersWidth = 51;
+            Main_dataGridView.Size = new Size(831, 465);
+            Main_dataGridView.TabIndex = 10;
             // 
             // panel3
             // 
             panel3.BackColor = Color.Lavender;
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label4);
-            panel3.Location = new Point(808, 99);
+            panel3.Location = new Point(898, 12);
             panel3.Name = "panel3";
             panel3.Size = new Size(216, 94);
             panel3.TabIndex = 14;
@@ -238,7 +238,7 @@
             panel2.BackColor = Color.Lavender;
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(553, 99);
+            panel2.Location = new Point(676, 12);
             panel2.Name = "panel2";
             panel2.Size = new Size(216, 94);
             panel2.TabIndex = 15;
@@ -266,22 +266,22 @@
             // panel4
             // 
             panel4.BackColor = Color.Lavender;
-            panel4.Controls.Add(label9);
+            panel4.Controls.Add(tBookCount);
             panel4.Controls.Add(label10);
-            panel4.Location = new Point(303, 99);
+            panel4.Location = new Point(454, 12);
             panel4.Name = "panel4";
             panel4.Size = new Size(216, 94);
             panel4.TabIndex = 13;
             // 
-            // label9
+            // tBookCount
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(93, 17);
-            label9.Name = "label9";
-            label9.Size = new Size(34, 38);
-            label9.TabIndex = 1;
-            label9.Text = "0";
+            tBookCount.AutoSize = true;
+            tBookCount.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tBookCount.Location = new Point(93, 17);
+            tBookCount.Name = "tBookCount";
+            tBookCount.Size = new Size(34, 38);
+            tBookCount.TabIndex = 1;
+            tBookCount.Text = "0";
             // 
             // label10
             // 
@@ -301,7 +301,7 @@
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel4);
-            Controls.Add(dataGridView1);
+            Controls.Add(Main_dataGridView);
             Controls.Add(username_label_Ldashboard);
             Controls.Add(label2);
             Controls.Add(panel1);
@@ -311,7 +311,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Main_dataGridView).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel2.ResumeLayout(false);
@@ -331,7 +331,6 @@
         private Label label5;
         private PictureBox signoutButton;
         private Button Student_btn_LDashboard;
-        private DataGridView dataGridView1;
         private Panel panel3;
         private Label label6;
         private Label label4;
@@ -339,11 +338,12 @@
         private Label label7;
         private Label label8;
         private Panel panel4;
-        private Label label9;
+        private Label tBookCount;
         private Label label10;
         private Button addBook_btn_LDashboard;
         private Button DelBook_btn_LDashboard;
         private Button EditBook_btn_LDashboard;
         private Button OverdueBook_btn_Ldashboard;
+        public DataGridView Main_dataGridView;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Forms.Librarian;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +16,12 @@ namespace NewLibraryManagementApp
     {
         private string filePath;
         private Form form;
+        private LibrarianDashBoard dashboard;
         public AddBooks(Form form)
         {
             InitializeComponent();
             this.form = form;
+            this.dashboard = dashboard;
         }
 
         private void AddBooks_Load(object sender, EventArgs e)
@@ -52,7 +55,11 @@ namespace NewLibraryManagementApp
             Book book = new Book(title, author, year, filePath);
             isbn_text.Text = book.Isbn;
 
+            
+
             book.saveBook(book);
+
+            
 
 
         }
