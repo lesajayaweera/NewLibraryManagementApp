@@ -39,15 +39,15 @@
             pictureBox1 = new PictureBox();
             libraryRecords_StudentRecords = new Button();
             button2 = new Button();
-            signoutButton = new PictureBox();
             button1 = new Button();
             LlibraryRecords_home = new Button();
             LlibraryRecords_BookManagement = new Button();
             dataGridView1 = new DataGridView();
+            dataGridView2 = new DataGridView();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -62,14 +62,13 @@
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(libraryRecords_StudentRecords);
             panel1.Controls.Add(button2);
-            panel1.Controls.Add(signoutButton);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(LlibraryRecords_home);
             panel1.Controls.Add(LlibraryRecords_BookManagement);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(277, 577);
+            panel1.Size = new Size(277, 679);
             panel1.TabIndex = 1;
             // 
             // button4
@@ -132,7 +131,7 @@
             label5.Cursor = Cursors.Hand;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(68, 533);
+            label5.Location = new Point(68, 635);
             label5.Name = "label5";
             label5.Size = new Size(67, 20);
             label5.TabIndex = 11;
@@ -142,7 +141,7 @@
             // 
             pictureBox1.BackColor = Color.Indigo;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 515);
+            pictureBox1.Location = new Point(12, 617);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(50, 50);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -173,17 +172,6 @@
             button2.Text = "Home";
             button2.UseVisualStyleBackColor = false;
             button2.Click += LlibraryRecords_BookManagement_Click;
-            // 
-            // signoutButton
-            // 
-            signoutButton.BackColor = Color.Indigo;
-            signoutButton.Image = (Image)resources.GetObject("signoutButton.Image");
-            signoutButton.Location = new Point(12, 515);
-            signoutButton.Name = "signoutButton";
-            signoutButton.Size = new Size(50, 50);
-            signoutButton.SizeMode = PictureBoxSizeMode.StretchImage;
-            signoutButton.TabIndex = 10;
-            signoutButton.TabStop = false;
             // 
             // button1
             // 
@@ -228,18 +216,29 @@
             // 
             dataGridView1.BackgroundColor = Color.AliceBlue;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(285, 43);
+            dataGridView1.Location = new Point(285, 162);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(820, 522);
+            dataGridView1.Size = new Size(513, 517);
             dataGridView1.TabIndex = 2;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.BackgroundColor = Color.AliceBlue;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(804, 162);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(497, 517);
+            dataGridView2.TabIndex = 3;
             // 
             // Library_Records
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
-            ClientSize = new Size(1117, 577);
+            ClientSize = new Size(1313, 679);
+            Controls.Add(dataGridView2);
             Controls.Add(dataGridView1);
             Controls.Add(panel1);
             Name = "Library_Records";
@@ -248,8 +247,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -260,7 +259,6 @@
         private Label label1;
         private Label label5;
         private Button libraryRecords_StudentRecords;
-        private PictureBox signoutButton;
         private Button LlibraryRecords_home;
         private Button LlibraryRecords_BookManagement;
         private Button button4;
@@ -270,5 +268,6 @@
         private Button button2;
         private Button button1;
         private DataGridView dataGridView1;
+        private DataGridView dataGridView2;
     }
 }

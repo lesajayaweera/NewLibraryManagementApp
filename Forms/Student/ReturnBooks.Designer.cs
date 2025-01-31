@@ -32,6 +32,7 @@
             dataGridView_returnBooks = new DataGridView();
             label1 = new Label();
             returnBook_btn = new Button();
+            dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView_returnBooks).BeginInit();
             SuspendLayout();
             // 
@@ -79,11 +80,19 @@
             returnBook_btn.UseVisualStyleBackColor = true;
             returnBook_btn.Click += returnBook_btn_Click;
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(607, 576);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 39;
+            // 
             // ReturnBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1131, 681);
+            Controls.Add(dateTimePicker1);
             Controls.Add(returnBook_btn);
             Controls.Add(button1);
             Controls.Add(dataGridView_returnBooks);
@@ -102,5 +111,6 @@
         private System.Windows.Forms.DataGridView dataGridView_returnBooks;
         private System.Windows.Forms.Label label1;
         private Button returnBook_btn;
+        private DateTimePicker dateTimePicker1;
     }
 }

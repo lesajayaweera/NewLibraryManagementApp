@@ -33,26 +33,23 @@
             label3 = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            Overdues_btn_STdashboard = new Button();
             ViewBooks_btn_STdashboard = new Button();
             ReturnBooks_btn_STdashboard = new Button();
             Reservations_btn_STdashboard = new Button();
             BorrowBooks_btn_STdashboard = new Button();
             label5 = new Label();
             signoutButton = new PictureBox();
-            dataGridView1 = new DataGridView();
-            panel3 = new Panel();
-            label6 = new Label();
-            label4 = new Label();
+            dataGridView_main = new DataGridView();
             panel2 = new Panel();
             label7 = new Label();
             label8 = new Label();
             panel4 = new Panel();
-            label9 = new Label();
+            totalBorrowedBooks = new Label();
             label10 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_main).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             SuspendLayout();
@@ -70,7 +67,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label3.Location = new Point(363, 28);
+            label3.Location = new Point(334, 28);
             label3.Name = "label3";
             label3.Size = new Size(81, 41);
             label3.TabIndex = 9;
@@ -80,7 +77,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic);
-            label2.Location = new Point(315, 28);
+            label2.Location = new Point(283, 28);
             label2.Name = "label2";
             label2.Size = new Size(59, 41);
             label2.TabIndex = 8;
@@ -89,6 +86,7 @@
             // panel1
             // 
             panel1.BackColor = Color.MediumSlateBlue;
+            panel1.Controls.Add(Overdues_btn_STdashboard);
             panel1.Controls.Add(ViewBooks_btn_STdashboard);
             panel1.Controls.Add(ReturnBooks_btn_STdashboard);
             panel1.Controls.Add(Reservations_btn_STdashboard);
@@ -102,12 +100,24 @@
             panel1.Size = new Size(277, 577);
             panel1.TabIndex = 7;
             // 
+            // Overdues_btn_STdashboard
+            // 
+            Overdues_btn_STdashboard.BackColor = Color.DarkSlateBlue;
+            Overdues_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            Overdues_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
+            Overdues_btn_STdashboard.Location = new Point(12, 355);
+            Overdues_btn_STdashboard.Name = "Overdues_btn_STdashboard";
+            Overdues_btn_STdashboard.Size = new Size(257, 55);
+            Overdues_btn_STdashboard.TabIndex = 23;
+            Overdues_btn_STdashboard.Text = "OverDues";
+            Overdues_btn_STdashboard.UseVisualStyleBackColor = false;
+            // 
             // ViewBooks_btn_STdashboard
             // 
             ViewBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
             ViewBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             ViewBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            ViewBooks_btn_STdashboard.Location = new Point(12, 310);
+            ViewBooks_btn_STdashboard.Location = new Point(12, 111);
             ViewBooks_btn_STdashboard.Name = "ViewBooks_btn_STdashboard";
             ViewBooks_btn_STdashboard.Size = new Size(257, 55);
             ViewBooks_btn_STdashboard.TabIndex = 22;
@@ -120,7 +130,7 @@
             ReturnBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
             ReturnBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             ReturnBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            ReturnBooks_btn_STdashboard.Location = new Point(12, 249);
+            ReturnBooks_btn_STdashboard.Location = new Point(12, 294);
             ReturnBooks_btn_STdashboard.Name = "ReturnBooks_btn_STdashboard";
             ReturnBooks_btn_STdashboard.Size = new Size(257, 55);
             ReturnBooks_btn_STdashboard.TabIndex = 21;
@@ -133,7 +143,7 @@
             Reservations_btn_STdashboard.BackColor = Color.DarkSlateBlue;
             Reservations_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             Reservations_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            Reservations_btn_STdashboard.Location = new Point(12, 188);
+            Reservations_btn_STdashboard.Location = new Point(12, 233);
             Reservations_btn_STdashboard.Name = "Reservations_btn_STdashboard";
             Reservations_btn_STdashboard.Size = new Size(257, 55);
             Reservations_btn_STdashboard.TabIndex = 20;
@@ -146,7 +156,7 @@
             BorrowBooks_btn_STdashboard.BackColor = Color.DarkSlateBlue;
             BorrowBooks_btn_STdashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             BorrowBooks_btn_STdashboard.ForeColor = SystemColors.ButtonHighlight;
-            BorrowBooks_btn_STdashboard.Location = new Point(12, 127);
+            BorrowBooks_btn_STdashboard.Location = new Point(12, 172);
             BorrowBooks_btn_STdashboard.Name = "BorrowBooks_btn_STdashboard";
             BorrowBooks_btn_STdashboard.Size = new Size(257, 55);
             BorrowBooks_btn_STdashboard.TabIndex = 19;
@@ -178,52 +188,22 @@
             signoutButton.TabStop = false;
             signoutButton.Click += signoutButton_Click;
             // 
-            // dataGridView1
+            // dataGridView_main
             // 
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(303, 230);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(802, 323);
-            dataGridView1.TabIndex = 10;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Lavender;
-            panel3.Controls.Add(label6);
-            panel3.Controls.Add(label4);
-            panel3.Location = new Point(889, 99);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(216, 94);
-            panel3.TabIndex = 14;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(95, 17);
-            label6.Name = "label6";
-            label6.Size = new Size(34, 38);
-            label6.TabIndex = 3;
-            label6.Text = "0";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(12, 55);
-            label4.Name = "label4";
-            label4.Size = new Size(192, 28);
-            label4.TabIndex = 0;
-            label4.Text = "Total Return Books";
+            dataGridView_main.BackgroundColor = SystemColors.ButtonFace;
+            dataGridView_main.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_main.Location = new Point(283, 100);
+            dataGridView_main.Name = "dataGridView_main";
+            dataGridView_main.RowHeadersWidth = 51;
+            dataGridView_main.Size = new Size(822, 465);
+            dataGridView_main.TabIndex = 10;
             // 
             // panel2
             // 
             panel2.BackColor = Color.Lavender;
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(594, 99);
+            panel2.Location = new Point(889, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(216, 94);
             panel2.TabIndex = 15;
@@ -251,22 +231,22 @@
             // panel4
             // 
             panel4.BackColor = Color.Lavender;
-            panel4.Controls.Add(label9);
+            panel4.Controls.Add(totalBorrowedBooks);
             panel4.Controls.Add(label10);
-            panel4.Location = new Point(303, 99);
+            panel4.Location = new Point(659, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(224, 94);
             panel4.TabIndex = 13;
             // 
-            // label9
+            // totalBorrowedBooks
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(93, 17);
-            label9.Name = "label9";
-            label9.Size = new Size(34, 38);
-            label9.TabIndex = 1;
-            label9.Text = "0";
+            totalBorrowedBooks.AutoSize = true;
+            totalBorrowedBooks.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalBorrowedBooks.Location = new Point(93, 17);
+            totalBorrowedBooks.Name = "totalBorrowedBooks";
+            totalBorrowedBooks.Size = new Size(34, 38);
+            totalBorrowedBooks.TabIndex = 1;
+            totalBorrowedBooks.Text = "0";
             // 
             // label10
             // 
@@ -284,10 +264,9 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1117, 577);
-            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel4);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridView_main);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(panel1);
@@ -297,9 +276,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_main).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel4.ResumeLayout(false);
@@ -318,17 +295,15 @@
         private PictureBox signoutButton;
         private Button Reservations_btn_STdashboard;
         private Button BorrowBooks_btn_STdashboard;
-        private DataGridView dataGridView1;
-        private Panel panel3;
-        private Label label6;
-        private Label label4;
+        private DataGridView dataGridView_main;
         private Panel panel2;
         private Label label7;
         private Label label8;
         private Panel panel4;
-        private Label label9;
+        private Label totalBorrowedBooks;
         private Label label10;
         private Button ReturnBooks_btn_STdashboard;
         private Button ViewBooks_btn_STdashboard;
+        private Button Overdues_btn_STdashboard;
     }
 }

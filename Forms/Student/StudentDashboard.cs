@@ -16,11 +16,13 @@ namespace library_mananagement_system.Forms.Librarian
     {
         private Person person;
         private Form form;
+        private Book book = new Book();
         public StudentDashboard(Person person, Form form)
         {
             InitializeComponent();
             this.person = person;
             this.form = form;
+
         }
 
         private void signoutButton_Click(object sender, EventArgs e)
@@ -33,6 +35,9 @@ namespace library_mananagement_system.Forms.Librarian
         private void StudentDashboard_Load(object sender, EventArgs e)
         {
             label3.Text = $"{person.Name},";
+            book.LoadBorrowedBooks(person, dataGridView_main);
+            totalBorrowedBooks.Text = book.GetTotalBorrowedBooks(person).ToString();
+            label7.Text =book.GetTotalOverdueBooks(person).ToString();
 
         }
 

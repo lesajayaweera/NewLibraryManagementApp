@@ -16,12 +16,14 @@ namespace NewLibraryManagementApp
     {
         private string filePath;
         private Form form;
-        private LibrarianDashBoard dashboard;
-        public AddBooks(Form form)
+       
+        Person person;
+        public AddBooks(Form form,Person person)
         {
             InitializeComponent();
             this.form = form;
-            this.dashboard = dashboard;
+            this.person = person;
+
         }
 
         private void AddBooks_Load(object sender, EventArgs e)
@@ -66,7 +68,9 @@ namespace NewLibraryManagementApp
 
         private void button_Click(object sender, EventArgs e)
         {
-            form.Show();
+
+            LibrarianDashBoard dashboard = new LibrarianDashBoard(person);
+            dashboard.Show();
             this.Hide();
         }
     }

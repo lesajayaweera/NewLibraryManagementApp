@@ -1,4 +1,5 @@
-﻿using NewLibraryManagementApp.Classes;
+﻿using library_mananagement_system.Forms.Librarian;
+using NewLibraryManagementApp.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,7 +58,8 @@ namespace NewLibraryManagementApp
 
         private void back_button_Click(object sender, EventArgs e)
         {
-            form.Show();
+            StudentDashboard db = new StudentDashboard(person, this);
+            db.Show();
             this.Hide();
 
         }

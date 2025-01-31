@@ -37,7 +37,7 @@
             signoutButton_HomeManagement = new PictureBox();
             LibraryRecords_btn_HomeManagement = new Button();
             Home_btn_HomeManagement = new Button();
-            dataGridView1 = new DataGridView();
+            dataGridView_bookManagement = new DataGridView();
             panel1 = new Panel();
             label4 = new Label();
             label1 = new Label();
@@ -49,7 +49,7 @@
             label3 = new Label();
             panel_HomeManagement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton_HomeManagement).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_bookManagement).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -153,15 +153,15 @@
             Home_btn_HomeManagement.UseVisualStyleBackColor = false;
             Home_btn_HomeManagement.Click += Home_btn_HomeManagement_Click;
             // 
-            // dataGridView1
+            // dataGridView_bookManagement
             // 
-            dataGridView1.BackgroundColor = Color.AliceBlue;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(287, 136);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(818, 392);
-            dataGridView1.TabIndex = 2;
+            dataGridView_bookManagement.BackgroundColor = Color.AliceBlue;
+            dataGridView_bookManagement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_bookManagement.Location = new Point(287, 136);
+            dataGridView_bookManagement.Name = "dataGridView_bookManagement";
+            dataGridView_bookManagement.RowHeadersWidth = 51;
+            dataGridView_bookManagement.Size = new Size(818, 392);
+            dataGridView_bookManagement.TabIndex = 2;
             // 
             // panel1
             // 
@@ -230,14 +230,14 @@
             panel3.Controls.Add(label3);
             panel3.Location = new Point(825, 25);
             panel3.Name = "panel3";
-            panel3.Size = new Size(216, 94);
+            panel3.Size = new Size(237, 94);
             panel3.TabIndex = 4;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(95, 17);
+            label6.Location = new Point(106, 17);
             label6.Name = "label6";
             label6.Size = new Size(34, 38);
             label6.TabIndex = 3;
@@ -249,9 +249,9 @@
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(12, 55);
             label3.Name = "label3";
-            label3.Size = new Size(192, 28);
+            label3.Size = new Size(220, 28);
             label3.TabIndex = 0;
-            label3.Text = "Total Return Books";
+            label3.Text = "Total Borrowed Books";
             // 
             // BookManagement
             // 
@@ -261,7 +261,7 @@
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridView_bookManagement);
             Controls.Add(panel_HomeManagement);
             Name = "BookManagement";
             Text = "Admin -Book Management";
@@ -269,7 +269,7 @@
             panel_HomeManagement.ResumeLayout(false);
             panel_HomeManagement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton_HomeManagement).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_bookManagement).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -289,7 +289,7 @@
         private PictureBox signoutButton_HomeManagement;
         private Button LibraryRecords_btn_HomeManagement;
         private Button Home_btn_HomeManagement;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridView_bookManagement;
         private Panel panel1;
         private Label label1;
         private Label label4;

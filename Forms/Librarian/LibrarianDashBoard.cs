@@ -48,7 +48,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void addBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            AddBooks form = new AddBooks(this);
+            AddBooks form = new AddBooks(this,person);
             form.Show();
             this.Hide();
         }
