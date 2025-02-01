@@ -33,7 +33,6 @@
             User_btn_HomeManagement = new Button();
             label1 = new Label();
             label5 = new Label();
-            Student_btn_HomeManagement = new Button();
             signoutButton = new PictureBox();
             LibraryRecords_btn_HomeManagement = new Button();
             BookManagement_btn_HomeManagement = new Button();
@@ -43,24 +42,17 @@
             label6 = new Label();
             label2 = new Label();
             label3 = new Label();
-            panel3 = new Panel();
-            new_members = new Label();
-            label7 = new Label();
             panel5 = new Panel();
             borrowed_books = new Label();
-            panel4 = new Panel();
-            vistors = new Label();
-            label8 = new Label();
             dataGridView1 = new DataGridView();
             dataGridView2 = new DataGridView();
             label9 = new Label();
             label10 = new Label();
+            OverDue_btn_HomeManagement = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
             panel5.SuspendLayout();
-            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -68,10 +60,10 @@
             // panel1
             // 
             panel1.BackColor = Color.MediumSlateBlue;
+            panel1.Controls.Add(OverDue_btn_HomeManagement);
             panel1.Controls.Add(User_btn_HomeManagement);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(Student_btn_HomeManagement);
             panel1.Controls.Add(signoutButton);
             panel1.Controls.Add(LibraryRecords_btn_HomeManagement);
             panel1.Controls.Add(BookManagement_btn_HomeManagement);
@@ -86,7 +78,7 @@
             User_btn_HomeManagement.BackColor = Color.DarkSlateBlue;
             User_btn_HomeManagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             User_btn_HomeManagement.ForeColor = SystemColors.ButtonHighlight;
-            User_btn_HomeManagement.Location = new Point(12, 293);
+            User_btn_HomeManagement.Location = new Point(12, 232);
             User_btn_HomeManagement.Name = "User_btn_HomeManagement";
             User_btn_HomeManagement.Size = new Size(257, 55);
             User_btn_HomeManagement.TabIndex = 13;
@@ -115,19 +107,6 @@
             label5.TabIndex = 11;
             label5.Text = "Sign out";
             label5.Click += label5_Click;
-            // 
-            // Student_btn_HomeManagement
-            // 
-            Student_btn_HomeManagement.BackColor = Color.DarkSlateBlue;
-            Student_btn_HomeManagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            Student_btn_HomeManagement.ForeColor = SystemColors.ButtonHighlight;
-            Student_btn_HomeManagement.Location = new Point(12, 232);
-            Student_btn_HomeManagement.Name = "Student_btn_HomeManagement";
-            Student_btn_HomeManagement.Size = new Size(257, 55);
-            Student_btn_HomeManagement.TabIndex = 2;
-            Student_btn_HomeManagement.Text = "Student Records";
-            Student_btn_HomeManagement.UseVisualStyleBackColor = false;
-            Student_btn_HomeManagement.Click += Student_btn_HomeManagement_Click;
             // 
             // signoutButton
             // 
@@ -173,7 +152,7 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(overdue_books);
             panel2.Controls.Add(label4);
-            panel2.Location = new Point(351, 80);
+            panel2.Location = new Point(515, 80);
             panel2.Name = "panel2";
             panel2.Size = new Size(163, 97);
             panel2.TabIndex = 1;
@@ -227,43 +206,13 @@
             label3.TabIndex = 6;
             label3.Text = "User";
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Lavender;
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(new_members);
-            panel3.Controls.Add(label7);
-            panel3.Location = new Point(888, 80);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(163, 97);
-            panel3.TabIndex = 7;
-            // 
-            // new_members
-            // 
-            new_members.AutoSize = true;
-            new_members.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            new_members.Location = new Point(58, 16);
-            new_members.Name = "new_members";
-            new_members.Size = new Size(33, 38);
-            new_members.TabIndex = 11;
-            new_members.Text = "0";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(25, 64);
-            label7.Name = "label7";
-            label7.Size = new Size(105, 20);
-            label7.TabIndex = 0;
-            label7.Text = "New Members";
-            // 
             // panel5
             // 
             panel5.BackColor = Color.Lavender;
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(borrowed_books);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(531, 80);
+            panel5.Location = new Point(830, 80);
             panel5.Name = "panel5";
             panel5.Size = new Size(163, 97);
             panel5.TabIndex = 2;
@@ -278,54 +227,24 @@
             borrowed_books.TabIndex = 13;
             borrowed_books.Text = "0";
             // 
-            // panel4
-            // 
-            panel4.BackColor = Color.Lavender;
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(vistors);
-            panel4.Controls.Add(label8);
-            panel4.Location = new Point(710, 80);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(163, 97);
-            panel4.TabIndex = 2;
-            // 
-            // vistors
-            // 
-            vistors.AutoSize = true;
-            vistors.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            vistors.Location = new Point(57, 16);
-            vistors.Name = "vistors";
-            vistors.Size = new Size(33, 38);
-            vistors.TabIndex = 12;
-            vistors.Text = "0";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(34, 64);
-            label8.Name = "label8";
-            label8.Size = new Size(94, 20);
-            label8.TabIndex = 0;
-            label8.Text = "Total Visitors";
-            // 
             // dataGridView1
             // 
             dataGridView1.BackgroundColor = Color.GhostWhite;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(351, 253);
+            dataGridView1.Location = new Point(283, 253);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(327, 312);
+            dataGridView1.Size = new Size(395, 312);
             dataGridView1.TabIndex = 8;
             // 
             // dataGridView2
             // 
             dataGridView2.BackgroundColor = Color.GhostWhite;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(724, 253);
+            dataGridView2.Location = new Point(684, 253);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(327, 312);
+            dataGridView2.Size = new Size(421, 312);
             dataGridView2.TabIndex = 9;
             // 
             // label9
@@ -348,6 +267,19 @@
             label10.TabIndex = 11;
             label10.Text = "Librarian Lists";
             // 
+            // OverDue_btn_HomeManagement
+            // 
+            OverDue_btn_HomeManagement.BackColor = Color.DarkSlateBlue;
+            OverDue_btn_HomeManagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            OverDue_btn_HomeManagement.ForeColor = SystemColors.ButtonHighlight;
+            OverDue_btn_HomeManagement.Location = new Point(12, 293);
+            OverDue_btn_HomeManagement.Name = "OverDue_btn_HomeManagement";
+            OverDue_btn_HomeManagement.Size = new Size(257, 55);
+            OverDue_btn_HomeManagement.TabIndex = 14;
+            OverDue_btn_HomeManagement.Text = "Over due Books";
+            OverDue_btn_HomeManagement.UseVisualStyleBackColor = false;
+            OverDue_btn_HomeManagement.Click += OverDue_btn_HomeManagement_Click;
+            // 
             // AdminDashBoard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -358,9 +290,7 @@
             Controls.Add(label9);
             Controls.Add(dataGridView2);
             Controls.Add(dataGridView1);
-            Controls.Add(panel4);
             Controls.Add(panel5);
-            Controls.Add(panel3);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(panel2);
@@ -373,12 +303,8 @@
             ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
@@ -388,7 +314,6 @@
         #endregion
 
         private Panel panel1;
-        private Button Student_btn_HomeManagement;
         private Button LibraryRecords_btn_HomeManagement;
         private Button BookManagement_btn_HomeManagement;
         private Label label5;
@@ -399,19 +324,14 @@
         private Label label2;
         private Label label3;
         private Label label6;
-        private Panel panel3;
-        private Label label7;
         private Panel panel5;
-        private Panel panel4;
-        private Label label8;
         private Label overdue_books;
-        private Label new_members;
         private Label borrowed_books;
-        private Label vistors;
         private Button User_btn_HomeManagement;
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
         private Label label9;
         private Label label10;
+        private Button OverDue_btn_HomeManagement;
     }
 }

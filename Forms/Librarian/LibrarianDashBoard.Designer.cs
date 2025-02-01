@@ -37,7 +37,6 @@
             addBook_btn_LDashboard = new Button();
             DelBook_btn_LDashboard = new Button();
             EditBook_btn_LDashboard = new Button();
-            Student_btn_LDashboard = new Button();
             label5 = new Label();
             signoutButton = new PictureBox();
             Main_dataGridView = new DataGridView();
@@ -94,7 +93,6 @@
             panel1.Controls.Add(addBook_btn_LDashboard);
             panel1.Controls.Add(DelBook_btn_LDashboard);
             panel1.Controls.Add(EditBook_btn_LDashboard);
-            panel1.Controls.Add(Student_btn_LDashboard);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(signoutButton);
@@ -155,19 +153,6 @@
             EditBook_btn_LDashboard.Text = "Edit Books";
             EditBook_btn_LDashboard.UseVisualStyleBackColor = false;
             EditBook_btn_LDashboard.Click += EditBook_btn_LDashboard_Click;
-            // 
-            // Student_btn_LDashboard
-            // 
-            Student_btn_LDashboard.BackColor = Color.DarkSlateBlue;
-            Student_btn_LDashboard.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            Student_btn_LDashboard.ForeColor = SystemColors.ButtonHighlight;
-            Student_btn_LDashboard.Location = new Point(12, 398);
-            Student_btn_LDashboard.Name = "Student_btn_LDashboard";
-            Student_btn_LDashboard.Size = new Size(257, 55);
-            Student_btn_LDashboard.TabIndex = 20;
-            Student_btn_LDashboard.Text = "Student Records";
-            Student_btn_LDashboard.UseVisualStyleBackColor = false;
-            Student_btn_LDashboard.Click += Student_btn_LDashboard_Click;
             // 
             // label5
             // 
@@ -330,7 +315,6 @@
         private Panel panel1;
         private Label label5;
         private PictureBox signoutButton;
-        private Button Student_btn_LDashboard;
         private Panel panel3;
         private Label label6;
         private Label label4;

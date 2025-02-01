@@ -15,7 +15,7 @@ namespace NewLibraryManagementApp.Forms.Admin
     public partial class AdminDashBoard : Form
     {
 
-
+        private Book book = new Book();
         public AdminDashBoard(Person p1, Form form)
         {
             InitializeComponent();
@@ -65,16 +65,14 @@ namespace NewLibraryManagementApp.Forms.Admin
             controller.displayUser("student", dataGridView1);
             controller.displayUser("librarian", dataGridView2);
 
+            overdue_books.Text = book.GetOverdueBookCount().ToString();
+            borrowed_books.Text = book.GetBorrowedBookCount().ToString();
+
 
 
         }
 
-        private void Student_btn_HomeManagement_Click(object sender, EventArgs e)
-        {
-            Student_records form = new Student_records(person, this);
-            form.Show();
-            this.Hide();
-        }
+
 
         private void User_btn_HomeManagement_Click(object sender, EventArgs e)
         {
@@ -87,6 +85,13 @@ namespace NewLibraryManagementApp.Forms.Admin
         {
             Login login = new Login();
             login.Show();
+            this.Hide();
+        }
+
+        private void OverDue_btn_HomeManagement_Click(object sender, EventArgs e)
+        {
+            OverDueAdmin form = new OverDueAdmin(this,person);
+            form .Show();   
             this.Hide();
         }
     }

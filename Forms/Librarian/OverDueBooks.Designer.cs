@@ -28,88 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label2 = new Label();
-            button1 = new Button();
-            textBox1 = new TextBox();
-            dataGridView1 = new DataGridView();
+            dataGridViewOverDueBooks = new DataGridView();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            update = new Button();
+            NotpaidRadio_l = new RadioButton();
+            paidRadio_l = new RadioButton();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOverDueBooks).BeginInit();
             SuspendLayout();
             // 
-            // label2
+            // dataGridViewOverDueBooks
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(314, 100);
-            label2.Name = "label2";
-            label2.Size = new Size(94, 20);
-            label2.TabIndex = 28;
-            label2.Text = "Book Name :";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(645, 96);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 29);
-            button1.TabIndex = 27;
-            button1.Text = "Search Books";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(422, 96);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 27);
-            textBox1.TabIndex = 26;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(30, 132);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(1071, 502);
-            dataGridView1.TabIndex = 25;
+            dataGridViewOverDueBooks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewOverDueBooks.Location = new Point(12, 67);
+            dataGridViewOverDueBooks.Margin = new Padding(3, 4, 3, 4);
+            dataGridViewOverDueBooks.Name = "dataGridViewOverDueBooks";
+            dataGridViewOverDueBooks.RowHeadersWidth = 51;
+            dataGridViewOverDueBooks.RowTemplate.Height = 24;
+            dataGridViewOverDueBooks.Size = new Size(1106, 397);
+            dataGridViewOverDueBooks.TabIndex = 25;
+            dataGridViewOverDueBooks.CellContentClick += dataGridViewOverDueBooks_CellContentClick;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(436, 25);
+            label1.Location = new Point(470, 25);
             label1.Name = "label1";
             label1.Size = new Size(186, 29);
             label1.TabIndex = 24;
             label1.Text = "Over due Books";
+            // 
+            // update
+            // 
+            update.Location = new Point(441, 604);
+            update.Name = "update";
+            update.Size = new Size(201, 29);
+            update.TabIndex = 42;
+            update.Text = "Update OverDue";
+            update.UseVisualStyleBackColor = true;
+            update.Click += update_Click;
+            // 
+            // NotpaidRadio_l
+            // 
+            NotpaidRadio_l.AutoSize = true;
+            NotpaidRadio_l.Location = new Point(263, 546);
+            NotpaidRadio_l.Name = "NotpaidRadio_l";
+            NotpaidRadio_l.Size = new Size(87, 24);
+            NotpaidRadio_l.TabIndex = 53;
+            NotpaidRadio_l.TabStop = true;
+            NotpaidRadio_l.Text = "Not Paid";
+            NotpaidRadio_l.UseVisualStyleBackColor = true;
+            // 
+            // paidRadio_l
+            // 
+            paidRadio_l.AutoSize = true;
+            paidRadio_l.Location = new Point(263, 507);
+            paidRadio_l.Name = "paidRadio_l";
+            paidRadio_l.Size = new Size(58, 24);
+            paidRadio_l.TabIndex = 52;
+            paidRadio_l.TabStop = true;
+            paidRadio_l.Text = "Paid";
+            paidRadio_l.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(182, 507);
+            label2.Name = "label2";
+            label2.Size = new Size(56, 20);
+            label2.TabIndex = 51;
+            label2.Text = "Status :";
             // 
             // OverDueBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1130, 655);
+            Controls.Add(NotpaidRadio_l);
+            Controls.Add(paidRadio_l);
             Controls.Add(label2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(update);
+            Controls.Add(dataGridViewOverDueBooks);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "OverDueBooks";
             Text = "OverDueBooks";
             Load += OverDueBooks_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOverDueBooks).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewOverDueBooks;
         private System.Windows.Forms.Label label1;
+        private Button update;
+        private RadioButton NotpaidRadio_l;
+        private RadioButton paidRadio_l;
+        private Label label2;
     }
 }

@@ -47,8 +47,10 @@ namespace NewLibraryManagementApp
 
         private void returnBook_btn_Click(object sender, EventArgs e)
         {
-            
-            bool sucess = book.ReturnBook(bookId);
+            DateTime returnDate = dateTimePicker1.Value;
+
+
+            bool sucess = book.ReturnBook(bookId,returnDate);
             if (sucess)
             {
                 

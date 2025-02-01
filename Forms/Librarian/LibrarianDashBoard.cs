@@ -75,11 +75,6 @@ namespace NewLibraryManagementApp.Forms.Librarian
             this.Hide();
         }
 
-        private void Student_btn_LDashboard_Click(object sender, EventArgs e)
-        {
-            Student_records form = new Student_records(person, this);
-            form.Show();
-            this.Hide();
-        }
+        
     }
 }

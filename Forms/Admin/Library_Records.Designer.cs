@@ -30,39 +30,33 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Library_Records));
             panel1 = new Panel();
-            button4 = new Button();
             libraryRecords_UserMAnagement = new Button();
             label2 = new Label();
             label1 = new Label();
-            button3 = new Button();
             label5 = new Label();
             pictureBox1 = new PictureBox();
-            libraryRecords_StudentRecords = new Button();
-            button2 = new Button();
-            button1 = new Button();
             LlibraryRecords_home = new Button();
             LlibraryRecords_BookManagement = new Button();
-            dataGridView1 = new DataGridView();
-            dataGridView2 = new DataGridView();
+            dataGridView_borrowings = new DataGridView();
+            dataGridViewReservations = new DataGridView();
+            label4 = new Label();
+            label6 = new Label();
+            label8 = new Label();
+            label9 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_borrowings).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReservations).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.MediumSlateBlue;
-            panel1.Controls.Add(button4);
             panel1.Controls.Add(libraryRecords_UserMAnagement);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(button3);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(libraryRecords_StudentRecords);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
             panel1.Controls.Add(LlibraryRecords_home);
             panel1.Controls.Add(LlibraryRecords_BookManagement);
             panel1.Dock = DockStyle.Left;
@@ -71,24 +65,12 @@
             panel1.Size = new Size(277, 679);
             panel1.TabIndex = 1;
             // 
-            // button4
-            // 
-            button4.BackColor = Color.DarkSlateBlue;
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ButtonHighlight;
-            button4.Location = new Point(12, 293);
-            button4.Name = "button4";
-            button4.Size = new Size(257, 55);
-            button4.TabIndex = 13;
-            button4.Text = "User Management";
-            button4.UseVisualStyleBackColor = false;
-            // 
             // libraryRecords_UserMAnagement
             // 
             libraryRecords_UserMAnagement.BackColor = Color.DarkSlateBlue;
             libraryRecords_UserMAnagement.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             libraryRecords_UserMAnagement.ForeColor = SystemColors.ButtonHighlight;
-            libraryRecords_UserMAnagement.Location = new Point(12, 293);
+            libraryRecords_UserMAnagement.Location = new Point(12, 232);
             libraryRecords_UserMAnagement.Name = "libraryRecords_UserMAnagement";
             libraryRecords_UserMAnagement.Size = new Size(257, 55);
             libraryRecords_UserMAnagement.TabIndex = 13;
@@ -113,18 +95,6 @@
             label1.TabIndex = 12;
             label1.Text = "Library Management System";
             // 
-            // button3
-            // 
-            button3.BackColor = Color.DarkSlateBlue;
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            button3.ForeColor = SystemColors.ButtonHighlight;
-            button3.Location = new Point(12, 232);
-            button3.Name = "button3";
-            button3.Size = new Size(257, 55);
-            button3.TabIndex = 2;
-            button3.Text = "Student Records";
-            button3.UseVisualStyleBackColor = false;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -147,44 +117,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
-            // 
-            // libraryRecords_StudentRecords
-            // 
-            libraryRecords_StudentRecords.BackColor = Color.DarkSlateBlue;
-            libraryRecords_StudentRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            libraryRecords_StudentRecords.ForeColor = SystemColors.ButtonHighlight;
-            libraryRecords_StudentRecords.Location = new Point(12, 232);
-            libraryRecords_StudentRecords.Name = "libraryRecords_StudentRecords";
-            libraryRecords_StudentRecords.Size = new Size(257, 55);
-            libraryRecords_StudentRecords.TabIndex = 2;
-            libraryRecords_StudentRecords.Text = "Student Records";
-            libraryRecords_StudentRecords.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.DarkSlateBlue;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(12, 110);
-            button2.Name = "button2";
-            button2.Size = new Size(257, 55);
-            button2.TabIndex = 1;
-            button2.Text = "Home";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += LlibraryRecords_BookManagement_Click;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.DarkSlateBlue;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(12, 171);
-            button1.Name = "button1";
-            button1.Size = new Size(257, 55);
-            button1.TabIndex = 0;
-            button1.Text = "Book Management";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += libraryRecords_home_Click;
             // 
             // LlibraryRecords_home
             // 
@@ -212,25 +144,61 @@
             LlibraryRecords_BookManagement.UseVisualStyleBackColor = false;
             LlibraryRecords_BookManagement.Click += libraryRecords_home_Click;
             // 
-            // dataGridView1
+            // dataGridView_borrowings
             // 
-            dataGridView1.BackgroundColor = Color.AliceBlue;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(285, 162);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(513, 517);
-            dataGridView1.TabIndex = 2;
+            dataGridView_borrowings.BackgroundColor = Color.AliceBlue;
+            dataGridView_borrowings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_borrowings.Location = new Point(285, 162);
+            dataGridView_borrowings.Name = "dataGridView_borrowings";
+            dataGridView_borrowings.RowHeadersWidth = 51;
+            dataGridView_borrowings.Size = new Size(513, 517);
+            dataGridView_borrowings.TabIndex = 2;
             // 
-            // dataGridView2
+            // dataGridViewReservations
             // 
-            dataGridView2.BackgroundColor = Color.AliceBlue;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(804, 162);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(497, 517);
-            dataGridView2.TabIndex = 3;
+            dataGridViewReservations.BackgroundColor = Color.AliceBlue;
+            dataGridViewReservations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewReservations.Location = new Point(804, 162);
+            dataGridViewReservations.Name = "dataGridViewReservations";
+            dataGridViewReservations.RowHeadersWidth = 51;
+            dataGridViewReservations.Size = new Size(497, 517);
+            dataGridViewReservations.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(380, 36);
+            label4.Name = "label4";
+            label4.Size = new Size(123, 20);
+            label4.TabIndex = 5;
+            label4.Text = "Most Active User:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(888, 36);
+            label6.Name = "label6";
+            label6.Size = new Size(152, 20);
+            label6.TabIndex = 6;
+            label6.Text = "Most Borrowed book:";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(478, 130);
+            label8.Name = "label8";
+            label8.Size = new Size(84, 20);
+            label8.TabIndex = 8;
+            label8.Text = "Borrowings";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(974, 130);
+            label9.Name = "label9";
+            label9.Size = new Size(92, 20);
+            label9.TabIndex = 9;
+            label9.Text = "Reservations";
             // 
             // Library_Records
             // 
@@ -238,8 +206,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
             ClientSize = new Size(1313, 679);
-            Controls.Add(dataGridView2);
-            Controls.Add(dataGridView1);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label6);
+            Controls.Add(label4);
+            Controls.Add(dataGridViewReservations);
+            Controls.Add(dataGridView_borrowings);
             Controls.Add(panel1);
             Name = "Library_Records";
             Text = "Admin - Library Records";
@@ -247,9 +219,10 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_borrowings).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReservations).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -258,16 +231,15 @@
         private Button libraryRecords_UserMAnagement;
         private Label label1;
         private Label label5;
-        private Button libraryRecords_StudentRecords;
         private Button LlibraryRecords_home;
         private Button LlibraryRecords_BookManagement;
-        private Button button4;
         private Label label2;
-        private Button button3;
         private PictureBox pictureBox1;
-        private Button button2;
-        private Button button1;
-        private DataGridView dataGridView1;
-        private DataGridView dataGridView2;
+        private DataGridView dataGridView_borrowings;
+        private DataGridView dataGridViewReservations;
+        private Label label4;
+        private Label label6;
+        private Label label8;
+        private Label label9;
     }
 }

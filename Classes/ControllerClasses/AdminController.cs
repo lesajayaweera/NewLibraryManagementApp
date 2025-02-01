@@ -30,6 +30,45 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             admin.DisplayUsers(user, data);
 
         }
+        public void UpdateUserCredentials(int id,string name, string password, string role)
+        {
+             Admin admin = new Admin(name,role,password);
+
+            bool validatepassword = admin.validatePassword();
+            bool validatename = admin.Validateusername();
+
+            bool isUsernameUsed = admin.isUsernameExist(admin);
+
+
+            if (id > 0)
+            {
+                if(validatename)
+                {
+                    if (validatepassword)
+                    {
+                        if (isUsernameUsed)
+                        {
+                            admin.UpdateUserCredentials(id, admin);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select an user first ", "User selection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        } 
+
+        public void DeleteUser(int id, string role)
+        {
+            
+            if(id > 0)
+            {
+                admin.DeleteUser(id, role);
+            }
+        }
 
     }
 }

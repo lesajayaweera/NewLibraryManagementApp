@@ -48,6 +48,7 @@ namespace NewLibraryManagementApp.Classes
             set { password = value; }
         }
 
+        
         // Creating Constructors
 
 
@@ -241,6 +242,48 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+
+        public bool isUsernameExist(Person person)
+        {
+            string query = $"SELECT COUNT(*) FROM {person.Role.ToLower()}_table WHERE name = @username ";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", person.Name);
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        if (count == 1)
+                        {
+                            MessageBox.Show("Username  has bee used by another User!", "Register Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
         public bool isAthenticated(Person person)
         {
             string query = $"SELECT COUNT(*) FROM {person.role.ToLower()}_table WHERE name = @username AND password = @password AND role = @role";
@@ -319,6 +362,54 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+
+        // method to get the most active user 
+        public string GetMostActiveUser()
+        {
+            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            {
+                conn.Open();
+                try
+                {
+                    // SQL query to find the user with the most active borrowings (not returned)
+                    string query = @"
+            SELECT u.name, COUNT(b.userId) AS borrowingCount
+            FROM borrowed_records b
+            JOIN student_table u ON b.userId = u.Id
+            WHERE b.IsReturned = 0
+            GROUP BY b.userId
+            ORDER BY borrowingCount DESC
+            LIMIT 1;
+            ";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Retrieve the user name and borrowing count
+                                string userName = reader.GetString("name");
+                                int borrowingCount = reader.GetInt32("borrowingCount");
+
+                                // Return the most active user information as a string
+                                return $"Most Active User: {userName}\nActive Borrowings: {borrowingCount}";
+                            }
+                            else
+                            {
+                                return "No active users found.";
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "An error occurred: " + ex.Message;
+                }
+            }
+        }
+
+
 
     }
 }

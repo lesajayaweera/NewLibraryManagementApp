@@ -1,13 +1,18 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Windows.Forms;
 
 namespace NewLibraryManagementApp.Classes
 {
@@ -686,7 +691,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // method to return the book
-        public bool ReturnBook(int borrowedId)
+        public bool ReturnBook(int borrowedId,DateTime returnDate)
         {
             string selectQuery = "SELECT UserId, BookId, DueDate FROM borrowed_records WHERE BorrowedId = @BorrowedId";
             string updateQuery = "UPDATE borrowed_records SET IsReturned = 1, ReturnedDate = @ReturnDate WHERE BorrowedId = @BorrowedId";
@@ -703,7 +708,7 @@ namespace NewLibraryManagementApp.Classes
                 {
                     DateTime dueDate;
                     int userId, bookId;
-                    DateTime returnDate = DateTime.Now;
+                    //DateTime returnDate = DateTime.Now;
 
                     // Step 1: Get UserID, BookID, and DueDate (inside transaction)
                     using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection, transaction))
@@ -1072,6 +1077,302 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+
+        // method to get the most borrowed Book
+        public string GetMostBorrowedBook()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                try
+                {
+                    // SQL query to find the most borrowed book
+                    string query = @"
+                SELECT b.Title, COUNT(br.BookId) AS borrowingCount
+                FROM borrowed_records br
+                JOIN books_table b ON br.BookId = b.ID
+                GROUP BY br.BookId
+                ORDER BY borrowingCount DESC
+                LIMIT 1;
+            ";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            // Retrieve the book title and borrowing count
+                            string bookTitle = reader.GetString("title");
+                            int borrowingCount = reader.GetInt32("borrowingCount");
+
+                            // Return the most borrowed book information as a string
+                            return $"Most Borrowed Book: {bookTitle}\nNumber of Borrowings: {borrowingCount}";
+                        }
+                        else
+                        {
+                            return "No books have been borrowed yet.";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "An error occurred: " + ex.Message;
+                }
+            }
+        }
+
+
+        //  method to display the Borrowing table
+        public void LoadLibraryBorrowings(DataGridView dataGridView)
+        {
+            string query = @"
+        SELECT 
+            br.BorrowedId, 
+            u.Id AS UserId, 
+            u.name AS UserName, 
+            b.ID AS BookID, 
+            b.Title AS BookTitle, 
+            b.Author, 
+            br.BorrowDate, 
+            br.DueDate, 
+            br.IsReturned 
+        FROM borrowed_records br
+        INNER JOIN student_table u ON br.UserID = u.Id
+        INNER JOIN books_table b ON br.BookId = b.ID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
+                {
+                    try
+                    {
+                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
+                        {
+                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                            {
+                                DataTable dt = new DataTable();
+                                adapter.Fill(dt);
+                                dataGridView.DataSource = dt;
+
+                                // Adjust DataGridView display
+                                
+                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                            }
+                        }
+
+                        transaction.Commit();  // Commit Transaction
+                    }
+                    catch (MySqlException ex)
+                    {
+                        transaction.Rollback();  // Rollback Transaction if an error occurs
+                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// load the library reservations
+        /// </summary>
+
+        public void LoadLibraryReservations(DataGridView dataGridView)
+        {
+            string query = @"
+    SELECT 
+        r.ReservationId, 
+        u.Id AS UserId, 
+        u.name AS UserName, 
+        b.ID AS BookId, 
+        b.Title AS BookTitle, 
+        b.Author, 
+        r.ReservationDate, 
+        r.Status 
+    FROM reservation_table r
+    INNER JOIN student_table u ON r.UserID = u.Id
+    INNER JOIN books_table b ON r.BookId = b.ID
+    WHERE r.IsCollected = 0 AND r.Status = 'Pending'";  // Filter only uncollected & pending reservations
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
+                {
+                    try
+                    {
+                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
+                        {
+                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                            {
+                                DataTable dt = new DataTable();
+                                adapter.Fill(dt);
+                                dataGridView.DataSource = dt;
+
+                                // Adjust DataGridView display
+                                
+                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                            }
+                        }
+
+                        transaction.Commit();  // Commit Transaction
+                    }
+                    catch (MySqlException ex)
+                    {
+                        transaction.Rollback();  // Rollback Transaction if an error occurs
+                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        public void LoadOverdueBooks(DataGridView dataGridView)
+        {
+            
+    string query = @"
+SELECT
+    o.OverdueId, 
+    u.Id AS UserId, 
+    u.Name AS UserName, 
+    b.ID AS BookId, 
+    b.Title AS BookTitle, 
+    o.OverdueDays, 
+    o.FineAmount, 
+    o.PaidStatus, 
+    COALESCE(NULLIF(o.PaidDate, '0000-00-00'), NULL) AS PaidDate
+FROM overdue_table o
+INNER JOIN student_table u ON o.UserID = u.Id
+INNER JOIN books_table b ON o.BookID = b.ID
+WHERE o.PaidStatus = 0";
+
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dataGridView.Invoke((MethodInvoker)delegate
+                            {
+                                dataGridView.DataSource = dt;
+
+                                // Adjust DataGridView display
+                                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                            });
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // method to get the paid status
+
+        public void SetPaidStatus(int overdueId, RadioButton paidCheckBox, RadioButton notPaidCheckBox)
+        {
+            bool isPaid = false; // Initialize to false
+            string query = "SELECT PaidStatus FROM overdue_table WHERE OverdueId " +
+                " = @overdueId";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@overdueId", overdueId);
+
+                    // Execute the query and get the paid status
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        isPaid = Convert.ToBoolean(result);
+
+                        // Set the checkbox status based on the result
+                        paidCheckBox.Checked = isPaid;
+                        notPaidCheckBox.Checked = !isPaid; // Uncheck the other checkbox
+                    }
+                    else
+                    {
+                        // If no result, ensure both checkboxes are unchecked (or handle as needed)
+                        paidCheckBox.Checked = false;
+                        notPaidCheckBox.Checked = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                    paidCheckBox.Checked = false;  // Default to unchecked if there's an error
+                    notPaidCheckBox.Checked = false;
+                }
+            }
+        }
+        public bool UpdateOverdueStatus(int overdueId, bool isPaid)
+        {
+            DateTime paidDate = DateTime.Now;
+            // Example query to update the status and insert the paid date in the database
+            string queryUpdate = "UPDATE overdue_table SET PaidStatus = @paid, PaidDate = @paidDate WHERE OverdueId = @overdueId";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                MySqlTransaction transaction = null;
+
+                try
+                {
+                    conn.Open();
+                    transaction = conn.BeginTransaction(); // Start a new transaction
+
+                    MySqlCommand cmd = new MySqlCommand(queryUpdate, conn, transaction);
+                    cmd.Parameters.AddWithValue("@paid", isPaid); // Pass the isPaid value
+                    cmd.Parameters.AddWithValue("@overdueId", overdueId); // Pass the overdueId
+                    cmd.Parameters.AddWithValue("@paidDate", paidDate); // Pass the paid date
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        // Commit the transaction if the update was successful
+                        transaction.Commit();
+                        return true; // Successfully updated
+                    }
+                    else
+                    {
+                        // Rollback the transaction if no rows were updated
+                        transaction.Rollback();
+                        return false; // No rows updated, operation failed
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Rollback the transaction in case of an error
+                    transaction?.Rollback();
+                    MessageBox.Show("Error: " + ex.Message);
+                    return false; // Return false if an exception occurs
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
 
     }
 

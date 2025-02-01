@@ -15,6 +15,7 @@ namespace NewLibraryManagementApp.Forms.Admin
     {
         private Person person;
         private Form form;
+        private Book book = new Book();
         public Library_Records(Person person, Form form)
         {
             InitializeComponent();
@@ -38,7 +39,11 @@ namespace NewLibraryManagementApp.Forms.Admin
 
         private void Library_Records_Load(object sender, EventArgs e)
         {
+            label4.Text = person.GetMostActiveUser();
+            label6.Text =book.GetMostBorrowedBook();
 
+            book.LoadLibraryBorrowings(dataGridView_borrowings);
+            book.LoadLibraryReservations(dataGridViewReservations);
         }
     }
 }
