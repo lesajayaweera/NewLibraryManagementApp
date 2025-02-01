@@ -20,10 +20,10 @@ namespace NewLibraryManagementApp.Forms.Librarian
         {
             InitializeComponent();
             this.person = person;
-           
+
         }
 
-        
+
 
 
         private void LibrarianDashBoard_Load(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
             tBookCount.Text = book.GetBookCount().ToString();
             book.DisplayBooks(Main_dataGridView);
             username_label_Ldashboard.Text = $"{person.Name},";
-            
+
         }
 
         private void signoutButton_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void addBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            AddBooks form = new AddBooks(this,person);
+            AddBooks form = new AddBooks(this, person);
             form.Show();
             this.Hide();
         }
@@ -75,6 +75,11 @@ namespace NewLibraryManagementApp.Forms.Librarian
             this.Hide();
         }
 
-        
+        private void reservation_btn_Click(object sender, EventArgs e)
+        {
+            ViewReservationBooks rb = new ViewReservationBooks(person, this);
+            rb.Show();
+            this.Hide();
+        }
     }
 }

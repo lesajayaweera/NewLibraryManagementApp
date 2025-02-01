@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            dataGridView1 = new DataGridView();
+            dataGridView_Reservations = new DataGridView();
             button2 = new Button();
             label4 = new Label();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             label3 = new Label();
             comboBox1 = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            button1 = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_Reservations).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -50,16 +51,17 @@
             label1.TabIndex = 2;
             label1.Text = "Reservation Books";
             // 
-            // dataGridView1
+            // dataGridView_Reservations
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(31, 90);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 24;
-            dataGridView1.Size = new Size(1071, 487);
-            dataGridView1.TabIndex = 20;
+            dataGridView_Reservations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_Reservations.Location = new Point(31, 90);
+            dataGridView_Reservations.Margin = new Padding(3, 4, 3, 4);
+            dataGridView_Reservations.Name = "dataGridView_Reservations";
+            dataGridView_Reservations.RowHeadersWidth = 51;
+            dataGridView_Reservations.RowTemplate.Height = 24;
+            dataGridView_Reservations.Size = new Size(1071, 487);
+            dataGridView_Reservations.TabIndex = 20;
+            dataGridView_Reservations.CellContentClick += dataGridView_Reservations_CellContentClick;
             // 
             // button2
             // 
@@ -69,6 +71,7 @@
             button2.TabIndex = 42;
             button2.Text = "Confirm Reservation";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label4
             // 
@@ -119,24 +122,35 @@
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 37;
             // 
+            // button1
+            // 
+            button1.Location = new Point(12, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(138, 34);
+            button1.TabIndex = 43;
+            button1.Text = "back";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // ViewReservationBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1133, 786);
+            Controls.Add(button1);
             Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(radioButton2);
             Controls.Add(radioButton1);
             Controls.Add(label3);
             Controls.Add(comboBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridView_Reservations);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ViewReservationBooks";
             Text = "ReservationBooks";
             Load += ViewReservationBooks_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_Reservations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -144,12 +158,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_Reservations;
         private Button button2;
         private Label label4;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         private Label label3;
         private ComboBox comboBox1;
+        private Button button1;
     }
 }

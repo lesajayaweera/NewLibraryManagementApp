@@ -49,6 +49,8 @@
             panel4 = new Panel();
             tBookCount = new Label();
             label10 = new Label();
+            mySqlCommandBuilder1 = new MySqlConnector.MySqlCommandBuilder();
+            reservation_btn = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Main_dataGridView).BeginInit();
@@ -89,6 +91,7 @@
             // panel1
             // 
             panel1.BackColor = Color.MediumSlateBlue;
+            panel1.Controls.Add(reservation_btn);
             panel1.Controls.Add(OverdueBook_btn_Ldashboard);
             panel1.Controls.Add(addBook_btn_LDashboard);
             panel1.Controls.Add(DelBook_btn_LDashboard);
@@ -278,6 +281,25 @@
             label10.TabIndex = 0;
             label10.Text = "Total Books";
             // 
+            // mySqlCommandBuilder1
+            // 
+            mySqlCommandBuilder1.DataAdapter = null;
+            mySqlCommandBuilder1.QuotePrefix = "`";
+            mySqlCommandBuilder1.QuoteSuffix = "`";
+            // 
+            // reservation_btn
+            // 
+            reservation_btn.BackColor = Color.DarkSlateBlue;
+            reservation_btn.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            reservation_btn.ForeColor = SystemColors.ButtonHighlight;
+            reservation_btn.Location = new Point(12, 398);
+            reservation_btn.Name = "reservation_btn";
+            reservation_btn.Size = new Size(257, 55);
+            reservation_btn.TabIndex = 26;
+            reservation_btn.Text = "Manage Reservations";
+            reservation_btn.UseVisualStyleBackColor = false;
+            reservation_btn.Click += reservation_btn_Click;
+            // 
             // LibrarianDashBoard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -329,5 +351,7 @@
         private Button EditBook_btn_LDashboard;
         private Button OverdueBook_btn_Ldashboard;
         public DataGridView Main_dataGridView;
+        private Button reservation_btn;
+        private MySqlConnector.MySqlCommandBuilder mySqlCommandBuilder1;
     }
 }
