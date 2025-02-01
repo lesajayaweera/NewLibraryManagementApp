@@ -1598,6 +1598,52 @@ WHERE o.PaidStatus = 0";
             }
         }
 
+        // load specific users Overdue Books
+        public void LoadUserOverdueBooks(int userId, DataGridView dataGridView)
+        {
+            string query = @"
+        SELECT 
+            o.OverdueId,
+            o.BookID,
+            bk.Title AS BookTitle,
+            bk.Author AS BookAuthor,
+            o.OverdueDays,
+            
+            o.FineAmount
+        FROM overdue_table o
+        JOIN books_table bk ON o.BookID = bk.ID
+        WHERE o.UserId = @userId AND o.PaidStatus = 0 
+        ";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable overdueBooksTable = new DataTable();
+                            adapter.Fill(overdueBooksTable);
+
+                            // Bind DataGridView
+                            dataGridView.DataSource = overdueBooksTable;
+                            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
 
 
 

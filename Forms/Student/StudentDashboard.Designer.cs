@@ -111,6 +111,7 @@
             Overdues_btn_STdashboard.TabIndex = 23;
             Overdues_btn_STdashboard.Text = "OverDues";
             Overdues_btn_STdashboard.UseVisualStyleBackColor = false;
+            Overdues_btn_STdashboard.Click += Overdues_btn_STdashboard_Click;
             // 
             // ViewBooks_btn_STdashboard
             // 

@@ -1,5 +1,6 @@
 ﻿using NewLibraryManagementApp;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Forms.Student;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,27 +38,27 @@ namespace library_mananagement_system.Forms.Librarian
             label3.Text = $"{person.Name},";
             book.LoadBorrowedBooks(person, dataGridView_main);
             totalBorrowedBooks.Text = book.GetTotalBorrowedBooks(person).ToString();
-            label7.Text =book.GetTotalOverdueBooks(person).ToString();
+            label7.Text = book.GetTotalOverdueBooks(person).ToString();
 
         }
 
         private void BorrowBooks_btn_STdashboard_Click(object sender, EventArgs e)
         {
-            BorrowedBooks borrowedBooks = new BorrowedBooks(this,person);
+            BorrowedBooks borrowedBooks = new BorrowedBooks(this, person);
             borrowedBooks.Show();
             this.Hide();
         }
 
         private void Reservations_btn_STdashboard_Click(object sender, EventArgs e)
         {
-            ReservationBooks reservationBooks = new ReservationBooks(this,person);
+            ReservationBooks reservationBooks = new ReservationBooks(this, person);
             reservationBooks.Show();
             this.Hide();
         }
 
         private void ReturnBooks_btn_STdashboard_Click(object sender, EventArgs e)
         {
-            ReturnBooks returnBooks = new ReturnBooks(this,person);
+            ReturnBooks returnBooks = new ReturnBooks(this, person);
             returnBooks.Show();
             this.Hide();
 
@@ -65,10 +66,17 @@ namespace library_mananagement_system.Forms.Librarian
 
         private void ViewBooks_btn_STdashboard_Click(object sender, EventArgs e)
         {
-            ViewBooks viewBooks = new ViewBooks(this,person);
+            ViewBooks viewBooks = new ViewBooks(this, person);
             viewBooks.Show();
             this.Hide();
 
+        }
+
+        private void Overdues_btn_STdashboard_Click(object sender, EventArgs e)
+        {
+            OverDueStudent od = new OverDueStudent(person);
+            od.Show();
+            this.Hide();
         }
     }
 }
