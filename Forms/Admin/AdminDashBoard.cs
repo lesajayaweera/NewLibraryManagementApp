@@ -14,8 +14,12 @@ namespace NewLibraryManagementApp.Forms.Admin
 {
     public partial class AdminDashBoard : Form
     {
+        private Form form;
+        private Person person;
 
-        private Book book = new Book();
+        AdminController controller = new AdminController();
+
+
         public AdminDashBoard(Person p1, Form form)
         {
             InitializeComponent();
@@ -23,8 +27,7 @@ namespace NewLibraryManagementApp.Forms.Admin
             this.person = p1;
 
         }
-        private Form form;
-        private Person person;
+        
 
 
 
@@ -60,13 +63,12 @@ namespace NewLibraryManagementApp.Forms.Admin
 
         private void AdminDashBoard_Load(object sender, EventArgs e)
         {
-            label3.Text = $"{person.Name},";
-            AdminController controller = new AdminController();
+            label3.Text = $"{person.Name}";
             controller.displayUser("student", dataGridView1);
             controller.displayUser("librarian", dataGridView2);
 
-            overdue_books.Text = book.GetOverdueBookCount().ToString();
-            borrowed_books.Text = book.GetBorrowedBookCount().ToString();
+            overdue_books.Text = controller.GetOverdueBookCount();
+            borrowed_books.Text = controller.GetBorrowedBookCount();
 
 
 

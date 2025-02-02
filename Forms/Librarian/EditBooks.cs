@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace NewLibraryManagementApp
         private Book book = new Book();
         private int selectedBookId;
         private string bookpath;
+
+        private LibrarianController controller = new LibrarianController();
         public EditBooks(Form form)
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace NewLibraryManagementApp
 
         private void EditBooks_Load(object sender, EventArgs e)
         {
-            book.DisplayBooks(dataGridView_editbooks);
+            controller.DisplayBooks(dataGridView_editbooks);
         }
 
         private void backbtn_Click(object sender, EventArgs e)
@@ -82,30 +85,10 @@ namespace NewLibraryManagementApp
         {
             string title = titletextBox.Text;
             string author = authortextBox.Text;
-
-            if (!int.TryParse(yeartextBox.Text, out int year))
-            {
-                MessageBox.Show("Invalid Year. Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (selectedBookId > 0)
-            {
-                // Retrieve the existing book record to get the current URL if bookpath is empty
+            string year = yeartextBox.Text;
 
 
-                Book updatedBook = new Book(selectedBookId, title, author, year, bookpath);
-                
-
-                book.EditBook(updatedBook);
-            }
-            else
-            {
-                MessageBox.Show("Please select a book first.");
-            }
-
-            // Refresh DataGridView
-            book.DisplayBooks(dataGridView_editbooks);
+            controller.EditBooks(selectedBookId, title, author, year, bookpath, dataGridView_editbooks);
 
             // Clear Fields
             titletextBox.Text = "";

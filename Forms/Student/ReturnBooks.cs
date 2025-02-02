@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace NewLibraryManagementApp
         private Person person;
         private Book book = new Book();
         private int bookId;
+
+        private StudentController controller = new StudentController();
         public ReturnBooks(Form form, Person person)
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace NewLibraryManagementApp
 
         private void ReturnBooks_Load(object sender, EventArgs e)
         {
-            book.LoadBorrowedBooks(person, dataGridView_returnBooks);
+            controller.LoadBorrrowedBooks(person, dataGridView_returnBooks);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,16 +53,9 @@ namespace NewLibraryManagementApp
             DateTime returnDate = dateTimePicker1.Value;
 
 
-            bool sucess = book.ReturnBook(bookId,returnDate);
-            if (sucess)
-            {
-                
-                book.LoadBorrowedBooks(person, dataGridView_returnBooks);
-            }
-            else
-            {
-                MessageBox.Show("Failed to return book", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
+
+            controller.ReturnBook(person,bookId,returnDate, dataGridView_returnBooks);
         }
     }
 }

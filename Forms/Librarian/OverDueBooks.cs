@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace NewLibraryManagementApp
 {
     public partial class OverDueBooks : Form
     {
+        private LibrarianController controller = new LibrarianController();
         private Book book = new Book();
         int overdueId;
         public OverDueBooks()
@@ -22,7 +24,7 @@ namespace NewLibraryManagementApp
 
         private void OverDueBooks_Load(object sender, EventArgs e)
         {
-            book.LoadOverdueBooks(dataGridViewOverDueBooks);
+            controller.LoadOverDueBooks(dataGridViewOverDueBooks);
         }
 
         private void dataGridViewOverDueBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -33,28 +35,15 @@ namespace NewLibraryManagementApp
 
                 overdueId = Convert.ToInt32(selectedRow.Cells["OverdueId"].Value);
 
-                book.SetPaidStatus(overdueId, paidRadio_l, NotpaidRadio_l);
+                controller.SetPaidStatus(overdueId, paidRadio_l, NotpaidRadio_l);
             }
         }
 
         private void update_Click(object sender, EventArgs e)
         {
-            bool ispaid = false;
+           
 
-            if (paidRadio_l.Checked)
-            {
-                ispaid = true;
-            }
-            else if (paidRadio_l.Checked)
-            {
-                ispaid = false;
-            }
-
-            bool isUpdated = book.UpdateOverdueStatus(overdueId, ispaid);
-            if (isUpdated)
-            {
-                book.LoadOverdueBooks(dataGridViewOverDueBooks);
-            }
+            controller.UpdateOverdue(paidRadio_l, NotpaidRadio_l, overdueId, dataGridViewOverDueBooks);
         }
     }
 }

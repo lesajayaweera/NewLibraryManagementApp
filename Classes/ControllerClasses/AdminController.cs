@@ -69,6 +69,70 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
                 admin.DeleteUser(id, role);
             }
         }
+        public void LoadOverDueBooks(DataGridView dataGridView)
+        {
+            BookController controller = new BookController();
+            controller.LoadOverDueBooks(dataGridView);
+        }
 
+        public void SetPaidStatus(int overdueId, RadioButton paidCheckBox, RadioButton notPaidCheckBox)
+        {
+            BookController controller = new BookController();
+            controller.setPaidStatus(overdueId, paidCheckBox, notPaidCheckBox);
+        }
+        public void UpdateOverdue(RadioButton paid, RadioButton notpaid,int overdueId,DataGridView grid)
+        {
+            bool ispaid = false;
+
+            if (paid.Checked)
+            {
+                ispaid = true;
+            }
+            else if (notpaid.Checked)
+            {
+                ispaid = false;
+            }
+
+            BookController controller = new BookController();
+            bool isUpdated = controller.UpdateOverDueStatus(overdueId, ispaid);
+            if (isUpdated)
+            {
+               LoadOverDueBooks(grid);
+            }
+        }
+        public string GetMostActiveUser()
+        {
+            return admin.GetMostActiveUser();
+        }
+        public string GetMostBorrowedBook()
+        {
+            return admin.GetMostBorrowedBook();
+        }
+
+        public void DisplayTables(DataGridView borrowings, DataGridView reservations)
+        {
+            admin.LoadLibraryBorrowings(borrowings);
+            admin.LoadLibraryReservations(reservations);
+        }
+
+        public string GetBookCount()
+        {
+           return admin.GetBookCount().ToString();
+        }
+
+        public string GetOverdueBookCount()
+        {
+            return admin.GetOverdueBookCount().ToString();
+        }
+        public string GetBorrowedBookCount()
+        {
+            return admin.GetBorrowedBookCount().ToString();
+        }
+
+        public void DisplayBooks(DataGridView grid)
+        {
+            BookController controller = new BookController();
+            controller.DisplayBooks(grid);
+        }
     }
 }

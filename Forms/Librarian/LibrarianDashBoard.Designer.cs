@@ -33,6 +33,7 @@
             username_label_Ldashboard = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            reservation_btn = new Button();
             OverdueBook_btn_Ldashboard = new Button();
             addBook_btn_LDashboard = new Button();
             DelBook_btn_LDashboard = new Button();
@@ -40,9 +41,6 @@
             label5 = new Label();
             signoutButton = new PictureBox();
             Main_dataGridView = new DataGridView();
-            panel3 = new Panel();
-            label6 = new Label();
-            label4 = new Label();
             panel2 = new Panel();
             label7 = new Label();
             label8 = new Label();
@@ -50,11 +48,9 @@
             tBookCount = new Label();
             label10 = new Label();
             mySqlCommandBuilder1 = new MySqlConnector.MySqlCommandBuilder();
-            reservation_btn = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Main_dataGridView).BeginInit();
-            panel3.SuspendLayout();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             SuspendLayout();
@@ -104,6 +100,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(277, 577);
             panel1.TabIndex = 7;
+            // 
+            // reservation_btn
+            // 
+            reservation_btn.BackColor = Color.DarkSlateBlue;
+            reservation_btn.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            reservation_btn.ForeColor = SystemColors.ButtonHighlight;
+            reservation_btn.Location = new Point(12, 398);
+            reservation_btn.Name = "reservation_btn";
+            reservation_btn.Size = new Size(257, 55);
+            reservation_btn.TabIndex = 26;
+            reservation_btn.Text = "Manage Reservations";
+            reservation_btn.UseVisualStyleBackColor = false;
+            reservation_btn.Click += reservation_btn_Click;
             // 
             // OverdueBook_btn_Ldashboard
             // 
@@ -191,36 +200,6 @@
             Main_dataGridView.Size = new Size(831, 465);
             Main_dataGridView.TabIndex = 10;
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Lavender;
-            panel3.Controls.Add(label6);
-            panel3.Controls.Add(label4);
-            panel3.Location = new Point(898, 12);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(216, 94);
-            panel3.TabIndex = 14;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(95, 17);
-            label6.Name = "label6";
-            label6.Size = new Size(34, 38);
-            label6.TabIndex = 3;
-            label6.Text = "0";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(12, 55);
-            label4.Name = "label4";
-            label4.Size = new Size(192, 28);
-            label4.TabIndex = 0;
-            label4.Text = "Total Return Books";
-            // 
             // panel2
             // 
             panel2.BackColor = Color.Lavender;
@@ -287,25 +266,11 @@
             mySqlCommandBuilder1.QuotePrefix = "`";
             mySqlCommandBuilder1.QuoteSuffix = "`";
             // 
-            // reservation_btn
-            // 
-            reservation_btn.BackColor = Color.DarkSlateBlue;
-            reservation_btn.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            reservation_btn.ForeColor = SystemColors.ButtonHighlight;
-            reservation_btn.Location = new Point(12, 398);
-            reservation_btn.Name = "reservation_btn";
-            reservation_btn.Size = new Size(257, 55);
-            reservation_btn.TabIndex = 26;
-            reservation_btn.Text = "Manage Reservations";
-            reservation_btn.UseVisualStyleBackColor = false;
-            reservation_btn.Click += reservation_btn_Click;
-            // 
             // LibrarianDashBoard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1117, 577);
-            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(Main_dataGridView);
@@ -319,8 +284,6 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)signoutButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)Main_dataGridView).EndInit();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel4.ResumeLayout(false);
@@ -337,9 +300,6 @@
         private Panel panel1;
         private Label label5;
         private PictureBox signoutButton;
-        private Panel panel3;
-        private Label label6;
-        private Label label4;
         private Panel panel2;
         private Label label7;
         private Label label8;

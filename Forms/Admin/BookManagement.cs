@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace NewLibraryManagementApp.Forms.Admin
         private Person person;
         private Form form;
         private Book book = new Book();
+
+        private AdminController adminController = new AdminController();
         public BookManagement(Person person,Form form)
         {
             InitializeComponent();
@@ -38,11 +41,11 @@ namespace NewLibraryManagementApp.Forms.Admin
 
         private void BookManagement_Load(object sender, EventArgs e)
         {
-            label4.Text = book.GetBookCount().ToString();
-            label5.Text = book.GetOverdueBookCount().ToString();
-            label6.Text =book.GetBorrowedBookCount().ToString();
+            label4.Text = adminController.GetBookCount();
+            label5.Text = adminController.GetOverdueBookCount();
+            label6.Text =adminController.GetBorrowedBookCount();
 
-            book.DisplayBooks(dataGridView_bookManagement);
+            adminController.DisplayBooks(dataGridView_bookManagement);
         }
     }
 }

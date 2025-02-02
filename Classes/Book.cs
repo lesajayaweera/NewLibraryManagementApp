@@ -120,6 +120,44 @@ namespace NewLibraryManagementApp.Classes
 
 
 
+        public bool ValidateYear(string input, out int year)
+        {
+            year = 0; // Initialize output parameter.
+
+            // Check if the input is empty or consists solely of white-space.
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show("Please enter a year.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Trim the input and check if it consists of exactly four digits.
+            input = input.Trim();
+            if (input.Length != 4 || !input.All(char.IsDigit))
+            {
+                MessageBox.Show("Invalid input. Please enter a four-digit numeric year.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Try to parse the input string to an integer.
+            if (!int.TryParse(input, out year))
+            {
+                MessageBox.Show("Invalid input. Please enter a valid numeric year.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Define the valid range for the year.
+            int currentYear = DateTime.Now.Year;
+            if (year < 1900 || year > currentYear)
+            {
+                MessageBox.Show($"Please enter a year between 1900 and {currentYear}.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Validation passed.
+            return true;
+        }
+
 
         // Generate ISBN-13
         private string GenerateISBN13()
@@ -319,144 +357,11 @@ namespace NewLibraryManagementApp.Classes
         }
         // method to get the book count
 
-        public int GetBookCount()
-        {
-            int count = 0;
-
-            string query = "SELECT COUNT(*) FROM books_table";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        count = Convert.ToInt32(command.ExecuteScalar());
-
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-            return count;
-
-        }
-        public int GetOverdueBookCount()
-        {
-            int count = 0;
-
-            string query = "SELECT COUNT(*) FROM overdue_table";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        count = Convert.ToInt32(command.ExecuteScalar());
-
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-            return count;
-
-        }
-        public int GetBorrowedBookCount()
-        {
-            int count = 0;
-
-            string query = "SELECT COUNT(*) FROM borrowed_records WHERE IsReturned = 0";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        count = Convert.ToInt32(command.ExecuteScalar());
-
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-            return count;
-
-        }
+       
+        
 
 
-
-        // method to get the the book id
-        public int GetBookId(Book book)
-        {
-            string query = "SELECT ID FROM books_table WHERE Title = @Title AND Author = @Author AND ISBN = @ISBN";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Title", book.Title);
-                        command.Parameters.AddWithValue("@Author", book.Author);
-                        command.Parameters.AddWithValue("@ISBN", book.Isbn);
-
-                        object result = command.ExecuteScalar();
-                        if (result != null)
-                        {
-                            int bookId = Convert.ToInt32(result);
-                        }
-
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-            return bookId;
-        }
+       
 
         // method to load book details 
         public Book LoadBookDetails(int selectedBookId)
@@ -508,7 +413,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // method to check the book is available
-        private bool IsBookAvailable(int bookId)
+        public bool IsBookAvailable(int bookId)
         {
             string query = "SELECT COUNT(*) FROM borrowed_records WHERE BookID = @BookID AND IsReturned = FALSE";
 
@@ -534,122 +439,9 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // method to borrow a book
-        public void BorrowBook(int bookId, Person person)
-        {
-            int studentId = person.GetUserId(person); // Fetch user ID
-            bool canBorrowOrReserve = CanUserBorrowOrReserve(person);
-            // Validate user existence
-            if (canBorrowOrReserve)
-            {
-                if (studentId == 0)
-                {
-                    MessageBox.Show($"User '{person.Name}' not found. Please enter a valid username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Check if the book is available
-                if (!IsBookAvailable(bookId))
-                {
-                    MessageBox.Show($"Book (ID: {bookId}) is currently unavailable. You can reserve it instead.", "Not Available", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string query = "INSERT INTO borrowed_records (BookID, UserID, BorrowDate, DueDate, IsReturned) " +
-                               "VALUES (@BookID, @StudentID, @BorrowedDate, @DueDate, @IsReturned)";
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (MySqlTransaction transaction = connection.BeginTransaction()) // Start transaction
-                    {
-                        try
-                        {
-                            using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
-                            {
-                                command.Parameters.AddWithValue("@BookID", bookId);
-                                command.Parameters.AddWithValue("@StudentID", studentId);
-                                command.Parameters.AddWithValue("@BorrowedDate", DateTime.Now);
-                                command.Parameters.AddWithValue("@DueDate", DateTime.Now.AddDays(14));
-                                command.Parameters.AddWithValue("@IsReturned", false);
-
-                                int rowsAffected = command.ExecuteNonQuery();
-                                if (rowsAffected > 0)
-                                {
-                                    transaction.Commit(); // Commit transaction
-                                    MessageBox.Show($"Book (ID: {bookId}) borrowed successfully by User '{person.Name}' (ID: {studentId})!",
-                                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    transaction.Rollback(); // Rollback if no rows affected
-                                    MessageBox.Show($"Failed to borrow the book (ID: {bookId}) for User '{person.Name}' (ID: {studentId}).",
-                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                        }
-                        catch (MySqlException ex)
-                        {
-                            transaction.Rollback(); // Rollback on SQL error
-                            MessageBox.Show($"Database Error: {ex.Message}\n\nUser: {person.Name} (ID: {studentId})",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback(); // Rollback on general error
-                            MessageBox.Show($"Error: {ex.Message}\n\nUser: {person.Name} (ID: {studentId})",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-                }
-            }
-        }
-
+        
         // method to load the borrowed books of the user to the datagrid
-        public void LoadBorrowedBooks(Person person, DataGridView dataGridView)
-        {
-            int userId = person.GetUserId(person); // Fetch user ID
-
-            if (userId == 0)
-            {
-                MessageBox.Show($"User '{person.Name}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string query = @"
-        SELECT br.BorrowedId, b.ID AS BookId, b.Title, b.Author, br.BorrowDate, br.DueDate
-        FROM borrowed_records br
-        INNER JOIN books_table b ON br.BookID = b.ID
-        WHERE br.UserID = @UserID AND br.IsReturned = 0";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@UserID", userId);
-
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                        {
-                            DataTable dt = new DataTable();
-                            adapter.Fill(dt);
-                            dataGridView.DataSource = dt;
-                            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-                        }
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+       
 
 
         // method to check the book is avaible to reserve
@@ -691,92 +483,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // method to return the book
-        public bool ReturnBook(int borrowedId,DateTime returnDate)
-        {
-            string selectQuery = "SELECT UserId, BookId, DueDate FROM borrowed_records WHERE BorrowedId = @BorrowedId";
-            string updateQuery = "UPDATE borrowed_records SET IsReturned = 1, ReturnedDate = @ReturnDate WHERE BorrowedId = @BorrowedId";
-            string insertOverdueQuery = @"INSERT INTO overdue_table (BorrowedId, UserID, BookID, OverdueDays, FineAmount, PaidStatus) 
-                                  VALUES (@BorrowedId, @UserID, @BookID, @OverdueDays, @FineAmount ,@PaidStatus)";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                
-                connection.Open();
-                MySqlTransaction transaction = connection.BeginTransaction(); // Start transaction
-
-                try
-                {
-                    DateTime dueDate;
-                    int userId, bookId;
-                    //DateTime returnDate = DateTime.Now;
-
-                    // Step 1: Get UserID, BookID, and DueDate (inside transaction)
-                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection, transaction))
-                    {
-                        selectCommand.Parameters.AddWithValue("@BorrowedId", borrowedId);
-                        using (MySqlDataReader reader = selectCommand.ExecuteReader())
-                        {
-                            if (!reader.Read())
-                            {
-                                transaction.Rollback();
-                                return false; // No record found, rollback
-                            }
-
-                            userId = reader.GetInt32("UserID");
-                            bookId = reader.GetInt32("BookID");
-                            dueDate = reader.GetDateTime("DueDate");
-                        }
-                    }
-
-                    // Step 2: Calculate overdue fee
-                    int overdueDays = (returnDate > dueDate) ? (returnDate - dueDate).Days : 0;
-                    decimal overdueFee = overdueDays * 5; // Example: $2 per day
-
-                    // Step 3: Update borrowed_records table
-                    using (MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection, transaction))
-                    {
-                        updateCommand.Parameters.AddWithValue("@BorrowedId", borrowedId);
-                        updateCommand.Parameters.AddWithValue("@ReturnDate", returnDate);
-                        int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                        if (rowsAffected == 0)
-                        {
-                            transaction.Rollback();
-                            return false; // No row updated, rollback
-                        }
-                    }
-
-                    // Step 4: If overdue, insert into overdue_records table
-                    if (overdueDays > 0)
-                    {
-                        using (MySqlCommand insertCommand = new MySqlCommand(insertOverdueQuery, connection, transaction))
-                        {
-                            insertCommand.Parameters.AddWithValue("@BorrowedId", borrowedId);
-                            insertCommand.Parameters.AddWithValue("@UserID", userId);
-                            insertCommand.Parameters.AddWithValue("@BookID", bookId);
-                            insertCommand.Parameters.AddWithValue("@OverdueDays", overdueDays);
-                            insertCommand.Parameters.AddWithValue("@FineAmount", overdueFee);
-                            insertCommand.Parameters.AddWithValue("@PaidStatus", 0);
-                            insertCommand.ExecuteNonQuery();
-                        }
-                        MessageBox.Show($"Book returned, but overdue! You owe ${overdueFee}.", "Overdue Fee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Book returned successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-
-                    transaction.Commit(); // Commit transaction if all steps succeed
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback(); // Rollback transaction on error
-                    MessageBox.Show("Error: " + ex.Message, "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-        }
+        
         
         // method that check the whether the book is availble to reserve
         public bool CheckBookCanReserve(int bookId)
@@ -824,7 +531,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         //method to check the whether the borrowed user is the same user who is reserving the book
-        private bool CheckUserReserveBook(int bookId, Person person)
+        public bool CheckUserReserveBook(int bookId, Person person)
         {
             string query = "SELECT COUNT(*) FROM borrowed_records WHERE BookID = @BookID AND UserID = @UserID AND IsReturned = 0";
 
@@ -859,10 +566,11 @@ namespace NewLibraryManagementApp.Classes
 
         public void ReserveBook(int bookId, Person person)
         {
-            bool canBorrowOrReserve = CanUserBorrowOrReserve(person);
+            Book book = new Book();
+            bool canBorrowOrReserve = book.CanUserBorrowOrReserve(person);
             if (canBorrowOrReserve)
             {
-                bool isReserved = CheckBookCanReserve(bookId);
+                bool isReserved = book.CheckBookCanReserve(bookId);
                 bool isSameUser = CheckUserReserveBook(bookId, person);
                 if (isSameUser)
                 {
@@ -993,10 +701,10 @@ namespace NewLibraryManagementApp.Classes
 
         // method to check the user is eligible to reserve or borrow book based on fines
 
-        private bool CanUserBorrowOrReserve(Person person)
+        public bool CanUserBorrowOrReserve(Person person)
         {
             int userId =person.GetUserId(person);
-            string query = "SELECT SUM(FineAmount) FROM overdue_table WHERE UserID = @UserID";
+            string query = "SELECT SUM(FineAmount) FROM overdue_table WHERE UserID = @UserID AND PaidStatus = 0";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -1026,31 +734,7 @@ namespace NewLibraryManagementApp.Classes
             }
         }
 
-        public int GetTotalBorrowedBooks(Person person)
-        {
-            int userId = person.GetUserId(person);
-            string query = "SELECT COUNT(*) FROM borrowed_records WHERE UserId = @UserID";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        object result = command.ExecuteScalar();
-
-                        return result != null ? Convert.ToInt32(result) : 0;
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
-                }
-            }
-        }
+       
 
         public int GetTotalOverdueBooks(Person person)
         {
@@ -1079,151 +763,10 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // method to get the most borrowed Book
-        public string GetMostBorrowedBook()
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                try
-                {
-                    // SQL query to find the most borrowed book
-                    string query = @"
-                SELECT b.Title, COUNT(br.BookId) AS borrowingCount
-                FROM borrowed_records br
-                JOIN books_table b ON br.BookId = b.ID
-                GROUP BY br.BookId
-                ORDER BY borrowingCount DESC
-                LIMIT 1;
-            ";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        MySqlDataReader reader = cmd.ExecuteReader();
-
-                        if (reader.Read())
-                        {
-                            // Retrieve the book title and borrowing count
-                            string bookTitle = reader.GetString("title");
-                            int borrowingCount = reader.GetInt32("borrowingCount");
-
-                            // Return the most borrowed book information as a string
-                            return $"Most Borrowed Book: {bookTitle}\nNumber of Borrowings: {borrowingCount}";
-                        }
-                        else
-                        {
-                            return "No books have been borrowed yet.";
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return "An error occurred: " + ex.Message;
-                }
-            }
-        }
-
+        
 
         //  method to display the Borrowing table
-        public void LoadLibraryBorrowings(DataGridView dataGridView)
-        {
-            string query = @"
-        SELECT 
-            br.BorrowedId, 
-            u.Id AS UserId, 
-            u.name AS UserName, 
-            b.ID AS BookID, 
-            b.Title AS BookTitle, 
-            b.Author, 
-            br.BorrowDate, 
-            br.DueDate, 
-            br.IsReturned 
-        FROM borrowed_records br
-        INNER JOIN student_table u ON br.UserID = u.Id
-        INNER JOIN books_table b ON br.BookId = b.ID";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
-                {
-                    try
-                    {
-                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
-                        {
-                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                            {
-                                DataTable dt = new DataTable();
-                                adapter.Fill(dt);
-                                dataGridView.DataSource = dt;
-
-                                // Adjust DataGridView display
-                                
-                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-                            }
-                        }
-
-                        transaction.Commit();  // Commit Transaction
-                    }
-                    catch (MySqlException ex)
-                    {
-                        transaction.Rollback();  // Rollback Transaction if an error occurs
-                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// load the library reservations
-        /// </summary>
-
-        public void LoadLibraryReservations(DataGridView dataGridView)
-        {
-            string query = @"
-    SELECT 
-        r.ReservationId, 
-        u.Id AS UserId, 
-        u.name AS UserName, 
-        b.ID AS BookId, 
-        b.Title AS BookTitle, 
-        b.Author, 
-        r.ReservationDate, 
-        r.Status 
-    FROM reservation_table r
-    INNER JOIN student_table u ON r.UserID = u.Id
-    INNER JOIN books_table b ON r.BookId = b.ID
-    WHERE r.IsCollected = 0 AND r.Status = 'Pending'";  // Filter only uncollected & pending reservations
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
-                {
-                    try
-                    {
-                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
-                        {
-                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                            {
-                                DataTable dt = new DataTable();
-                                adapter.Fill(dt);
-                                dataGridView.DataSource = dt;
-
-                                // Adjust DataGridView display
-                                
-                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-                            }
-                        }
-
-                        transaction.Commit();  // Commit Transaction
-                    }
-                    catch (MySqlException ex)
-                    {
-                        transaction.Rollback();  // Rollback Transaction if an error occurs
-                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
+        
 
         public void LoadOverdueBooks(DataGridView dataGridView)
         {
@@ -1279,7 +822,6 @@ WHERE o.PaidStatus = 0";
         }
 
         // method to get the paid status
-
         public void SetPaidStatus(int overdueId, RadioButton paidCheckBox, RadioButton notPaidCheckBox)
         {
             bool isPaid = false; // Initialize to false
@@ -1320,6 +862,8 @@ WHERE o.PaidStatus = 0";
                 }
             }
         }
+
+        // method to update the payment to the overdue
         public bool UpdateOverdueStatus(int overdueId, bool isPaid)
         {
             DateTime paidDate = DateTime.Now;
@@ -1365,283 +909,11 @@ WHERE o.PaidStatus = 0";
             }
         }
 
-        public void LoadReservationBooks(DataGridView dataGridView)
-        {
-
-            string query = @"
-            SELECT
-                o.ReservationId, 
-                u.Id AS UserId, 
-                u.Name AS UserName, 
-                b.ID AS BookId, 
-                b.Title AS BookTitle, 
-                o.ReservationDate, 
-                o.ReservedUntill, 
-                o.IsCollected,
-                o.Status
-            FROM reservation_table o
-            INNER JOIN student_table u ON o.UserID = u.Id
-            INNER JOIN books_table b ON o.BookId = b.ID
-            WHERE o.Status = 'Pending';";
-
-
-
-
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                        {
-                            DataTable dt = new DataTable();
-                            adapter.Fill(dt);
-                            dataGridView.Invoke((MethodInvoker)delegate
-                            {
-                                dataGridView.DataSource = dt;
-
-                                // Adjust DataGridView display
-                               
-                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-                            });
-                        }
-                    }
-                }
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unexpected Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void SetCollectStatus(int reservationId, RadioButton collectCheckBox, RadioButton notcollectCheckBox, ComboBox box)
-        {
-            bool isPaid = false; // Initialize to false
-            string query = "SELECT IsCollected FROM reservation_table WHERE ReservationId = @overdueId";
-            string combo = "SELECT Status FROM reservation_table WHERE ReservationId = @overdueId";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@overdueId", reservationId);
-
-                    // Execute the query and get the paid status
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        isPaid = Convert.ToBoolean(result);
-
-                        // Set the checkbox status based on the result
-                        collectCheckBox.Checked = isPaid;
-                        notcollectCheckBox.Checked = !isPaid; // Uncheck the other checkbox
-                    }
-                    else
-                    {
-                        // If no result, ensure both checkboxes are unchecked (or handle as needed)
-                        collectCheckBox.Checked = false;
-                        notcollectCheckBox.Checked = false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error in payment status query: " + ex.Message);
-                    collectCheckBox.Checked = false;  // Default to unchecked if there's an error
-                    notcollectCheckBox.Checked = false;
-                }
-            }
-
-            // Now retrieve the status from the database and set it in the ComboBox
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(combo, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@overdueId", reservationId);
-
-                        // Execute the query to get the current status
-                        object statusResult = cmd.ExecuteScalar();
-
-                        if (statusResult != null)
-                        {
-                            string status = statusResult.ToString();
-
-                            // Set the ComboBox selected item to match the status from the database
-                            if (box.Items.Contains(status))
-                            {
-                                box.SelectedItem = status;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Status value not found in ComboBox items.");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("No status found for this reservation.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error in status query: " + ex.Message);
-                }
-            }
-        }
-
-        public bool UpdateReservationStatus(int reservationId, bool isCollected, string status)
-        {
-            // If status is "Denied", force isCollected to be 0
-            if (status.Equals("Denied", StringComparison.OrdinalIgnoreCase))
-            {
-                isCollected = false; // Ensure it's set to false (0 in the database)
-            }
-
-            string updateQuery = "UPDATE reservation_table SET IsCollected = @isCollected, Status = @status WHERE ReservationId = @reservationId";
-            string deleteQuery = "DELETE FROM reservation_table WHERE ReservationId = @reservationId";
-            string selectQuery = "SELECT UserId, BookId FROM reservation_table WHERE ReservationId = @reservationId";
-            string insertBorrowQuery = @"
-        INSERT INTO borrow_table (UserId, BookId, BorrowDate, IsReturned) 
-        VALUES (@userId, @bookId, NOW(), @isReturned)";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlTransaction transaction = connection.BeginTransaction()) // Start Transaction
-                    {
-                        try
-                        {
-                            if (status.Equals("Denied", StringComparison.OrdinalIgnoreCase))
-                            {
-                                // Delete the reservation if status is "Denied"
-                                using (MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, connection, transaction))
-                                {
-                                    deleteCmd.Parameters.AddWithValue("@reservationId", reservationId);
-                                    deleteCmd.ExecuteNonQuery();
-                                }
-                            }
-                            else
-                            {
-                                // Update reservation status
-                                using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection, transaction))
-                                {
-                                    cmd.Parameters.AddWithValue("@isCollected", isCollected ? 1 : 0); // Convert bool to int
-                                    cmd.Parameters.AddWithValue("@status", status);
-                                    cmd.Parameters.AddWithValue("@reservationId", reservationId);
-                                    cmd.ExecuteNonQuery();
-                                }
-
-                                // If status is "Confirmed" and isCollected is true, insert into borrow_table
-                                if (status.Equals("Confirmed", StringComparison.OrdinalIgnoreCase) && isCollected)
-                                {
-                                    int userId = 0;
-                                    int bookId = 0;
-
-                                    // Retrieve UserID and BookID from reservation_table
-                                    using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection, transaction))
-                                    {
-                                        selectCmd.Parameters.AddWithValue("@reservationId", reservationId);
-                                        using (MySqlDataReader reader = selectCmd.ExecuteReader())
-                                        {
-                                            if (reader.Read())
-                                            {
-                                                userId = reader.GetInt32("UserID");
-                                                bookId = reader.GetInt32("BookID");
-                                            }
-                                            reader.Close(); // Close reader before executing next query
-                                        }
-                                    }
-
-                                    // Check if the book is available
-                                    if (IsBookAvailable(bookId))
-                                    {
-                                        using (MySqlCommand insertCmd = new MySqlCommand(insertBorrowQuery, connection, transaction))
-                                        {
-                                            insertCmd.Parameters.AddWithValue("@userId", userId);
-                                            insertCmd.Parameters.AddWithValue("@bookId", bookId);
-                                            insertCmd.Parameters.AddWithValue("@isReturned", false);
-
-                                            insertCmd.ExecuteNonQuery();
-                                        }
-                                    }
-                                }
-                            }
-
-                            transaction.Commit(); // Commit transaction if everything is successful
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback(); // Rollback in case of an error
-                            MessageBox.Show("Error: " + ex.Message, "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Database Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-        }
-
-        // load specific users Overdue Books
-        public void LoadUserOverdueBooks(int userId, DataGridView dataGridView)
-        {
-            string query = @"
-        SELECT 
-            o.OverdueId,
-            o.BookID,
-            bk.Title AS BookTitle,
-            bk.Author AS BookAuthor,
-            o.OverdueDays,
-            
-            o.FineAmount
-        FROM overdue_table o
-        JOIN books_table bk ON o.BookID = bk.ID
-        WHERE o.UserId = @userId AND o.PaidStatus = 0 
-        ";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@userId", userId);
-
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
-                        {
-                            DataTable overdueBooksTable = new DataTable();
-                            adapter.Fill(overdueBooksTable);
-
-                            // Bind DataGridView
-                            dataGridView.DataSource = overdueBooksTable;
-                            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+        
+        
+        
+        
+        
 
 
 

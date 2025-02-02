@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using NewLibraryManagementApp.Forms.Librarian;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace NewLibraryManagementApp
     {
         private string filePath;
         private Form form;
-       
+        private LibrarianController controller = new LibrarianController();
         Person person;
         public AddBooks(Form form,Person person)
         {
@@ -51,15 +52,10 @@ namespace NewLibraryManagementApp
         {
             string title = title_text.Text;
             string author = author_text.Text;
-            int year = Convert.ToInt32(year_text.Text);
+            string year = year_text.Text;
 
 
-            Book book = new Book(title, author, year, filePath);
-            isbn_text.Text = book.Isbn;
-
-            
-
-            book.saveBook(book);
+            controller.AddBook(title, author, filePath,year, isbn_text);
 
             
 

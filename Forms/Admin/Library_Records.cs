@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,9 @@ namespace NewLibraryManagementApp.Forms.Admin
     {
         private Person person;
         private Form form;
-        private Book book = new Book();
+        
+
+        private AdminController controller = new AdminController();
         public Library_Records(Person person, Form form)
         {
             InitializeComponent();
@@ -39,11 +42,11 @@ namespace NewLibraryManagementApp.Forms.Admin
 
         private void Library_Records_Load(object sender, EventArgs e)
         {
-            label4.Text = person.GetMostActiveUser();
-            label6.Text =book.GetMostBorrowedBook();
+            label4.Text = controller.GetMostActiveUser();
+            label6.Text =controller.GetMostBorrowedBook();
 
-            book.LoadLibraryBorrowings(dataGridView_borrowings);
-            book.LoadLibraryReservations(dataGridViewReservations);
+            
+            controller.DisplayTables(dataGridView_borrowings, dataGridViewReservations);
         }
     }
 }

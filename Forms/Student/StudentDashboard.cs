@@ -1,5 +1,6 @@
 ﻿using NewLibraryManagementApp;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using NewLibraryManagementApp.Forms.Student;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace library_mananagement_system.Forms.Librarian
         private Person person;
         private Form form;
         private Book book = new Book();
+        private StudentController controller = new StudentController();
         public StudentDashboard(Person person, Form form)
         {
             InitializeComponent();
@@ -36,8 +38,8 @@ namespace library_mananagement_system.Forms.Librarian
         private void StudentDashboard_Load(object sender, EventArgs e)
         {
             label3.Text = $"{person.Name},";
-            book.LoadBorrowedBooks(person, dataGridView_main);
-            totalBorrowedBooks.Text = book.GetTotalBorrowedBooks(person).ToString();
+            controller.LoadBorrrowedBooks(person, dataGridView_main);
+            totalBorrowedBooks.Text = controller.GetTotalBorrowedBooks(person);
             label7.Text = book.GetTotalOverdueBooks(person).ToString();
 
         }

@@ -230,6 +230,245 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
         }
+        public string GetMostBorrowedBook()
+        {
+            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            {
+                conn.Open();
+                try
+                {
+                    // SQL query to find the most borrowed book
+                    string query = @"
+                SELECT b.Title, COUNT(br.BookId) AS borrowingCount
+                FROM borrowed_records br
+                JOIN books_table b ON br.BookId = b.ID
+                GROUP BY br.BookId
+                ORDER BY borrowingCount DESC
+                LIMIT 1;
+            ";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            // Retrieve the book title and borrowing count
+                            string bookTitle = reader.GetString("title");
+                            int borrowingCount = reader.GetInt32("borrowingCount");
+
+                            // Return the most borrowed book information as a string
+                            return $"Most Borrowed Book: {bookTitle}\nNumber of Borrowings: {borrowingCount}";
+                        }
+                        else
+                        {
+                            return "No books have been borrowed yet.";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "An error occurred: " + ex.Message;
+                }
+            }
+        }
+        public void LoadLibraryBorrowings(DataGridView dataGridView)
+        {
+            string query = @"
+        SELECT 
+            br.BorrowedId, 
+            u.Id AS UserId, 
+            u.name AS UserName, 
+            b.ID AS BookID, 
+            b.Title AS BookTitle, 
+            b.Author, 
+            br.BorrowDate, 
+            br.DueDate, 
+            br.IsReturned 
+        FROM borrowed_records br
+        INNER JOIN student_table u ON br.UserID = u.Id
+        INNER JOIN books_table b ON br.BookId = b.ID";
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
+                {
+                    try
+                    {
+                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
+                        {
+                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                            {
+                                DataTable dt = new DataTable();
+                                adapter.Fill(dt);
+                                dataGridView.DataSource = dt;
+
+                                // Adjust DataGridView display
+
+                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                            }
+                        }
+
+                        transaction.Commit();  // Commit Transaction
+                    }
+                    catch (MySqlException ex)
+                    {
+                        transaction.Rollback();  // Rollback Transaction if an error occurs
+                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// load the library reservations
+        /// </summary>
+
+        public void LoadLibraryReservations(DataGridView dataGridView)
+        {
+            string query = @"
+    SELECT 
+        r.ReservationId, 
+        u.Id AS UserId, 
+        u.name AS UserName, 
+        b.ID AS BookId, 
+        b.Title AS BookTitle, 
+        b.Author, 
+        r.ReservationDate, 
+        r.Status 
+    FROM reservation_table r
+    INNER JOIN student_table u ON r.UserID = u.Id
+    INNER JOIN books_table b ON r.BookId = b.ID
+    WHERE r.IsCollected = 0 AND r.Status = 'Pending'";  // Filter only uncollected & pending reservations
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                connection.Open();
+                using (MySqlTransaction transaction = connection.BeginTransaction())  // Start Transaction
+                {
+                    try
+                    {
+                        using (MySqlCommand command = new MySqlCommand(query, connection, transaction))
+                        {
+                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                            {
+                                DataTable dt = new DataTable();
+                                adapter.Fill(dt);
+                                dataGridView.DataSource = dt;
+
+                                // Adjust DataGridView display
+
+                                dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                            }
+                        }
+
+                        transaction.Commit();  // Commit Transaction
+                    }
+                    catch (MySqlException ex)
+                    {
+                        transaction.Rollback();  // Rollback Transaction if an error occurs
+                        MessageBox.Show($"Database Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        public int GetBorrowedBookCount()
+        {
+            int count = 0;
+
+            string query = "SELECT COUNT(*) FROM borrowed_records WHERE IsReturned = 0";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        count = Convert.ToInt32(command.ExecuteScalar());
+
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return count;
+
+        }
+        public int GetOverdueBookCount()
+        {
+            int count = 0;
+
+            string query = "SELECT COUNT(*) FROM overdue_table";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        count = Convert.ToInt32(command.ExecuteScalar());
+
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return count;
+
+        }
+        public int GetBookCount()
+        {
+            int count = 0;
+
+            string query = "SELECT COUNT(*) FROM books_table";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        count = Convert.ToInt32(command.ExecuteScalar());
+
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return count;
+
+        }
+        
 
 
     }

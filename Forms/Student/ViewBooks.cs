@@ -1,5 +1,6 @@
 ﻿using library_mananagement_system.Forms.Librarian;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,11 @@ namespace NewLibraryManagementApp
     public partial class ViewBooks : Form
     {
         private Form form;
-        private Book book = new Book();
+        
         private int selectedBookId;
         private Person person;
+
+        private StudentController controller = new StudentController();
         public ViewBooks(Form form,Person person)
         {
             InitializeComponent();
@@ -29,7 +32,7 @@ namespace NewLibraryManagementApp
 
         private void ViewBooks_Load(object sender, EventArgs e)
         {
-            book.DisplayBooks(dataGridView_viewBook);
+            controller.DisplayBooks(dataGridView_viewBook);
         }
 
         private void dataGridView_viewBook_CellContentClick(object sender, DataGridViewCellEventArgs e)

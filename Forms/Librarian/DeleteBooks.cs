@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace NewLibraryManagementApp
         private string bookpath;
         private int bookid;
         private Form form;
+
+        private LibrarianController controller = new LibrarianController(); 
         public DeleteBooks(Form form)
         {
 
@@ -37,7 +40,7 @@ namespace NewLibraryManagementApp
 
         private void DeleteBooks_Load(object sender, EventArgs e)
         {
-            book.DisplayBooks(dataGridView_books);
+            controller.DisplayBooks(dataGridView_books);
 
 
 
@@ -75,8 +78,7 @@ namespace NewLibraryManagementApp
 
         private void removeBookbtn_Click(object sender, EventArgs e)
         {
-            book.DeleteBook(bookid);
-            book.DisplayBooks(dataGridView_books);
+            controller.DeleteBook(bookid, dataGridView_books);
             bookname_text.Text = "";
             bookauthor_text.Text = "";
             bookyear_text.Text = "";

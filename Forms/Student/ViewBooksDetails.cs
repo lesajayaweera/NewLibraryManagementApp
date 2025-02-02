@@ -1,13 +1,16 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NewLibraryManagementApp
 {
@@ -18,6 +21,7 @@ namespace NewLibraryManagementApp
         private int selectedBookId;
         private Person person;
 
+        private StudentController controller = new StudentController();
 
         public ViewBooksDetails(Form form, int selectedBookId, Person person)
         {
@@ -37,31 +41,12 @@ namespace NewLibraryManagementApp
 
         private void ViewBooksDetails_Load(object sender, EventArgs e)
         {
-            Book selectedBook = book.LoadBookDetails(selectedBookId);
-            if (selectedBook != null)
-            {
-                title_text_veiwBooks.Text = selectedBook.Title;
-                author_text_veiwBooks.Text = selectedBook.Author;
-                year_text_veiwBooks.Text = selectedBook.Year.ToString();
-                isbn_text_veiwBooks.Text = selectedBook.Isbn.ToString();
-
-
-                if (!string.IsNullOrEmpty(selectedBook.Url) && System.IO.File.Exists(selectedBook.Url))
-                {
-                    book_picture_viewBook.Image = Image.FromFile(selectedBook.Url);
-                    book_picture_viewBook.SizeMode = PictureBoxSizeMode.StretchImage;
-                }
-                else
-                {
-                    book_picture_viewBook.Image = null;
-                }
-
-            }
-
+            controller.LoadBookDetails(selectedBookId, title_text_veiwBooks, author_text_veiwBooks, year_text_veiwBooks, isbn_text_veiwBooks, book_picture_viewBook);
             bool isreturned = book.CheckBookStatus(selectedBookId);
             bool isReserved = book.CheckBookCanReserve(selectedBookId);
             if (isreturned)
             {
+                
                 borrowBtn.Enabled = true;
                 //reserveBtn.Enabled = false;
 
@@ -70,8 +55,10 @@ namespace NewLibraryManagementApp
             }
             else
             {
-                if(isReserved)
+                if (isReserved)
                 {
+                    
+
                     borrowBtn.Enabled = false;
                     reserveBtn.Enabled = false;
                     status_text.Text = "Reserved";
@@ -85,19 +72,78 @@ namespace NewLibraryManagementApp
                     status_text.ForeColor = Color.Orange;
                 }
             }
-           
-
         }
 
         private void borrowBtn_Click(object sender, EventArgs e)
         {
-            int userId = person.GetUserId(person);
-            book.BorrowBook(selectedBookId, person);
+            
+            controller.BorrowBooks(selectedBookId, title_text_veiwBooks, author_text_veiwBooks, year_text_veiwBooks, isbn_text_veiwBooks, book_picture_viewBook, person);
+            bool isreturned = book.CheckBookStatus(selectedBookId);
+            bool isReserved = book.CheckBookCanReserve(selectedBookId);
+            if (isreturned)
+            {
+
+                borrowBtn.Enabled = true;
+                //reserveBtn.Enabled = false;
+
+                status_text.Text = "Available";
+                status_text.ForeColor = Color.Green;
+            }
+            else
+            {
+                if (isReserved)
+                {
+
+
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = false;
+                    status_text.Text = "Reserved";
+                    status_text.ForeColor = Color.Red;
+                }
+                else
+                {
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = true;
+                    status_text.Text = "Currently Borrowed but Available for Reservations!";
+                    status_text.ForeColor = Color.Orange;
+                }
+            }
         }
 
         private void reserveBtn_Click(object sender, EventArgs e)
         {
-            book.ReserveBook(selectedBookId, person);
+            controller.ReserveBook(selectedBookId, person);
+
+            bool isreturned = book.CheckBookStatus(selectedBookId);
+            bool isReserved = book.CheckBookCanReserve(selectedBookId);
+            if (isreturned)
+            {
+
+                borrowBtn.Enabled=true;
+                //reserveBtn.Enabled = false;
+
+                status_text.Text = "Available";
+                status_text.ForeColor = Color.Green;
+            }
+            else
+            {
+                if (isReserved)
+                {
+
+
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = false;
+                    status_text.Text = "Reserved";
+                    status_text.ForeColor = Color.Red;
+                }
+                else
+                {
+                    borrowBtn.Enabled = false;
+                    reserveBtn.Enabled = true;
+                    status_text.Text = "Currently Borrowed but Available for Reservations!";
+                    status_text.ForeColor = Color.Orange;
+                }
+            }
         }
     }
 }

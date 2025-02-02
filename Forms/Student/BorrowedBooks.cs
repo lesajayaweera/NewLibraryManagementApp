@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace NewLibraryManagementApp
         private Person person;
         private Book book = new Book();
 
+        private StudentController studentController = new StudentController();
+
         public BorrowedBooks(Form form,Person person)
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace NewLibraryManagementApp
 
         private void BorrowedBooks_Load(object sender, EventArgs e)
         {
-            book.LoadBorrowedBooks(person, dataGridView_borrowedBooks);
+            studentController.LoadBorrrowedBooks(person, dataGridView_borrowedBooks);
         }
 
         private void Backbutton_borrowBooks_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using NewLibraryManagementApp.Forms.Admin;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
     {
         private Person person;
         private Book book = new Book();
+        private LibrarianController controller = new LibrarianController();
         public LibrarianDashBoard(Person person)
         {
             InitializeComponent();
@@ -28,8 +30,8 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void LibrarianDashBoard_Load(object sender, EventArgs e)
         {
-            tBookCount.Text = book.GetBookCount().ToString();
-            book.DisplayBooks(Main_dataGridView);
+            tBookCount.Text = controller.GetBookCount();
+            controller.DisplayBooks(Main_dataGridView);
             username_label_Ldashboard.Text = $"{person.Name},";
 
         }

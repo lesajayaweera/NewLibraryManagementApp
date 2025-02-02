@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace NewLibraryManagementApp
         private Form form;
         private Book book = new Book();
         private Person person;
+
+        private StudentController controller = new StudentController();
         public ReservationBooks(Form form, Person person)
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace NewLibraryManagementApp
 
         private void ReservationBooks_Load(object sender, EventArgs e)
         {
-            book.LoadReservedBooks(person, dataGridView_reserveBooks);
+            controller.LoadReservedBooks(person, dataGridView_reserveBooks);
         }
 
         private void backbutton_reservation_Click(object sender, EventArgs e)

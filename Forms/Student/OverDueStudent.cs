@@ -1,5 +1,6 @@
 ﻿using library_mananagement_system.Forms.Librarian;
 using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace NewLibraryManagementApp.Forms.Student
 {
     public partial class OverDueStudent : Form
     {
-
+        private StudentController controller = new StudentController();
 
         public OverDueStudent(Person person)
         {
@@ -23,13 +24,12 @@ namespace NewLibraryManagementApp.Forms.Student
 
         }
         private Person person;
-        private Book book = new Book();
+        
 
 
         private void OverDueStudent_Load(object sender, EventArgs e)
         {
-            int userId = person.GetUserId(person);
-            book.LoadUserOverdueBooks(userId, dataGridViewOverdue_student);
+            controller.LoadOverdueBooks(person, dataGridViewOverdue_student);
         }
 
         private void button1_Click(object sender, EventArgs e)

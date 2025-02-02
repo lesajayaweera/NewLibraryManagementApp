@@ -1,4 +1,5 @@
 ﻿using NewLibraryManagementApp.Classes;
+using NewLibraryManagementApp.Classes.ControllerClasses;
 using NewLibraryManagementApp.Forms.Librarian;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace NewLibraryManagementApp
 {
     public partial class ViewReservationBooks : Form
     {
+        private LibrarianController controller = new LibrarianController();
         private Book book = new Book();
         private Form form;
         private Person Person;
@@ -27,7 +29,7 @@ namespace NewLibraryManagementApp
 
         private void ViewReservationBooks_Load(object sender, EventArgs e)
         {
-            book.LoadReservationBooks(dataGridView_Reservations);
+            controller.LoadReservations(dataGridView_Reservations);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -45,30 +47,15 @@ namespace NewLibraryManagementApp
 
                 ReservationId = Convert.ToInt32(selectedRow.Cells["ReservationId"].Value);
 
-                book.SetCollectStatus(ReservationId, radioButton1, radioButton2, comboBox1);
+                controller.SetCollectStatus(ReservationId, radioButton1, radioButton2, comboBox1);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool iscollected = false;
             string currentStatus = comboBox1.SelectedItem.ToString();
 
-            if (radioButton1.Checked)
-            {
-                iscollected = true;
-            }
-            else if(radioButton2.Checked)
-            {
-                iscollected = false;
-            }
-            bool done =book.UpdateReservationStatus(ReservationId, iscollected, currentStatus);
-
-            if (done)
-            {
-                book.LoadReservationBooks(dataGridView_Reservations);
-            }
-
+            controller.UpdateReservations(radioButton1, radioButton2, currentStatus, ReservationId, dataGridView_Reservations);
         }
     }
 }

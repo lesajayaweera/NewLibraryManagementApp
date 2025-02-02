@@ -22,5 +22,59 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             Student s1 = new Student(username, email, role, password, phoneNumber);
             s1.Register(s1, form);
         }
+
+        public void LoadOverdueBooks(Person person,DataGridView grid)
+        {
+            int userId = person.GetUserId(person);
+            student.LoadUserOverdueBooks(userId, grid);
+        }
+        public void DisplayBooks(DataGridView grid)
+        {
+            BookController bookController = new BookController();
+            bookController.DisplayBooks(grid);
+        }
+
+        public void LoadBorrrowedBooks(Person person,DataGridView data)
+        {
+            student.LoadBorrowedBooks(person, data);
+        }
+        public void LoadReservedBooks(Person person, DataGridView data)
+        {
+            student.LoadReservedBooks(person, data);
+        }
+        public void ReturnBook(Person person,int bookId,DateTime returnDate,DataGridView grid)
+        {
+            bool isReturned = student.ReturnBook(bookId, returnDate);
+            if(isReturned)
+            {
+                LoadBorrrowedBooks(person,grid);
+            }
+            else
+            {
+                MessageBox.Show("Failed to return book", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        public string GetTotalBorrowedBooks(Person person)
+        {
+            return student.GetTotalBorrowedBooks(person).ToString();
+        }
+        public void LoadBookDetails(int bookId, TextBox title, TextBox author, TextBox year, TextBox isbn, PictureBox picture)
+        {
+            BookController controller = new BookController();
+            controller.LoadBookDetails(bookId,title,author,year,isbn,picture);
+        }
+        public void BorrowBooks(int bookId, TextBox title, TextBox author, TextBox year, TextBox isbn, PictureBox picture, Person person)
+        {
+            int userid = person.GetUserId(person);
+            student.BorrowBook(bookId, person);
+            LoadBookDetails(bookId, title,author,year,isbn,picture);
+
+        }
+        public void ReserveBook(int bookId,Person person)
+        {
+            student.ReserveBook(bookId, person);
+        }
     }
 }
