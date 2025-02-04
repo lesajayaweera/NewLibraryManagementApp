@@ -16,6 +16,7 @@ namespace NewLibraryManagementApp
     public partial class AddBooks : Form
     {
         private string filePath;
+        private byte[] image;
         private Form form;
         private LibrarianController controller = new LibrarianController();
         Person person;
@@ -31,6 +32,8 @@ namespace NewLibraryManagementApp
         {
 
         }
+        
+
 
         private void uploadImageBtn_Click(object sender, EventArgs e)
         {
@@ -44,6 +47,9 @@ namespace NewLibraryManagementApp
 
                     Book_pictureBox.Image = Image.FromFile(filePath);
                     Book_pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    image =controller.ImageToByteArray(filePath);
+
                 }
             }
         }
@@ -54,8 +60,13 @@ namespace NewLibraryManagementApp
             string author = author_text.Text;
             string year = year_text.Text;
 
+            if (image == null)
+            {
+                MessageBox.Show("Please upload a book cover image.");
+                return;
+            }
 
-            controller.AddBook(title, author, filePath,year, isbn_text);
+            controller.AddBook(title, author,image,year, isbn_text);
 
             
 

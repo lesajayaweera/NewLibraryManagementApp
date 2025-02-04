@@ -99,10 +99,10 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             controller.DisplayBooks(grid);
         }
 
-        public void AddBook(string title,string author,string filepath,string year, TextBox isbnText)
+        public void AddBook(string title,string author,byte[] image,string year, TextBox isbnText)
         {
             BookController controller = new BookController();
-            controller.SaveBook(title, author, filepath, year,isbnText);
+            controller.SaveBook(title, author, image, year,isbnText);
 
         }
 
@@ -114,11 +114,18 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
 
         }
 
-        public void EditBooks(int bookid , string title,string author, string year,string url,DataGridView grid)
+        public void EditBooks(int bookid , string title,string author, string year,byte[] url,DataGridView grid)
         { 
             BookController controller = new BookController();
             controller.EditBooks(bookid,title,author,year,url);
             DisplayBooks(grid);
+        }
+
+        public byte[] ImageToByteArray(string imagepath)
+        {
+            BookController controller = new BookController();
+
+            return controller.ImageToByteArray(imagepath);
         }
     }
 }

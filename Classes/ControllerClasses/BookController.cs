@@ -34,13 +34,16 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             return status;
         }
 
-        public void SaveBook(string title, string author, string filepath, string year,TextBox isbnText)
+        public void SaveBook(string title, string author, byte[] filepath, string year,TextBox isbnText)
         {
-            if (book.ValidateYear(year, out int updatedYear))
+            if (book.ValidateTitle(title, out string updatedTitle) && book.ValidateAuthor(author, out string updatedAuthor)) 
             {
-                Book book = new Book(title, author, updatedYear, filepath);
-                isbnText.Text = book.Isbn;
-                book.saveBook(book);
+                    if (book.ValidateYear(year, out int updatedYear))
+                    {
+                        Book book = new Book(title, author, updatedYear, filepath);
+                        isbnText.Text = book.Isbn;
+                        book.saveBook(book);
+                    }
             }
         }
         public void DeleteBook(int BookId)
@@ -48,24 +51,28 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             book.DeleteBook(BookId);
         }
 
-        public void EditBooks(int bookid, string title, string author, string year, string url)
+        public void EditBooks(int bookid, string title, string author, string year, byte[] url)
         {
-            if (book.ValidateYear(year, out int updatedYear))
-            {
-                if (bookid > 0)
+            if (book.ValidateTitle(title, out string updatedTitle) && book.ValidateAuthor(author, out string updatedAuthor))
                 {
-                    Book updatedbook = new Book(bookid, title, author, updatedYear, url);
-                    book.EditBook(updatedbook);
-                }
-                else
+                if (book.ValidateYear(year, out int updatedYear))
                 {
-                    MessageBox.Show("Please select a book first.", "Book Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    if (bookid > 0)
+                    {
+                        Book updatedbook = new Book(bookid, title, author, updatedYear, url);
+                        book.EditBook(updatedbook);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a book first.", "Book Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } 
             }
         }
-        public void LoadBookDetails(int bookId,TextBox title, TextBox author,TextBox year, TextBox isbn,PictureBox picture)
+        public void LoadBookDetails(int bookId, TextBox title, TextBox author, TextBox year, TextBox isbn, PictureBox picture)
         {
             Book selectedBook = book.LoadBookDetails(bookId);
+
             if (selectedBook != null)
             {
                 title.Text = selectedBook.Title;
@@ -73,21 +80,29 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
                 year.Text = selectedBook.Year.ToString();
                 isbn.Text = selectedBook.Isbn.ToString();
 
-
-                if (!string.IsNullOrEmpty(selectedBook.Url) && System.IO.File.Exists(selectedBook.Url))
+                // Convert byte[] to Image for PictureBox
+                if (selectedBook.Url != null && selectedBook.Url.Length > 0)
                 {
-                    picture.Image = Image.FromFile(selectedBook.Url);
-                    picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    using (MemoryStream ms = new MemoryStream(selectedBook.Url))
+                    {
+                        picture.Image = Image.FromStream(ms);
+                        picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
                 }
                 else
                 {
-                    picture.Image = null;
+                    picture.Image = null; // No image available
                 }
-
             }
-
-            
         }
+
+        // convert the string imagepath to Byte[]
+
+        public byte[] ImageToByteArray(string imagepath)
+        {
+            return book.ImageToByteArray(imagepath);
+        }
+
 
 
     }

@@ -21,7 +21,7 @@ namespace NewLibraryManagementApp.Classes
         private int bookId;
         private string title;
         private string author;
-        private string url;
+        private byte[] url;
         private int year;
         private string isbn;
         private DateTime borrowedDate;
@@ -48,7 +48,7 @@ namespace NewLibraryManagementApp.Classes
             get { return author; }
             set { author = value; }
         }
-        public string Url
+        public byte[] Url
         {
             get { return url; }
             set { url = value; }
@@ -87,7 +87,7 @@ namespace NewLibraryManagementApp.Classes
         public Book() { }
 
         // constructor for the LoadBooks Details method
-        public Book(int bookId, string title, string author, int year, string isbn, string url)
+        public Book(int bookId, string title, string author, int year, string isbn, byte[] url)
         {
             this.bookId = bookId;
             this.title = title;
@@ -98,7 +98,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // constructor for the edit book
-        public Book(int bookid, string title, string author, int year, string url)
+        public Book(int bookid, string title, string author, int year, byte[] url)
         {
             this.bookId = bookid;
             this.title = title;
@@ -109,7 +109,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
         // constructor for the add Book
-        public Book(string title, string author, int year, string url)
+        public Book(string title, string author, int year, byte[] url)
         {
             this.title = title;
             this.author = author;
@@ -119,7 +119,71 @@ namespace NewLibraryManagementApp.Classes
         }
 
 
+        public byte[] ImageToByteArray(string imagePath)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Image img = Image.FromFile(imagePath);
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg); // Save as JPEG format
+                return ms.ToArray(); // Convert to byte array
+            }
+        }
 
+        public bool ValidateAuthor(string author, out string validAuthor)
+        {
+            validAuthor = string.Empty;
+
+            // Check if the author name is empty or consists of only whitespace
+            if (string.IsNullOrWhiteSpace(author))
+            {
+                MessageBox.Show("Author name cannot be empty.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Trim input and check length
+            author = author.Trim();
+            if (author.Length < 2)
+            {
+                MessageBox.Show("Author name must be at least 2 characters long.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Ensure the author name contains only letters and spaces
+            if (!author.All(c => char.IsLetter(c) || c == ' '))
+            {
+                MessageBox.Show("Author name must only contain letters and spaces.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Validation passed
+            validAuthor = author;
+            return true;
+        }
+
+
+        public bool ValidateTitle(string title, out string validTitle)
+        {
+            validTitle = string.Empty;
+
+            // Check if the title is empty or consists of only whitespace
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                MessageBox.Show("Title cannot be empty.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Trim input and check length
+            title = title.Trim();
+            if (title.Length < 3)
+            {
+                MessageBox.Show("Title must be at least 3 characters long.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Validation passed
+            validTitle = title;
+            return true;
+        }
         public bool ValidateYear(string input, out int year)
         {
             year = 0; // Initialize output parameter.
@@ -357,23 +421,23 @@ namespace NewLibraryManagementApp.Classes
         }
         // method to get the book count
 
-       
-        
 
 
-       
+
+
+
 
         // method to load book details 
         public Book LoadBookDetails(int selectedBookId)
         {
             string query = "SELECT * FROM books_table WHERE ID = @BookId";
 
-            using (MySqlConnection conection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    conection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, conection))
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@BookId", selectedBookId);
 
@@ -386,7 +450,7 @@ namespace NewLibraryManagementApp.Classes
                                 string author = reader.GetString("Author");
                                 int year = reader.GetInt32("Year");
                                 string isbn = reader.GetString("ISBN");
-                                string url = reader.GetString("URL");
+                                byte[] url = (byte[])reader["URL"]; // Fixed syntax issue
 
                                 return new Book(bookId, title, author, year, isbn, url);
                             }
@@ -395,22 +459,20 @@ namespace NewLibraryManagementApp.Classes
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show($"Database Error:{ex.Message}");
-                    return null;
+                    MessageBox.Show($"Database Error: {ex.Message}");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Exception error {ex.Message}");
+                    MessageBox.Show($"Exception error: {ex.Message}");
                 }
                 finally
                 {
-                    conection.Close();
+                    connection.Close();
                 }
-
-
             }
             return null;
         }
+
 
         // method to check the book is available
         public bool IsBookAvailable(int bookId)

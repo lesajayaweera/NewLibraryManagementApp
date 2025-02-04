@@ -16,7 +16,7 @@ namespace NewLibraryManagementApp
     public partial class EditBooks : Form
     {
         private Form form;
-        private Book book = new Book();
+        private byte[] image;
         private int selectedBookId;
         private string bookpath;
 
@@ -29,6 +29,7 @@ namespace NewLibraryManagementApp
 
         private void EditBooks_Load(object sender, EventArgs e)
         {
+            
             controller.DisplayBooks(dataGridView_editbooks);
         }
 
@@ -51,17 +52,37 @@ namespace NewLibraryManagementApp
                 isbntextBox.Text = selectedRow.Cells["ISBN"].Value.ToString();
 
                 // Ensure bookpath is not null
-                bookpath = selectedRow.Cells["URL"].Value != DBNull.Value ? selectedRow.Cells["URL"].Value.ToString() : "";
-
-                if (!string.IsNullOrEmpty(bookpath) && System.IO.File.Exists(bookpath))
+                if (selectedRow.Cells["URL"].Value != DBNull.Value)
                 {
-                    pictureBoxEdit.Image = Image.FromFile(bookpath);
-                    pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
+                    object cellValue = selectedRow.Cells["URL"].Value;
+
+                    if (cellValue is byte[] imageData) // Check if it's a BLOB
+                    {
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            pictureBoxEdit.Image = Image.FromStream(ms);
+                            pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
+                        }
+                    }
+                    else // If it's a file path
+                    {
+                        string bookpath = cellValue.ToString();
+                        if (!string.IsNullOrEmpty(bookpath) && System.IO.File.Exists(bookpath))
+                        {
+                            pictureBoxEdit.Image = Image.FromFile(bookpath);
+                            pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
+                        }
+                        else
+                        {
+                            pictureBoxEdit.Image = null;
+                        }
+                    }
                 }
                 else
                 {
                     pictureBoxEdit.Image = null;
                 }
+
             }
         }
 
@@ -75,8 +96,29 @@ namespace NewLibraryManagementApp
                 {
                     bookpath = ofd.FileName;
 
+                    // Load image without locking the file
+                    using (FileStream fs = new FileStream(bookpath, FileMode.Open, FileAccess.Read))
+                    {
+                        pictureBoxEdit.Image = Image.FromStream(fs);
+                        pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+
+                    // Convert the image to byte array
+                    image = controller.ImageToByteArray(bookpath);
+                }
+            }
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    bookpath = ofd.FileName;
+
                     pictureBoxEdit.Image = Image.FromFile(bookpath);
                     pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
+                    image = controller.ImageToByteArray(bookpath);
                 }
             }
         }
@@ -88,7 +130,7 @@ namespace NewLibraryManagementApp
             string year = yeartextBox.Text;
 
 
-            controller.EditBooks(selectedBookId, title, author, year, bookpath, dataGridView_editbooks);
+            controller.EditBooks(selectedBookId, title, author, year, image, dataGridView_editbooks);
 
             // Clear Fields
             titletextBox.Text = "";
