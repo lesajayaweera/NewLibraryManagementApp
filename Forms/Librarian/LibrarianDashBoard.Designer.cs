@@ -205,7 +205,7 @@
             panel2.BackColor = Color.Lavender;
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(676, 12);
+            panel2.Location = new Point(897, 12);
             panel2.Name = "panel2";
             panel2.Size = new Size(216, 94);
             panel2.TabIndex = 15;
@@ -235,7 +235,7 @@
             panel4.BackColor = Color.Lavender;
             panel4.Controls.Add(tBookCount);
             panel4.Controls.Add(label10);
-            panel4.Location = new Point(454, 12);
+            panel4.Location = new Point(675, 12);
             panel4.Name = "panel4";
             panel4.Size = new Size(216, 94);
             panel4.TabIndex = 13;

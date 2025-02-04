@@ -1,5 +1,6 @@
 ﻿using NewLibraryManagementApp.Classes;
 using NewLibraryManagementApp.Classes.ControllerClasses;
+using NewLibraryManagementApp.Forms.Librarian;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +16,11 @@ namespace NewLibraryManagementApp
     public partial class OverDueBooks : Form
     {
         private LibrarianController controller = new LibrarianController();
-        private Book book = new Book();
+        private Person person;
         int overdueId;
-        public OverDueBooks()
+        public OverDueBooks(Person person)
         {
+            this.person = person;
             InitializeComponent();
         }
 
@@ -41,9 +43,16 @@ namespace NewLibraryManagementApp
 
         private void update_Click(object sender, EventArgs e)
         {
-           
+
 
             controller.UpdateOverdue(paidRadio_l, NotpaidRadio_l, overdueId, dataGridViewOverDueBooks);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LibrarianDashBoard librarianDashBoard = new LibrarianDashBoard(person);
+            librarianDashBoard.Show();
+            this.Hide();
         }
     }
 }

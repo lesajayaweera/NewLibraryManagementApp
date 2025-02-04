@@ -301,7 +301,7 @@ namespace NewLibraryManagementApp.Classes
         //method to display the books from the db
         public void DisplayBooks(DataGridView datagrid)
         {
-            string query = "SELECT * FROM books_table";
+            string query = "SELECT ID, Title, Author, Year, ISBN, URL FROM books_table"; // URL stores BLOB (image data)
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -309,39 +309,52 @@ namespace NewLibraryManagementApp.Classes
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        using MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            DataTable table = new DataTable();
+                            adapter.Fill(table);
 
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        datagrid.DataSource = table;
+                            // Ensure DataGridViewImageColumn exists for book cover
+                           
+                            datagrid.DataSource = table; // Bind the DataTable to the DataGridView
 
-                        //datagrid.Columns[0].HeaderText = "Book Name";
-                        //datagrid.Columns[1].HeaderText = "Author";
-                        //datagrid.Columns[2].HeaderText = "Year";
-                        //datagrid.Columns[3].HeaderText = "ISBN";
-                        datagrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                        datagrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-
-
-
+                            // Convert BLOB data (image) in the URL column to images in BookCover column
+                            foreach (DataGridViewRow row in datagrid.Rows)
+                            {
+                                if (row.Cells["URL"].Value != DBNull.Value)
+                                {
+                                    // Ensure the value in URL column is a byte array
+                                    byte[] imageBytes = row.Cells["URL"].Value as byte[];
+                                    
+                                }
+                                
+                            }
+                            datagrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                            datagrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+                        }
                     }
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show($"Error loading books: {ex.Message}"); // Handle any exceptions
                 }
                 finally
                 {
-                    connection.Close();
+                    connection.Close(); // Close the connection when done
                 }
             }
-
-
         }
+
+        // Converts BLOB (byte array) to Image
+        public Image ByteArrayToImage(byte[] byteArray)
+        {
+            using (MemoryStream ms = new MemoryStream(byteArray))
+            {
+                return Image.FromStream(ms); // Convert byte array to image and return
+            }
+        }
+
+
 
         // method to delete the book
         public void DeleteBook(int bookId)

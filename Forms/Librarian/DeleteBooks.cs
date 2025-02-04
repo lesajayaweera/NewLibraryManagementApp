@@ -1,5 +1,6 @@
 ﻿using NewLibraryManagementApp.Classes;
 using NewLibraryManagementApp.Classes.ControllerClasses;
+using NewLibraryManagementApp.Forms.Librarian;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,14 +19,14 @@ namespace NewLibraryManagementApp
 
         private string bookpath;
         private int bookid;
-        private Form form;
+        private Person person;
 
         private LibrarianController controller = new LibrarianController(); 
-        public DeleteBooks(Form form)
+        public DeleteBooks(Person person)
         {
 
             InitializeComponent();
-            this.form = form;
+            this.person = person;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -88,7 +89,8 @@ namespace NewLibraryManagementApp
 
         private void backbutton_Click(object sender, EventArgs e)
         {
-            form.Show();
+            LibrarianDashBoard dashboard = new LibrarianDashBoard(person);
+            dashboard.Show();
             this.Hide();
         }
     }

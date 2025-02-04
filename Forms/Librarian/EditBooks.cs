@@ -29,7 +29,6 @@ namespace NewLibraryManagementApp
 
         private void EditBooks_Load(object sender, EventArgs e)
         {
-            
             controller.DisplayBooks(dataGridView_editbooks);
         }
 
@@ -51,6 +50,9 @@ namespace NewLibraryManagementApp
                 yeartextBox.Text = selectedRow.Cells["Year"].Value.ToString();
                 isbntextBox.Text = selectedRow.Cells["ISBN"].Value.ToString();
 
+                // Store the initial image and path
+                bookpath = selectedRow.Cells["URL"].Value.ToString();
+
                 // Ensure bookpath is not null
                 if (selectedRow.Cells["URL"].Value != DBNull.Value)
                 {
@@ -58,6 +60,7 @@ namespace NewLibraryManagementApp
 
                     if (cellValue is byte[] imageData) // Check if it's a BLOB
                     {
+                        image = imageData;
                         using (MemoryStream ms = new MemoryStream(imageData))
                         {
                             pictureBoxEdit.Image = Image.FromStream(ms);
@@ -69,6 +72,7 @@ namespace NewLibraryManagementApp
                         string bookpath = cellValue.ToString();
                         if (!string.IsNullOrEmpty(bookpath) && System.IO.File.Exists(bookpath))
                         {
+                             // Store the initial path
                             pictureBoxEdit.Image = Image.FromFile(bookpath);
                             pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
                         }
@@ -82,7 +86,6 @@ namespace NewLibraryManagementApp
                 {
                     pictureBoxEdit.Image = null;
                 }
-
             }
         }
 
@@ -107,20 +110,6 @@ namespace NewLibraryManagementApp
                     image = controller.ImageToByteArray(bookpath);
                 }
             }
-
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    bookpath = ofd.FileName;
-
-                    pictureBoxEdit.Image = Image.FromFile(bookpath);
-                    pictureBoxEdit.SizeMode = PictureBoxSizeMode.StretchImage;
-                    image = controller.ImageToByteArray(bookpath);
-                }
-            }
         }
 
         private void savebutton_Click(object sender, EventArgs e)
@@ -129,6 +118,7 @@ namespace NewLibraryManagementApp
             string author = authortextBox.Text;
             string year = yeartextBox.Text;
 
+            
 
             controller.EditBooks(selectedBookId, title, author, year, image, dataGridView_editbooks);
 

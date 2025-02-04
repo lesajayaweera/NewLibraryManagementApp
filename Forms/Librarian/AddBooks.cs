@@ -69,6 +69,12 @@ namespace NewLibraryManagementApp
             controller.AddBook(title, author,image,year, isbn_text);
 
             
+            title_text.Text ="";
+            author_text.Text = "";
+            year_text.Text = "";
+            isbn_text.Text = "";
+            Book_pictureBox.Image = null;
+
 
 
         }

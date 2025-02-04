@@ -57,7 +57,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void DelBook_btn_LDashboard_Click(object sender, EventArgs e)
         {
-            DeleteBooks form = new DeleteBooks(this);
+            DeleteBooks form = new DeleteBooks(person);
             form.Show();
             this.Hide();
         }
@@ -72,7 +72,7 @@ namespace NewLibraryManagementApp.Forms.Librarian
 
         private void OverdueBook_btn_Ldashboard_Click(object sender, EventArgs e)
         {
-            OverDueBooks form = new OverDueBooks();
+            OverDueBooks form = new OverDueBooks(person);
             form.Show();
             this.Hide();
         }

@@ -34,6 +34,7 @@
             NotpaidRadio_l = new RadioButton();
             paidRadio_l = new RadioButton();
             label2 = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewOverDueBooks).BeginInit();
             SuspendLayout();
             // 
@@ -101,11 +102,22 @@
             label2.TabIndex = 51;
             label2.Text = "Status :";
             // 
+            // button1
+            // 
+            button1.Location = new Point(21, 18);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 54;
+            button1.Text = "Back";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // OverDueBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1130, 655);
+            Controls.Add(button1);
             Controls.Add(NotpaidRadio_l);
             Controls.Add(paidRadio_l);
             Controls.Add(label2);
@@ -128,5 +140,6 @@
         private RadioButton NotpaidRadio_l;
         private RadioButton paidRadio_l;
         private Label label2;
+        private Button button1;
     }
 }
