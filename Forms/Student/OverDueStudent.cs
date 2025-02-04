@@ -17,6 +17,7 @@ namespace NewLibraryManagementApp.Forms.Student
     {
         private StudentController controller = new StudentController();
 
+        private decimal totalfine;
         public OverDueStudent(Person person)
         {
             InitializeComponent();
@@ -29,7 +30,12 @@ namespace NewLibraryManagementApp.Forms.Student
 
         private void OverDueStudent_Load(object sender, EventArgs e)
         {
+
+            controller.GetTotalFineAmount(person, totalFines, Messagelabel);
             controller.LoadOverdueBooks(person, dataGridViewOverdue_student);
+
+           
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

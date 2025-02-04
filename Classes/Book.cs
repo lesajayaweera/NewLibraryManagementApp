@@ -119,6 +119,7 @@ namespace NewLibraryManagementApp.Classes
         }
 
 
+        
         public byte[] ImageToByteArray(string imagePath)
         {
             using (MemoryStream ms = new MemoryStream())

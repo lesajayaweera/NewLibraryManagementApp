@@ -53,7 +53,7 @@
             dataGridView_viewBook.Name = "dataGridView_viewBook";
             dataGridView_viewBook.RowHeadersWidth = 51;
             dataGridView_viewBook.RowTemplate.Height = 24;
-            dataGridView_viewBook.Size = new Size(860, 568);
+            dataGridView_viewBook.Size = new Size(917, 590);
             dataGridView_viewBook.TabIndex = 16;
             dataGridView_viewBook.CellContentClick += dataGridView_viewBook_CellContentClick;
             // 
@@ -70,19 +70,20 @@
             // 
             // viewBookDetail_btn
             // 
-            viewBookDetail_btn.Location = new Point(912, 364);
+            viewBookDetail_btn.BackColor = Color.LimeGreen;
+            viewBookDetail_btn.Location = new Point(935, 379);
             viewBookDetail_btn.Name = "viewBookDetail_btn";
-            viewBookDetail_btn.Size = new Size(152, 29);
+            viewBookDetail_btn.Size = new Size(190, 77);
             viewBookDetail_btn.TabIndex = 19;
             viewBookDetail_btn.Text = "View Book Detail";
-            viewBookDetail_btn.UseVisualStyleBackColor = true;
+            viewBookDetail_btn.UseVisualStyleBackColor = false;
             viewBookDetail_btn.Click += viewBookDetail_btn_Click;
             // 
             // ViewBooks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ButtonHighlight;
+            BackColor = Color.Lavender;
             ClientSize = new Size(1137, 666);
             Controls.Add(viewBookDetail_btn);
             Controls.Add(back_button);

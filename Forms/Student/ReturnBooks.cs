@@ -50,12 +50,7 @@ namespace NewLibraryManagementApp
 
         private void returnBook_btn_Click(object sender, EventArgs e)
         {
-            DateTime returnDate = dateTimePicker1.Value;
-
-
-            
-
-            controller.ReturnBook(person,bookId,returnDate, dataGridView_returnBooks);
+            controller.ReturnBook(person,bookId, dataGridView_returnBooks);
         }
     }
 }

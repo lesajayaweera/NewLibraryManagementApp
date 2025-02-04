@@ -174,7 +174,7 @@ namespace NewLibraryManagementApp.Classes
             }
 
         }
-        public bool ReturnBook(int borrowedId, DateTime returnDate)
+        public bool ReturnBook(int borrowedId)
         {
             string selectQuery = "SELECT UserId, BookId, DueDate FROM borrowed_records WHERE BorrowedId = @BorrowedId";
             string updateQuery = "UPDATE borrowed_records SET IsReturned = 1, ReturnedDate = @ReturnDate WHERE BorrowedId = @BorrowedId";
@@ -191,7 +191,7 @@ namespace NewLibraryManagementApp.Classes
                 {
                     DateTime dueDate;
                     int userId, bookId;
-                    //DateTime returnDate = DateTime.Now;
+                    DateTime returnDate = DateTime.Now;
 
                     // Step 1: Get UserID, BookID, and DueDate (inside transaction)
                     using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection, transaction))
@@ -449,6 +449,43 @@ namespace NewLibraryManagementApp.Classes
                 }
             }
 
+        }
+        public decimal GetTotalFineAmount(Person person)
+        {
+            decimal totalFine = 0;
+
+            int userId = person.GetUserId(person);
+            // Define the connection string (replace with your actual connection details)
+
+
+            // SQL query to sum the fine amounts
+            string query = "SELECT SUM(fineAmount) FROM overdue_table WHERE UserId = @userId AND PaidStatus = 0";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open(); // Open the connection
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId); // Add parameter to the query
+                        object result = cmd.ExecuteScalar(); // Execute query and return the result
+
+                        // Check if result is not null and convert to decimal
+                        if (result != DBNull.Value)
+                        {
+                            totalFine = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return totalFine;
         }
 
     }

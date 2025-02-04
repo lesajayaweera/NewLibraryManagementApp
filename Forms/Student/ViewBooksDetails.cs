@@ -44,32 +44,43 @@ namespace NewLibraryManagementApp
             controller.LoadBookDetails(selectedBookId, title_text_veiwBooks, author_text_veiwBooks, year_text_veiwBooks, isbn_text_veiwBooks, book_picture_viewBook);
             bool isreturned = book.CheckBookStatus(selectedBookId);
             bool isReserved = book.CheckBookCanReserve(selectedBookId);
-            if (isreturned)
+            bool isOverDue = controller.IsOverdue(person);
+            if (isOverDue)
             {
-                
-                borrowBtn.Enabled = true;
-                //reserveBtn.Enabled = false;
-
-                status_text.Text = "Available";
-                status_text.ForeColor = Color.Green;
+                borrowBtn.Enabled = false;
+                reserveBtn.Enabled = false;
+                status_text.ForeColor = Color.DarkRed;
+                status_text.Text = "Settle your fines to borrow or reserve books.\nPlease meet the Librarian";
             }
             else
             {
-                if (isReserved)
+                if (isreturned)
                 {
-                    
 
-                    borrowBtn.Enabled = false;
-                    reserveBtn.Enabled = false;
-                    status_text.Text = "Reserved";
-                    status_text.ForeColor = Color.Red;
+                    borrowBtn.Enabled = true;
+                    //reserveBtn.Enabled = false;
+
+                    status_text.Text = "Available";
+                    status_text.ForeColor = Color.Green;
                 }
                 else
                 {
-                    borrowBtn.Enabled = false;
-                    reserveBtn.Enabled = true;
-                    status_text.Text = "Currently Borrowed but Available for Reservations!";
-                    status_text.ForeColor = Color.Orange;
+                    if (isReserved)
+                    {
+
+
+                        borrowBtn.Enabled = false;
+                        reserveBtn.Enabled = false;
+                        status_text.Text = "Reserved";
+                        status_text.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        borrowBtn.Enabled = false;
+                        reserveBtn.Enabled = true;
+                        status_text.Text = "Currently Borrowed but Available for Reservations!";
+                        status_text.ForeColor = Color.Orange;
+                    }
                 }
             }
         }

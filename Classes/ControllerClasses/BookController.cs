@@ -103,6 +103,8 @@ namespace NewLibraryManagementApp.Classes.ControllerClasses
             return book.ImageToByteArray(imagepath);
         }
 
+        
+
 
 
     }

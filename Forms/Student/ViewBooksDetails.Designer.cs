@@ -67,8 +67,9 @@
             // 
             // author_text_veiwBooks
             // 
-            author_text_veiwBooks.Location = new Point(488, 253);
+            author_text_veiwBooks.Location = new Point(491, 254);
             author_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            author_text_veiwBooks.Multiline = true;
             author_text_veiwBooks.Name = "author_text_veiwBooks";
             author_text_veiwBooks.Size = new Size(249, 27);
             author_text_veiwBooks.TabIndex = 48;
@@ -77,8 +78,9 @@
             // 
             year_text_veiwBooks.Location = new Point(488, 357);
             year_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            year_text_veiwBooks.Multiline = true;
             year_text_veiwBooks.Name = "year_text_veiwBooks";
-            year_text_veiwBooks.Size = new Size(249, 27);
+            year_text_veiwBooks.Size = new Size(249, 35);
             year_text_veiwBooks.TabIndex = 47;
             // 
             // label5
@@ -103,6 +105,7 @@
             // 
             title_text_veiwBooks.Location = new Point(488, 163);
             title_text_veiwBooks.Margin = new Padding(3, 4, 3, 4);
+            title_text_veiwBooks.Multiline = true;
             title_text_veiwBooks.Name = "title_text_veiwBooks";
             title_text_veiwBooks.Size = new Size(249, 27);
             title_text_veiwBooks.TabIndex = 44;
@@ -137,7 +140,7 @@
             // 
             borrowBtn.Location = new Point(912, 172);
             borrowBtn.Name = "borrowBtn";
-            borrowBtn.Size = new Size(94, 29);
+            borrowBtn.Size = new Size(164, 48);
             borrowBtn.TabIndex = 52;
             borrowBtn.Text = "Borrow";
             borrowBtn.UseVisualStyleBackColor = true;
@@ -147,7 +150,7 @@
             // 
             reserveBtn.Location = new Point(912, 283);
             reserveBtn.Name = "reserveBtn";
-            reserveBtn.Size = new Size(94, 29);
+            reserveBtn.Size = new Size(164, 46);
             reserveBtn.TabIndex = 53;
             reserveBtn.Text = "Reserve";
             reserveBtn.UseVisualStyleBackColor = true;
@@ -187,6 +190,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Lavender;
             ClientSize = new Size(1194, 775);
             Controls.Add(status_text);
             Controls.Add(label3);
